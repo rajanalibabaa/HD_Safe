@@ -11,7 +11,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import img1 from '../assets/HdSafeHero1.jpg';
 import img2 from '../assets/HdSafeHero2.jpg';
 import img3 from '../assets/HdSafeHero3.jpg';
-// Add your images here
 const backgroundImages = [
   img1,
   img2,
