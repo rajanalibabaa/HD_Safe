@@ -4,7 +4,6 @@ import { Box, Typography, Button } from '@mui/material';
 
 const ProductHeadingCard = ({
   title,
-  subtitle,
   image,
   align = "left",
 }) => {
@@ -133,7 +132,7 @@ const ProductHeadingCard = ({
           textAlign: {
             xs: 'center',
             sm: 'center',
-            md: align
+            md: align,
           },
           mx: 'auto',
           display: 'flex',
@@ -141,7 +140,8 @@ const ProductHeadingCard = ({
           alignItems: {
             xs: 'center',
             sm: 'center',
-            md: align === 'right' ? 'flex-end' : 'flex-start'
+            md: align === 'right' ? 'flex-end' : 'flex-start',
+            lg:'center'
           }
         }}
       >
@@ -159,7 +159,7 @@ const ProductHeadingCard = ({
                 xs: '2rem',     // Mobile: 32px
                 sm: '2.5rem',   // Tablet: 40px
                 md: '3rem',     // Laptop: 48px
-                lg: '3.5rem',   // Desktop: 56px
+                lg: '2.5rem',   // Desktop: 56px
                 xl: '4rem'      // Large Desktop: 64px
               },
               lineHeight: {
@@ -175,45 +175,11 @@ const ProductHeadingCard = ({
                 xl: 3.5     // Large Desktop: 28px
               },
               textShadow: '0 2px 10px rgba(0,0,0,0.8)',
-              wordBreak: 'break-word',
-              overflowWrap: 'break-word'
+              // whiteSpace:'nowrap',
+              textAlign: 'left' 
             }}
           >
             {title}
-          </Typography>
-        )}
-
-        {/* Subtitle */}
-        {subtitle && (
-          <Typography
-            variant="subtitle1"
-            sx={{
-              fontWeight: {
-                xs: 300,
-                sm: 350,
-                md: 400
-              },
-              fontSize: {
-                xs: '0.9rem',    // Mobile: 14.4px
-                sm: '1rem',      // Tablet: 16px
-                md: '1.1rem',    // Laptop: 17.6px
-                lg: '1.25rem',   // Desktop: 20px
-                xl: '1.4rem'     // Large Desktop: 22.4px
-              },
-              opacity: 0.9,
-              mb: {
-                xs: 2.5,    // Mobile: 20px
-                sm: 3,      // Tablet: 24px
-                md: 4,      // Laptop: 32px
-                lg: 5,      // Desktop: 40px
-                xl: 6       // Large Desktop: 48px
-              },
-              maxWidth: '100%',
-              lineHeight: 1.4,
-              wordBreak: 'break-word'
-            }}
-          >
-            {subtitle}
           </Typography>
         )}
       </Box>
