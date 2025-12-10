@@ -345,7 +345,7 @@ const ProductDataCard = ({
                 sx={{
                   fontSize: {
                     xs: '0.9375rem', // Mobile: 15px
-                    sm: '1rem'       // Tablet: 16px
+                    sm: '1rem'  ,    // Tablet: 16px
                   },
                   lineHeight: 1.3,
                   mb: 1,
@@ -433,7 +433,7 @@ const ProductDataCard = ({
               background: '#aaa'
             }
           },
-          flexDirection: 'column'
+          flexDirection: 'column',
         }}
       >
         <Box
@@ -479,7 +479,7 @@ const ProductDataCard = ({
             >
               <Box sx={{
                 position: 'relative',
-                paddingTop: '75%',
+                paddingTop: '100%',
                 overflow: 'hidden'
               }}>
                 <CardMedia
@@ -493,7 +493,7 @@ const ProductDataCard = ({
                     left: 0,
                     width: '100%',
                     height: '100%',
-                    objectFit: 'cover',
+                    objectFit: 'contain',
                     transition: 'transform 0.5s ease'
                   }}
                 />
@@ -501,7 +501,7 @@ const ProductDataCard = ({
               <CardContent sx={{
                 p: {
                   md: 2,
-                  lg: 2.5,
+                  lg: 1.5,
                   xl: 3
                 },
                 pb: {
@@ -518,7 +518,7 @@ const ProductDataCard = ({
                   sx={{
                     fontSize: {
                       md: '0.875rem',
-                      lg: '0.9375rem',
+                      lg: '0.7rem',
                       xl: '1rem'
                     },
                     mb: 1,
@@ -526,84 +526,18 @@ const ProductDataCard = ({
                     WebkitLineClamp: 2,
                     WebkitBoxOrient: 'vertical',
                     overflow: 'hidden',
-                    textOverflow: 'ellipsis'
+                    textOverflow: 'ellipsis',
+                    textAlign:'center'
                   }}
                 >
                   {product.name}
                 </Typography>
-                {product.price && (
-                  <Typography
-                    variant="caption"
-                    color="primary.main"
-                    fontWeight={700}
-                    sx={{
-                      fontSize: {
-                        md: '0.75rem',
-                        lg: '0.8125rem',
-                        xl: '0.875rem'
-                      }
-                    }}
-                  >
-                    ${product.price}
-                  </Typography>
-                )}
               </CardContent>
             </Card>
           ))}
         </Box>
       </Box>
-
-      {/* Footer */}
-      <Box
-        sx={{
-          px: {
-            xs: 2,
-            sm: 3,
-            md: 4,
-            lg: 5,
-            xl: 6
-          },
-          py: {
-            xs: 1.5,
-            sm: 2,
-            md: 2,
-            lg: 2.5,
-            xl: 3
-          },
-          bgcolor: 'grey.50',
-          borderTop: '1px solid',
-          borderColor: 'grey.300',
-          textAlign: 'center',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexShrink: 0
-        }}
-      >
-        <Typography
-          variant="caption"
-          color="text.secondary"
-          sx={{
-            fontSize: {
-              xs: '0.7rem',
-              sm: '0.75rem',
-              md: '0.8125rem',
-              lg: '0.875rem',
-              xl: '0.9375rem'
-            }
-          }}
-        >
-          {/* Mobile/Tablet */}
-          <Box component="span" sx={{ display: { xs: 'inline', sm: 'inline', md: 'none' } }}>
-            Tap arrows or swipe to navigate
-          </Box>
-
-          {/* Desktop/Laptop */}
-          <Box component="span" sx={{ display: { xs: 'none', sm: 'none', md: 'inline' } }}>
-            Scroll to explore more products
-          </Box>
-        </Typography>
-      </Box>
+     
     </Box>
   );
 };

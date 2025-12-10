@@ -15,12 +15,13 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import CloseIcon from '@mui/icons-material/Close';
 
 // === DesktopNavBar Component ===
-const DesktopNavBar = ({ buttonLabels }) => {
+const DesktopNavBar = ({ buttonLabels, scrollToSection }) => {
   const scrollContainerRef = useRef(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [activeCategory, setActiveCategory] = useState(1); // Start with first category active
 
-  // Check scroll position
+  // Check scroll position for horizontal nav
   const checkScrollButtons = useCallback(() => {
     if (!scrollContainerRef.current) return;
     const container = scrollContainerRef.current;
@@ -29,18 +30,18 @@ const DesktopNavBar = ({ buttonLabels }) => {
     setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 5);
   }, []);
 
-  // Get item width for scrolling
+  // Get item width for horizontal scrolling
   const getItemWidth = useCallback(() => {
     const container = scrollContainerRef.current;
-    if (!container || container.children.length === 0) return 220; // Default to button width
+    if (!container || container.children.length === 0) return 220;
     const firstItem = container.children[0];
     const style = window.getComputedStyle(firstItem);
     const width = firstItem.offsetWidth;
     const margin = (parseInt(style.marginLeft) || 0) + (parseInt(style.marginRight) || 0);
-    return width + margin + 32; // Added extra padding
+    return width + margin + 32;
   }, []);
 
-  // Scroll function
+  // Scroll function for horizontal nav
   const scrollToDirection = (direction) => {
     if (!scrollContainerRef.current) return;
     const container = scrollContainerRef.current;
@@ -51,7 +52,16 @@ const DesktopNavBar = ({ buttonLabels }) => {
     });
   };
 
-  // Initialize and add event listeners
+  // Handle category click
+  const handleCategoryClick = (categoryId, label) => {
+    console.log(`Category clicked: ${label} (ID: ${categoryId})`);
+    setActiveCategory(categoryId);
+    if (scrollToSection) {
+      scrollToSection(categoryId);
+    }
+  };
+
+  // Initialize horizontal scroll buttons
   useEffect(() => {
     const container = scrollContainerRef.current;
     if (!container) return;
@@ -62,7 +72,6 @@ const DesktopNavBar = ({ buttonLabels }) => {
     container.addEventListener('scroll', handleScroll);
     window.addEventListener('resize', handleResize);
     
-    // Initial check after a small delay to ensure DOM is ready
     setTimeout(() => checkScrollButtons(), 100);
 
     return () => {
@@ -80,10 +89,11 @@ const DesktopNavBar = ({ buttonLabels }) => {
         borderBottom: '1px solid',
         borderColor: 'divider',
         position: 'sticky',
-        top: 0,
+        top: 88, // Adjust based on your header height (mt:11 = 88px)
         zIndex: 1100,
         backdropFilter: 'blur(12px)',
         backgroundColor: 'rgba(255,255,255,0.92)',
+        boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
       }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
@@ -92,7 +102,7 @@ const DesktopNavBar = ({ buttonLabels }) => {
           disabled={!canScrollLeft}
           sx={{
             bgcolor: 'white',
-            boxShadow: 5,
+            boxShadow: 3,
             color: 'primary.main',
             '&:disabled': { 
               opacity: 0.3, 
@@ -139,33 +149,42 @@ const DesktopNavBar = ({ buttonLabels }) => {
             'scrollbar-width': 'thin',
           }}
         >
-          {buttonLabels.map((label, index) => (
-            <Button
-              key={index}
-              variant="contained"
-              color="primary"
-              sx={{
-                minWidth: { md: '180px', lg: '220px' },
-                height: 52,
-                flexShrink: 0,
-                whiteSpace: 'nowrap',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                px: 3,
-                fontWeight: 600,
-                borderRadius: '30px',
-                textTransform: 'none',
-                boxShadow: 4,
-                '&:hover': { 
-                  boxShadow: 8, 
-                  transform: 'translateY(-3px)' 
-                },
-                transition: 'all 0.3s ease',
-              }}
-            >
-              {label}
-            </Button>
-          ))}
+          {buttonLabels.map((label, index) => {
+            const categoryId = index + 1; // Match with your categories array IDs (1-13)
+            return (
+              <Button
+                key={index}
+                variant={activeCategory === categoryId ? "contained" : "outlined"}
+                color="primary"
+                onClick={() => handleCategoryClick(categoryId, label)}
+                sx={{
+                  minWidth: { md: '140px', lg: '160px' },
+                  height: 42,
+                  flexShrink: 0,
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  px: 3,
+                  fontWeight: activeCategory === categoryId ? 700 : 600,
+                  borderRadius: '25px',
+                  textTransform: 'none',
+                  fontSize: '0.9rem',
+                  boxShadow: activeCategory === categoryId ? 4 : 1,
+                  border: activeCategory === categoryId ? 'none' : '2px solid',
+                  borderColor: 'primary.main',
+                  '&:hover': { 
+                    boxShadow: 6, 
+                    bgcolor: activeCategory === categoryId ? 'primary.dark' : 'primary.light',
+                    transform: 'translateY(-2px)',
+                    color: activeCategory === categoryId ? 'white' : 'primary.contrastText'
+                  },
+                  transition: 'all 0.3s ease',
+                }}
+              >
+                {label}
+              </Button>
+            );
+          })}
         </Box>
 
         <IconButton
@@ -173,7 +192,7 @@ const DesktopNavBar = ({ buttonLabels }) => {
           disabled={!canScrollRight}
           sx={{
             bgcolor: 'white',
-            boxShadow: 5,
+            boxShadow: 3,
             color: 'primary.main',
             '&:disabled': { 
               opacity: 0.3, 
@@ -196,7 +215,18 @@ const DesktopNavBar = ({ buttonLabels }) => {
 };
 
 // === MobileDrawer Component ===
-const MobileDrawer = ({ buttonLabels, drawerOpen, setDrawerOpen }) => {
+const MobileDrawer = ({ buttonLabels, drawerOpen, setDrawerOpen, scrollToSection }) => {
+  const [activeCategory, setActiveCategory] = useState(1);
+
+  const handleCategoryClick = (categoryId, label) => {
+    console.log(`Category clicked: ${label} (ID: ${categoryId})`);
+    setActiveCategory(categoryId);
+    if (scrollToSection) {
+      scrollToSection(categoryId);
+    }
+    setDrawerOpen(false);
+  };
+
   return (
     <>
       {/* Floating Button */}
@@ -206,16 +236,16 @@ const MobileDrawer = ({ buttonLabels, drawerOpen, setDrawerOpen }) => {
         onClick={() => setDrawerOpen(true)}
         sx={{
           position: 'fixed',
-          bottom: { xs: 16, sm: 24 },
+          bottom: { xs: 20, sm: 30 },
           left: '50%',
           transform: 'translateX(-50%)',
           zIndex: 1300,
           width: { xs: 56, sm: 64 },
           height: { xs: 56, sm: 64 },
-          boxShadow: 8,
+          boxShadow: 6,
           '&:hover': { 
             transform: 'translateX(-50%) scale(1.1)',
-            boxShadow: 12
+            boxShadow: 10
           },
           transition: 'all 0.3s ease',
         }}
@@ -284,32 +314,35 @@ const MobileDrawer = ({ buttonLabels, drawerOpen, setDrawerOpen }) => {
             },
           }}
         >
-          {buttonLabels.map((label, index) => (
-            <Button
-              key={index}
-              variant="contained"
-              color="primary"
-              onClick={() => {
-                console.log(`Selected: ${label}`);
-                setDrawerOpen(false);
-              }}
-              sx={{
-                height: { xs: 75, sm: 85 },
-                borderRadius: 3,
-                fontWeight: 600,
-                fontSize: { xs: '0.75rem', sm: '0.9rem' },
-                textTransform: 'none',
-                boxShadow: 3,
-                '&:hover': {
-                  boxShadow: 6,
-                  transform: 'translateY(-2px)',
-                },
-                transition: 'all 0.3s ease',
-              }}
-            >
-              {label}
-            </Button>
-          ))}
+          {buttonLabels.map((label, index) => {
+            const categoryId = index + 1;
+            return (
+              <Button
+                key={index}
+                variant={activeCategory === categoryId ? "contained" : "outlined"}
+                color="primary"
+                onClick={() => handleCategoryClick(categoryId, label)}
+                sx={{
+                  height: { xs: 70, sm: 80 },
+                  borderRadius: 3,
+                  fontWeight: activeCategory === categoryId ? 700 : 600,
+                  fontSize: { xs: '0.75rem', sm: '0.85rem' },
+                  textTransform: 'none',
+                  boxShadow: activeCategory === categoryId ? 3 : 1,
+                  border: activeCategory === categoryId ? 'none' : '2px solid',
+                  borderColor: 'primary.main',
+                  '&:hover': {
+                    boxShadow: 5,
+                    transform: 'translateY(-2px)',
+                    bgcolor: activeCategory === categoryId ? 'primary.dark' : 'primary.light',
+                  },
+                  transition: 'all 0.3s ease',
+                }}
+              >
+                {label}
+              </Button>
+            );
+          })}
         </Box>
       </Drawer>
     </>
@@ -317,7 +350,7 @@ const MobileDrawer = ({ buttonLabels, drawerOpen, setDrawerOpen }) => {
 };
 
 // === Main ServiceNavBar Component ===
-const ServiceNavBar = () => {
+const ServiceNavBar = ({ scrollToSection }) => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -335,18 +368,22 @@ const ServiceNavBar = () => {
     'Road Safety',
     'Fire Safety',
     'Tools & Hardware Machinery',
-    'Scaffolding & Surveying / Testing Instruments',
+    'Scaffolding & Surveying Testing Instruments',
   ];
 
   return (
     <>
       {isDesktop ? (
-        <DesktopNavBar buttonLabels={buttonLabels} />
+        <DesktopNavBar 
+          buttonLabels={buttonLabels} 
+          scrollToSection={scrollToSection}
+        />
       ) : (
         <MobileDrawer 
           buttonLabels={buttonLabels} 
           drawerOpen={drawerOpen} 
-          setDrawerOpen={setDrawerOpen} 
+          setDrawerOpen={setDrawerOpen}
+          scrollToSection={scrollToSection}
         />
       )}
     </>
