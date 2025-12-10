@@ -68,18 +68,20 @@ export default function Footer() {
               Parrys, George Town,<br />
               Chennai, Tamil Nadu 600001
             </Typography>
+<Link
+  href="https://www.google.com/maps/place/HDSAFE+Industrial+Solutions+LLP/@13.0925852,80.2871137,17z/data=!3m1!4b1!4m6!3m5!1s0x3a526f5018d68be3:0xc21889bf29295431!8m2!3d13.0925852!4d80.2871137!16s%2Fg%2F11kbkmp6my?entry=ttu&g_ep=EgoyMDI1MTIwOC4wIKXMDSoASAFQAw%3D%3D"
+  target="_blank"
+  rel="noopener noreferrer"
+  underline="none"
+  sx={{
+    color: "#FF4D00",
+    fontWeight: 600,
+    fontSize: { xs: "0.9rem", md: "1rem" },
+  }}
+>
+  View on map
+</Link>
 
-            <Link
-              href="#"
-              underline="none"
-              sx={{
-                color: "#FF4D00",
-                fontWeight: 600,
-                fontSize: { xs: "0.9rem", md: "1rem" },
-              }}
-            >
-              View on map
-            </Link>
           </Grid>
 
           {/* CONTACT */}

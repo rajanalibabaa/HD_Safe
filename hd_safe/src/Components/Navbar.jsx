@@ -27,7 +27,7 @@ import { motion } from "framer-motion";
 
 const navItems = [
   { label: "HOME", path: "/", icon: <HomeIcon fontSize="small" /> },
-  { label: "ABOUT US", path: "/about", icon: <InfoIcon fontSize="small" /> },
+  { label: "ABOUT US", path: "/aboutus", icon: <InfoIcon fontSize="small" /> },
   { label: "PRODUCTS", path: "/products", icon: <StorefrontIcon fontSize="small" /> },
   { label: "CONTACT US", path: "/contact", icon: <ContactMailIcon fontSize="small" /> },
 ];
@@ -50,10 +50,10 @@ export default function Navbar() {
   const location = useLocation(); // for active item
 
   // color fallbacks (if theme not set)
-  const PRIMARY = theme?.palette?.primary?.main ?? "#FF4D00"; // safety orange
-  const SECONDARY = theme?.palette?.secondary?.main ?? "#2B2B2B"; // steel grey
+  const PRIMARY = theme?.palette?.primary?.main ?? "#FF4D00"; 
+  const SECONDARY = theme?.palette?.secondary?.main ?? "#2B2B2B";
   const WHITE = theme?.palette?.common?.white ?? "#FFFFFF";
-  const TEXT_DEFAULT = theme?.palette?.text?.primary ?? "#2B2B2B"; // "normal" text color
+  const TEXT_DEFAULT = theme?.palette?.text?.primary ?? "#2B2B2B"; 
 
   return (
     <>
@@ -331,7 +331,7 @@ export default function Navbar() {
     </Box>
   </motion.div>
 </Drawer>
-          
+
     </>
   );
 }
