@@ -1,10 +1,10 @@
-// src/components/ProductComponent/AllProductDatas.jsx
 import React, { useRef, forwardRef, useImperativeHandle } from 'react';
 import { Box } from '@mui/material';
 import ProductHeadingCard from './ProductHeadingCard';
 import ProductDataCard from './ProductDataCard';
 
 // Head Protection Images
+import HeadProtectionMain from '../../assets/HeadProtectionImages/HeadProtectionMain.webp'
 import ConstructionSafetyHelmet from '../../assets/HeadProtectionImages/ConstructionSafetyHelmet.webp';
 import ExcutiveSafetyHelmet from '../../assets/HeadProtectionImages/ExcutiveSafetyHelmet.webp';
 import FireHelmet from '../../assets/HeadProtectionImages/FireHelmet.webp';
@@ -13,6 +13,7 @@ import LoaderSafetyHelmet from '../../assets/HeadProtectionImages/LoaderSafetyHe
 import SafetyHelmetWithVentilation from '../../assets/HeadProtectionImages/SafetyHelmetWithVentilation.webp';
 
 // Eye Protection Images
+import EyeProtectionMain from '../../assets/EyeProtectionImages/EyeProtectionMain.webp'
 import ChemicalSplashClear from '../../assets/EyeProtectionImages/ChemicalSplashClear.webp';
 import EyeWashShowerBottle from '../../assets/EyeProtectionImages/EyeWashShowerBottle.webp';
 import GrinderGogglesSmoked from '../../assets/EyeProtectionImages/GrinderGogglesSmoked.webp';
@@ -21,6 +22,7 @@ import SafetyGogglePunk from '../../assets/EyeProtectionImages/SafetyGogglePunk.
 import WeldingSafetyGoggles from '../../assets/EyeProtectionImages/WeldingSafetyGoggles.webp';
 
 // Respiratory Protection Images
+import RespiratoryProtectionMain from '../../assets/RespiratoryProtectionImages/RespiratoryProtectionMain.webp'
 import CupTypeMask from '../../assets/RespiratoryProtectionImages/CupTypeMask.webp';
 import DualCartridgeRespirator from '../../assets/RespiratoryProtectionImages/DualCartridgeRespirator.webp';
 import FaceMask from '../../assets/RespiratoryProtectionImages/FaceMask.webp';
@@ -29,6 +31,7 @@ import HalfFaceMask from '../../assets/RespiratoryProtectionImages/HalfFaceMask.
 import WeldingMask from '../../assets/RespiratoryProtectionImages/WeldingMask.webp';
 
 // Ear Protection Images
+import EarProtectionMain from '../../assets/EarProtectionImages/EarProtectionMain.webp'
 import EarProtectionTitle from '../../assets/EarProtectionImages/EarProtectionTitle.jpeg';
 import DisposableEarPlug from '../../assets/EarProtectionImages/DisposableEarPlug.webp';
 import EarDefender from '../../assets/EarProtectionImages/EarDefender.webp';
@@ -38,6 +41,7 @@ import EarMuffPremium from '../../assets/EarProtectionImages/EarMuffPremium.webp
 import ReusableEarPlug from '../../assets/EarProtectionImages/ReusableEarPlug.webp';
 
 // Face Protection Images
+import FaceProtectionMain from '../../assets/FaceProtectionImages/FaceProtectionMain.webp'
 import ChemicalSplashFaceShield from '../../assets/FaceProtectionImages/ChemicalSplashFaceShield.webp';
 import FaceShieldWithEarMuff from '../../assets/FaceProtectionImages/FaceShieldWithEarMuff.webp';
 import GrinderFaceShield from '../../assets/FaceProtectionImages/GrinderFaceShield.webp';
@@ -46,6 +50,7 @@ import HelmetWithWeldingShield from '../../assets/FaceProtectionImages/HelmetWit
 import WeldingHandSheield from '../../assets/FaceProtectionImages/WeldingHandSheield.webp';
 
 // Hand Protection Images
+import HandProtectionMain from '../../assets/HandProtectionImages/HandProtectionMain.webp'
 import AcidAlkaliGloves from '../../assets/HandProtectionImages/AcidAlkaliGloves.webp';
 import AsbestosGloves from '../../assets/HandProtectionImages/AsbestosGloves.webp';
 import CanadianGloves from '../../assets/HandProtectionImages/CanadianGloves.webp';
@@ -66,6 +71,7 @@ import PVCDottedGloves from '../../assets/HandProtectionImages/PVCDottedGloves.w
 import SSMeshGloves from '../../assets/HandProtectionImages/SSMeshGloves.webp';
 
 // Foot Protection Images
+import FootProtectionMain from '../../assets/FootProtectionImages/FootProtectionMain.webp'
 import PUDoubleDensityShoe from '../../assets/FootProtectionImages/PUDoubleDensityShoe.webp';
 import PUDoubleDensityShoeHighAnkle from '../../assets/FootProtectionImages/PUDoubleDensityShoeHighAnkle.webp';
 import PUSingleDensityShoe from '../../assets/FootProtectionImages/PUSingleDensityShoe.webp';
@@ -83,6 +89,7 @@ import PVCApron from '../../assets/BodyProtectionImages/PVCApron.webp';
 import PVCSuit from '../../assets/BodyProtectionImages/PVCSuit.webp';
 
 // Fall Protection Images
+import FallProtectionMain from '../../assets/FallProtectionImages/FallProtectionMain.webp'
 import BraidedNet from '../../assets/FallProtectionImages/BraidedNet.webp';
 import BraidedWithMonofilamentNet from '../../assets/FallProtectionImages/BraidedWithMonofilamentNet.webp';
 import DoubleCordNet from '../../assets/FallProtectionImages/DoubleCordNet.webp';
@@ -103,6 +110,7 @@ import SafetyHarness from '../../assets/FallProtectionImages/SafetyHarness.webp'
 import SingleCordNet from '../../assets/FallProtectionImages/SingleCordNet.webp';
 
 // Road Safety Images
+import RoadSafetyMain from '../../assets/RoadSafetyImages/RoadSafetyMain.webp'
 import BarricadingNet from '../../assets/RoadSafetyImages/BarricadingNet.webp';
 import BarricationTape from '../../assets/RoadSafetyImages/BarricationTape.webp';
 import CableProtector from '../../assets/RoadSafetyImages/CableProtector.webp';
@@ -135,6 +143,7 @@ import WheelLock from '../../assets/RoadSafetyImages/WheelLock.webp';
 import WindSock from '../../assets/RoadSafetyImages/WindSock.webp';
 
 // Fire Safety Images
+import FireSafetyMain from '../../assets/FireProtectionImages/FireSafetyMain.webp'
 import Coupling from '../../assets/FireProtectionImages/Coupling.webp';
 import FireBall from '../../assets/FireProtectionImages/FireBall.webp';
 import FireExtinguisher from '../../assets/FireProtectionImages/FireExtinguisher.webp';
@@ -143,6 +152,7 @@ import HydrantValve from '../../assets/FireProtectionImages/HydrantValve.webp';
 import Nozzle from '../../assets/FireProtectionImages/Nozzle.webp';
 
 // Tools & Hardware Machinery Images
+import ToolsAndHardwareMachinery from '../../assets/ToolsAndHardwareMachinery/ToolsAndHardwareMachinery.webp'
 import AngleGrinderMachine from '../../assets/ToolsAndHardwareMachinery/AngleGrinderMachine.webp';
 import BoltAndNuts from '../../assets/ToolsAndHardwareMachinery/BoltAndNuts.webp';
 import CubeCylinderMoulds from '../../assets/ToolsAndHardwareMachinery/CubeCylinderMoulds.webp';
@@ -151,6 +161,7 @@ import WheelBarrow from '../../assets/ToolsAndHardwareMachinery/WheelBarrow.webp
 import WheelCuttingMachine from '../../assets/ToolsAndHardwareMachinery/WheelCuttingMachine.webp';
 
 // Scaff-Folding & Surveying / Testing Instruments Images
+import ScaffoldingAndSurveyingTestingInstruments from '../../assets/StaffFoldingAndSurveying/ScaffoldingAndSurveyingTestingInstruments.webp'
 import GuguClampsMachines from '../../assets/StaffFoldingAndSurveying/GuguClampsMachines.webp';
 import ShutteringClamps from '../../assets/StaffFoldingAndSurveying/ShutteringClamps.webp';
 import StirrupsHeadsUJack from '../../assets/StaffFoldingAndSurveying/StirrupsHeadsUJack.webp';
@@ -164,7 +175,7 @@ const AllProductDatas = forwardRef((props, ref) => {
     {
       id: 1,
       title: "Head Protection",
-      image: BodyProtectionTitle,
+      image: HeadProtectionMain,
       products: [
         { id: 101, name: "Construction Safety Helmet", image: ConstructionSafetyHelmet },
         { id: 102, name: "Excutive Safety Helmet", image: ExcutiveSafetyHelmet },
@@ -177,7 +188,7 @@ const AllProductDatas = forwardRef((props, ref) => {
      {
       id: 2,
       title: "Eye Protection",
-      image: BodyProtectionTitle,
+      image: EyeProtectionMain,
       products: [
         { id: 201, name: "Chemical Splash Clear", image:ChemicalSplashClear },
         { id: 202, name: "Eye Wash Shower Bottle", image:EyeWashShowerBottle },
@@ -190,7 +201,7 @@ const AllProductDatas = forwardRef((props, ref) => {
      {
       id: 3,
       title: "Respiratory Protection",
-      image: BodyProtectionTitle,
+      image: RespiratoryProtectionMain,
       products: [
         { id: 301, name: "Cup Type Mask", image: CupTypeMask },
         { id: 302, name: "Dual Cartridge Respirator", image: DualCartridgeRespirator },
@@ -203,7 +214,7 @@ const AllProductDatas = forwardRef((props, ref) => {
      {
       id: 4,
       title: "Ear Protection",
-      image: EarProtectionTitle,
+      image: EarProtectionMain,
       products: [
         { id: 401, name: "Disposable Ear Plug", image: DisposableEarPlug },
         { id: 402, name: "Ear Defender", image: EarDefender },
@@ -216,7 +227,7 @@ const AllProductDatas = forwardRef((props, ref) => {
      {
       id: 5,
       title: "Face Protection",
-      image: BodyProtectionTitle,
+      image: FaceProtectionMain,
       products: [
         { id: 501, name: "Chemical Splash Face Shield", image:ChemicalSplashFaceShield},
         { id: 502, name: "Face Shield With Ear Muff", image:FaceShieldWithEarMuff},
@@ -229,7 +240,7 @@ const AllProductDatas = forwardRef((props, ref) => {
      {
       id: 6,
       title: "Hand Protection",
-      image: BodyProtectionTitle,
+      image:HandProtectionMain,
       products: [
         { id: 601, name: "Acid Alkali Gloves", image: AcidAlkaliGloves },
         { id: 602, name: "Asbestos Gloves", image: AsbestosGloves },
@@ -254,7 +265,7 @@ const AllProductDatas = forwardRef((props, ref) => {
      {
       id: 7,
       title: "Foot Protection",
-      image: BodyProtectionTitle,
+      image: FootProtectionMain,
       products: [
         { id: 701, name: "PU Double Density Shoe", image:PUDoubleDensityShoe },
         { id: 702, name: "PU Double Density Shoe (High Ankle)", image:PUDoubleDensityShoeHighAnkle },
@@ -280,7 +291,7 @@ const AllProductDatas = forwardRef((props, ref) => {
     {
       id: 9,
       title: "Fall Protection",
-      image: EarProtectionTitle,
+      image: FallProtectionMain,
       products: [
         { id: 901, name: "Braided Net", image: BraidedNet },
         { id: 902, name: "Braided With Monofilament Net", image: BraidedWithMonofilamentNet },
@@ -305,7 +316,7 @@ const AllProductDatas = forwardRef((props, ref) => {
     {
       id: 10,
       title: "Road Safety",
-      image: EarProtectionTitle,
+      image: RoadSafetyMain,
       products: [
         { id: 1001, name: "Barricading Net", image: BarricadingNet },
         { id: 1002, name: "Barrication Tape", image: BarricationTape },
@@ -342,7 +353,7 @@ const AllProductDatas = forwardRef((props, ref) => {
     {
       id: 11,
       title: "Fire Safety",
-      image: EarProtectionTitle,
+      image: FireSafetyMain,
       products: [
         { id: 1101, name: "Coupling", image: Coupling },
         { id: 1102, name: "Fire Ball", image:FireBall },
@@ -355,7 +366,7 @@ const AllProductDatas = forwardRef((props, ref) => {
     {
       id: 12,
       title: "Tools & Hardware Machinery",
-      image: EarProtectionTitle,
+      image: ToolsAndHardwareMachinery,
       products: [
         { id: 1201, name: "Angle Grinder Machine", image: AngleGrinderMachine},
         { id: 1202, name: "Bolt And Nuts", image: BoltAndNuts },
@@ -368,7 +379,7 @@ const AllProductDatas = forwardRef((props, ref) => {
     {
       id: 13,
       title:"Scaffolding & Surveying Testing Instruments",
-      image: EarProtectionTitle,
+      image: ScaffoldingAndSurveyingTestingInstruments,
       products: [
         { id: 1301, name: "Gugu Clamps Machines", image: GuguClampsMachines},
         { id: 1302, name: "Shuttering Clamps", image: ShutteringClamps },
@@ -384,51 +395,46 @@ const AllProductDatas = forwardRef((props, ref) => {
   const sectionRefs = useRef({});
 
   // Function to scroll to a specific category
-  const scrollToCategory = (categoryId) => {
-    console.log(`Scrolling to category ID: ${categoryId}`);
-    const sectionId = `category-${categoryId}`;
-    const section = sectionRefs.current[sectionId];
-    
-    if (section) {
-      // Calculate position with offset for navbar
-      const navbarHeight = 80; // Adjust based on your navbar height
-      const elementPosition = section.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
-
-      // Smooth scroll to the section
+ // Function to scroll to a specific category - Alternative version
+const scrollToCategory = (categoryId) => {
+  console.log(`Scrolling to category ID: ${categoryId}`);
+  const sectionId = `category-${categoryId}`;
+  const section = sectionRefs.current[sectionId];
+  
+  if (section) {
+    // Wait for next frame to ensure DOM is ready
+    requestAnimationFrame(() => {
+      // Calculate offset more reliably
+      const navbar = document.querySelector('header, .MuiAppBar-root, nav');
+      const navbarHeight = navbar ? navbar.offsetHeight + 100 : 110; // Extra padding
+      
+      // Get the element's position relative to document
+      const elementRect = section.getBoundingClientRect();
+      const absoluteElementTop = elementRect.top + window.pageYOffset;
+      
+      // Calculate scroll position
+      const scrollPosition = absoluteElementTop - navbarHeight;
+      
+      // Scroll to position
       window.scrollTo({
-        top: offsetPosition,
+        top: scrollPosition,
         behavior: 'smooth'
       });
-
-      // Add visual feedback with animation
-      section.style.transition = 'all 0.5s ease';
       
-      // Apply highlight effect
-      const originalBoxShadow = section.style.boxShadow;
-      const originalBackground = section.style.background;
-      const originalBorderRadius = section.style.borderRadius;
-      const originalPadding = section.style.padding;
-      const originalMargin = section.style.margin;
-      
-      section.style.boxShadow = '0 0 0 4px rgba(25, 118, 210, 0.4), 0 8px 32px rgba(25, 118, 210, 0.2)';
-      section.style.background = 'linear-gradient(135deg, rgba(25, 118, 210, 0.08) 0%, rgba(25, 118, 210, 0.04) 100%)';
-      section.style.borderRadius = '16px';
-      section.style.padding = '8px';
-      section.style.margin = '-8px -8px -8px -8px';
-
-      // Remove highlight after delay
-      setTimeout(() => {
-        section.style.boxShadow = originalBoxShadow;
-        section.style.background = originalBackground;
-        section.style.borderRadius = originalBorderRadius;
-        section.style.padding = originalPadding;
-        section.style.margin = originalMargin;
-      }, 2000);
-    } else {
-      console.warn(`Section with ID ${sectionId} not found`);
+    });
+  } else {
+    console.warn(`Section with ID ${sectionId} not found`);
+    // Fallback: Try using native element scrolling
+    const element = document.getElementById(`category-${categoryId}`);
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+      });
     }
-  };
+  }
+};
+
 
   // Expose the scroll function to parent via ref
   useImperativeHandle(ref, () => ({
@@ -436,7 +442,7 @@ const AllProductDatas = forwardRef((props, ref) => {
   }));
 
   return (
-    <Box sx={{ py: { xs: 4, md: 8 }, px: { xs: 2, md: 4 } }}>
+    <Box sx={{ py: { xs: 1.5, md: 3 }, px: { xs: 1, md: 2 } }}>
       {categories.map((item, index) => {
         const isEven = index % 2 === 0;
 
@@ -450,9 +456,10 @@ const AllProductDatas = forwardRef((props, ref) => {
             sx={{
               display: 'flex',
               flexDirection: { xs: 'column', lg: isEven ? 'row' : 'row-reverse' },
-              alignItems: 'center',
-              gap: { xs: 6, lg: 8 },
-              mb: { xs: 12, lg: 20 },
+              alignItems: { xs: 'center', lg: 'flex-start' },
+              gap: { xs: 3, lg: 4 },
+              mb: { xs: 4, lg: 8 },
+              mt: { xs: 0, lg: 8 }, // Reset margin-top to 0
               opacity: 0,
               animation: 'fadeInUp 0.8s ease-out forwards',
               animationDelay: `${index * 0.3}s`,
@@ -460,15 +467,18 @@ const AllProductDatas = forwardRef((props, ref) => {
                 from: { opacity: 0, transform: 'translateY(50px)' },
                 to: { opacity: 1, transform: 'translateY(0)' },
               },
-              scrollMarginTop: '100px', // Creates space when scrolling to section
+              scrollMarginTop: '80px', // Adjust this based on your navbar height
               position: 'relative',
               transition: 'all 0.5s ease',
+              // Add padding at the top of each section for better scroll positioning
+              pt: 1,
+              // Create an invisible anchor point above the section
               '&::before': {
                 content: '""',
+                display: 'block',
                 position: 'absolute',
-                top: '-100px',
-                left: 0,
-                height: '100px',
+                top: '-80px', // Matches scrollMarginTop
+                height: '80px',
                 width: '100%',
                 pointerEvents: 'none',
               }

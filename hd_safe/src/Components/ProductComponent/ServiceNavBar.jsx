@@ -14,14 +14,15 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import CloseIcon from '@mui/icons-material/Close';
 
-// === DesktopNavBar Component ===
+// === DesktopNavBar with Infinite Auto-Scroll + Hover Pause ===
 const DesktopNavBar = ({ buttonLabels, scrollToSection }) => {
   const scrollContainerRef = useRef(null);
+  const animationFrameRef = useRef(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
-  const [activeCategory, setActiveCategory] = useState(1); // Start with first category active
+  const [activeCategory, setActiveCategory] = useState(1);
+  const [isPaused, setIsPaused] = useState(false);
 
-  // Check scroll position for horizontal nav
   const checkScrollButtons = useCallback(() => {
     if (!scrollContainerRef.current) return;
     const container = scrollContainerRef.current;
@@ -30,7 +31,6 @@ const DesktopNavBar = ({ buttonLabels, scrollToSection }) => {
     setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 5);
   }, []);
 
-  // Get item width for horizontal scrolling
   const getItemWidth = useCallback(() => {
     const container = scrollContainerRef.current;
     if (!container || container.children.length === 0) return 220;
@@ -38,10 +38,10 @@ const DesktopNavBar = ({ buttonLabels, scrollToSection }) => {
     const style = window.getComputedStyle(firstItem);
     const width = firstItem.offsetWidth;
     const margin = (parseInt(style.marginLeft) || 0) + (parseInt(style.marginRight) || 0);
-    return width + margin + 32;
+    return width + margin + 32; // gap + padding
   }, []);
 
-  // Scroll function for horizontal nav
+  // Manual scroll by one item
   const scrollToDirection = (direction) => {
     if (!scrollContainerRef.current) return;
     const container = scrollContainerRef.current;
@@ -52,16 +52,41 @@ const DesktopNavBar = ({ buttonLabels, scrollToSection }) => {
     });
   };
 
-  // Handle category click
   const handleCategoryClick = (categoryId, label) => {
     console.log(`Category clicked: ${label} (ID: ${categoryId})`);
     setActiveCategory(categoryId);
-    if (scrollToSection) {
-      scrollToSection(categoryId);
-    }
+    scrollToSection?.(categoryId);
   };
 
-  // Initialize horizontal scroll buttons
+  // Infinite Auto-Scroll (smooth + seamless)
+  const autoScroll = useCallback(() => {
+    if (!scrollContainerRef.current || isPaused) return;
+
+    const container = scrollContainerRef.current;
+    const { scrollLeft, scrollWidth, clientWidth } = container;
+
+    // When reaching near end → jump instantly to start (seamless loop)
+    if (scrollLeft + clientWidth >= scrollWidth - 20) {
+      container.scrollTo({ left: 0, behavior: 'instant' });
+    } else {
+      // Slow smooth scroll (1px per frame ≈ 60fps = 60px/sec)
+      container.scrollBy({ left: 1, behavior: 'smooth' });
+    }
+
+    animationFrameRef.current = requestAnimationFrame(autoScroll);
+  }, [isPaused]);
+
+  // Start auto-scroll on mount
+  useEffect(() => {
+    animationFrameRef.current = requestAnimationFrame(autoScroll);
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+  }, [autoScroll]);
+
+  // Update arrow visibility
   useEffect(() => {
     const container = scrollContainerRef.current;
     if (!container) return;
@@ -71,8 +96,7 @@ const DesktopNavBar = ({ buttonLabels, scrollToSection }) => {
 
     container.addEventListener('scroll', handleScroll);
     window.addEventListener('resize', handleResize);
-    
-    setTimeout(() => checkScrollButtons(), 100);
+    setTimeout(checkScrollButtons, 200);
 
     return () => {
       container.removeEventListener('scroll', handleScroll);
@@ -83,101 +107,78 @@ const DesktopNavBar = ({ buttonLabels, scrollToSection }) => {
   return (
     <Box
       sx={{
-        py: 2,
-        px: { xs: 2, lg: 4 },
+        px: { xs: 1, lg: 1 },
         bgcolor: 'background.default',
-        borderBottom: '1px solid',
-        borderColor: 'divider',
         position: 'sticky',
-        top: 88, // Adjust based on your header height (mt:11 = 88px)
+        top: 62,
         zIndex: 1100,
-        backdropFilter: 'blur(12px)',
-        backgroundColor: 'rgba(255,255,255,0.92)',
-        boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
       }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+        {/* Left Arrow */}
         <IconButton
           onClick={() => scrollToDirection('left')}
           disabled={!canScrollLeft}
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
           sx={{
             bgcolor: 'white',
             boxShadow: 3,
+            p:0.8,
             color: 'primary.main',
-            '&:disabled': { 
-              opacity: 0.3, 
-              bgcolor: 'grey.200',
-              cursor: 'not-allowed'
-            },
-            '&:hover': { 
-              bgcolor: 'primary.main', 
-              color: 'white',
-              transform: 'scale(1.05)'
-            },
+            '&:disabled': { opacity: 0.3, bgcolor: 'grey.200' },
+            '&:hover': { bgcolor: 'primary.main', color: 'white', transform: 'scale(1.1)' },
             transition: 'all 0.3s ease',
           }}
-        >
-          <ArrowBackIosNewIcon />
-        </IconButton>
+         >
+          <ArrowBackIosNewIcon sx={{ fontSize: 20 }}/>
+         </IconButton>
 
+        {/* Scrollable Content - Duplicated for Infinite Loop */}
         <Box
           ref={scrollContainerRef}
-          onScroll={checkScrollButtons}
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
           sx={{
             flex: 1,
             display: 'flex',
-            overflowX: 'auto',
-            gap: 2,
-            py: 1,
+            overflowX: 'hidden',
+            gap: 0.5,
+            py: 0.5,
             scrollBehavior: 'smooth',
             WebkitOverflowScrolling: 'touch',
-            '&::-webkit-scrollbar': { 
-              height: '6px',
-            },
-            '&::-webkit-scrollbar-track': {
-              background: '#f1f1f1',
-              borderRadius: '10px',
-            },
-            '&::-webkit-scrollbar-thumb': {
-              background: '#c1c1c1',
-              borderRadius: '10px',
-              '&:hover': {
-                background: '#a1a1a1'
-              }
-            },
-            '-ms-overflow-style': 'auto',
-            'scrollbar-width': 'thin',
+            '&::-webkit-scrollbar': { display: 'none' },
+            '-ms-overflow-style': 'none',
+            'scrollbar-width': 'none',
           }}
-        >
-          {buttonLabels.map((label, index) => {
-            const categoryId = index + 1; // Match with your categories array IDs (1-13)
+         >
+          {/* Duplicate labels twice for seamless infinite scroll */}
+          {[...buttonLabels, ...buttonLabels].map((label, index) => {
+            const originalIndex = index % buttonLabels.length;
+            const categoryId = originalIndex + 1;
+
             return (
               <Button
-                key={index}
-                variant={activeCategory === categoryId ? "contained" : "outlined"}
+                key={`${label}-${index}`}
+                variant={activeCategory === categoryId ? 'contained' : 'outlined'}
                 color="primary"
                 onClick={() => handleCategoryClick(categoryId, label)}
                 sx={{
                   minWidth: { md: '140px', lg: '160px' },
-                  height: 42,
+                  height: 28,
                   flexShrink: 0,
                   whiteSpace: 'nowrap',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
-                  px: 3,
+                  px: 2,
                   fontWeight: activeCategory === categoryId ? 700 : 600,
                   borderRadius: '25px',
                   textTransform: 'none',
-                  fontSize: '0.9rem',
+                  fontSize: '0.55rem',
                   boxShadow: activeCategory === categoryId ? 4 : 1,
                   border: activeCategory === categoryId ? 'none' : '2px solid',
                   borderColor: 'primary.main',
-                  '&:hover': { 
-                    boxShadow: 6, 
-                    bgcolor: activeCategory === categoryId ? 'primary.dark' : 'primary.light',
-                    transform: 'translateY(-2px)',
-                    color: activeCategory === categoryId ? 'white' : 'primary.contrastText'
-                  },
+
                   transition: 'all 0.3s ease',
                 }}
               >
@@ -187,49 +188,42 @@ const DesktopNavBar = ({ buttonLabels, scrollToSection }) => {
           })}
         </Box>
 
+        {/* Right Arrow */}
         <IconButton
           onClick={() => scrollToDirection('right')}
           disabled={!canScrollRight}
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
           sx={{
             bgcolor: 'white',
             boxShadow: 3,
+            p:0.8,
             color: 'primary.main',
-            '&:disabled': { 
-              opacity: 0.3, 
-              bgcolor: 'grey.200',
-              cursor: 'not-allowed'
-            },
-            '&:hover': { 
-              bgcolor: 'primary.main', 
-              color: 'white',
-              transform: 'scale(1.05)'
-            },
+            '&:disabled': { opacity: 0.3, bgcolor: 'grey.200' },
+            '&:hover': { bgcolor: 'primary.main', color: 'white', transform: 'scale(1.1)' },
             transition: 'all 0.3s ease',
           }}
         >
-          <ArrowForwardIosIcon />
+         <ArrowForwardIosIcon sx={{ fontSize: 20 }} />
         </IconButton>
       </Box>
     </Box>
   );
 };
 
-// === MobileDrawer Component ===
+// === MobileDrawer Component (Unchanged - Beautiful Grid) ===
 const MobileDrawer = ({ buttonLabels, drawerOpen, setDrawerOpen, scrollToSection }) => {
   const [activeCategory, setActiveCategory] = useState(1);
 
   const handleCategoryClick = (categoryId, label) => {
     console.log(`Category clicked: ${label} (ID: ${categoryId})`);
     setActiveCategory(categoryId);
-    if (scrollToSection) {
-      scrollToSection(categoryId);
-    }
+    scrollToSection?.(categoryId);
     setDrawerOpen(false);
   };
 
   return (
     <>
-      {/* Floating Button */}
       <Fab
         color="primary"
         aria-label="open categories"
@@ -243,17 +237,13 @@ const MobileDrawer = ({ buttonLabels, drawerOpen, setDrawerOpen, scrollToSection
           width: { xs: 56, sm: 64 },
           height: { xs: 56, sm: 64 },
           boxShadow: 6,
-          '&:hover': { 
-            transform: 'translateX(-50%) scale(1.1)',
-            boxShadow: 10
-          },
+          '&:hover': { transform: 'translateX(-50%) scale(1.1)', boxShadow: 10 },
           transition: 'all 0.3s ease',
         }}
       >
         <KeyboardArrowUpIcon sx={{ fontSize: { xs: 28, sm: 32 } }} />
       </Fab>
 
-      {/* Drawer */}
       <Drawer
         anchor="bottom"
         open={drawerOpen}
@@ -269,29 +259,15 @@ const MobileDrawer = ({ buttonLabels, drawerOpen, setDrawerOpen, scrollToSection
           },
         }}
       >
-        {/* Header */}
-        <Box sx={{ 
-          display: 'flex', 
-          justifyContent: 'space-between', 
-          alignItems: 'center', 
-          px: 2, 
-          mb: 2 
-        }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', px: 2, mb: 2 }}>
           <Typography variant="h6" fontWeight={700} color="primary">
             All Categories
           </Typography>
-          <IconButton 
-            onClick={() => setDrawerOpen(false)} 
-            size="large"
-            sx={{
-              '&:hover': { bgcolor: 'grey.100' }
-            }}
-          >
+          <IconButton onClick={() => setDrawerOpen(false)}>
             <CloseIcon />
           </IconButton>
         </Box>
 
-        {/* Grid of Buttons */}
         <Box
           sx={{
             display: 'grid',
@@ -301,17 +277,9 @@ const MobileDrawer = ({ buttonLabels, drawerOpen, setDrawerOpen, scrollToSection
             pb: 10,
             overflowY: 'auto',
             maxHeight: '70vh',
-            '&::-webkit-scrollbar': {
-              width: '6px',
-            },
-            '&::-webkit-scrollbar-track': {
-              background: '#f1f1f1',
-              borderRadius: '10px',
-            },
-            '&::-webkit-scrollbar-thumb': {
-              background: '#c1c1c1',
-              borderRadius: '10px',
-            },
+            '&::-webkit-scrollbar': { width: '6px' },
+            '&::-webkit-scrollbar-track': { background: '#f1f1f1', borderRadius: '10px' },
+            '&::-webkit-scrollbar-thumb': { background: '#c1c1c1', borderRadius: '10px' },
           }}
         >
           {buttonLabels.map((label, index) => {
@@ -319,7 +287,7 @@ const MobileDrawer = ({ buttonLabels, drawerOpen, setDrawerOpen, scrollToSection
             return (
               <Button
                 key={index}
-                variant={activeCategory === categoryId ? "contained" : "outlined"}
+                variant={activeCategory === categoryId ? 'contained' : 'outlined'}
                 color="primary"
                 onClick={() => handleCategoryClick(categoryId, label)}
                 sx={{
@@ -374,14 +342,11 @@ const ServiceNavBar = ({ scrollToSection }) => {
   return (
     <>
       {isDesktop ? (
-        <DesktopNavBar 
-          buttonLabels={buttonLabels} 
-          scrollToSection={scrollToSection}
-        />
+        <DesktopNavBar buttonLabels={buttonLabels} scrollToSection={scrollToSection} />
       ) : (
-        <MobileDrawer 
-          buttonLabels={buttonLabels} 
-          drawerOpen={drawerOpen} 
+        <MobileDrawer
+          buttonLabels={buttonLabels}
+          drawerOpen={drawerOpen}
           setDrawerOpen={setDrawerOpen}
           scrollToSection={scrollToSection}
         />

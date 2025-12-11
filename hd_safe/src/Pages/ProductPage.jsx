@@ -16,7 +16,7 @@ const ProductPage = () => {
   };
 
   return (
-    <Box sx={{ mt: 11 }}>
+    <Box sx={{ mt: 10 }}>
       {/* Pass the scroll function to ServiceNavBar */}
       <ServiceNavBar scrollToSection={handleScrollToCategory} />
       
