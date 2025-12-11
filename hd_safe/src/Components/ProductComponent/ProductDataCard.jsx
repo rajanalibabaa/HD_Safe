@@ -1,4 +1,3 @@
-// ProductDataCard.jsx
 import React, { useRef, useState } from 'react';
 import {
   Box,
@@ -60,22 +59,22 @@ const ProductDataCard = ({
           xs: '100%',     // Mobile: full width
           sm: '100%',     // Tablet: full width
           md: '90%',      // Laptop: 90% width
-          lg: '40vw',     // Desktop: 40% viewport width
+          lg: '43vw',     // Desktop: 40% viewport width
           xl: '35vw'      // Large Desktop: 35% viewport width
         },
         height: {
           xs: 'auto',     // Mobile: auto height
           sm: 'auto',     // Tablet: auto height
-          md: '75vh',     // Laptop: 75% viewport height
-          lg: '80vh',     // Desktop: 80% viewport height
-          xl: '85vh'      // Large Desktop: 85% viewport height
+          md: '60vh',     // Laptop: 60% viewport height
+          lg: '65vh',     // Desktop: 65% viewport height
+          xl: '70vh'      // Large Desktop: 70% viewport height
         },
         minHeight: {
-          xs: '380px',    // Mobile: minimum 380px
-          sm: '420px',    // Tablet: minimum 420px
-          md: '550px',    // Laptop: minimum 550px
-          lg: '600px',    // Desktop: minimum 600px
-          xl: '650px'     // Large Desktop: minimum 650px
+          xs: '320px',    // Mobile: minimum 320px
+          sm: '360px',    // Tablet: minimum 360px
+          md: '420px',    // Laptop: minimum 420px
+          lg: '420px',    // Desktop: minimum 460px
+          xl: '520px'     // Large Desktop: minimum 520px
         },
         bgcolor: 'background.paper',
         borderRadius: {
@@ -100,11 +99,11 @@ const ProductDataCard = ({
         transition: 'all 0.4s ease',
         mx: 'auto',
         mb: {
-          xs: 2,    // Mobile: 16px
-          sm: 3,    // Tablet: 24px
-          md: 4,    // Laptop: 32px
-          lg: 5,    // Desktop: 40px
-          xl: 6     // Large Desktop: 48px
+          xs: 1,    // Mobile: 8px
+          sm: 2,    // Tablet: 16px
+          md: 3,    // Laptop: 24px
+          lg: 3,    // Desktop: 24px
+          xl: 4     // Large Desktop: 32px
         },
         '&:hover': {
           transform: {
@@ -127,26 +126,27 @@ const ProductDataCard = ({
       {/* Header */}
       <Box sx={{
         px: {
-          xs: 2,    // Mobile: 16px
-          sm: 3,    // Tablet: 24px
-          md: 4,    // Laptop: 32px
-          lg: 5,    // Desktop: 40px
-          xl: 6     // Large Desktop: 48px
+          xs: 1,    // Mobile: 8px
+          sm: 2,    // Tablet: 16px
+          md: 3,    // Laptop: 24px
+          lg: 3,    // Desktop: 24px
+          xl: 4     // Large Desktop: 32px
         },
         py: {
-          xs: 1.5,  // Mobile: 12px
-          sm: 2,    // Tablet: 16px
-          md: 2.5,  // Laptop: 20px
-          lg: 3,    // Desktop: 24px
-          xl: 3.5   // Large Desktop: 28px
+          xs: 1,  // Mobile: 8px
+          sm: 1,  // Tablet: 8px
+          md: 2,  // Laptop: 16px
+          lg: 2,  // Desktop: 16px
+          xl: 3   // Large Desktop: 24px
         },
         bgcolor: 'primary.main',
         display: 'flex',
         flexDirection: 'row',            // This is what you need
-        justifyContent: 'space-between', // This pushes items to opposite sides
+        justifyContent: 'center', // This pushes items to opposite sides
         alignItems: 'center',            // Vertically centers items
         width: '100%',
         flexShrink: 0,
+
       }}>
         <Box>
           <Typography
@@ -178,8 +178,7 @@ const ProductDataCard = ({
               },
                whiteSpace: 'nowrap', // Prevents text wrapping
               mt: 0.5,
-              
-
+               textAlign:'center'
             }}
           >
             {products.length} items available
@@ -358,42 +357,6 @@ const ProductDataCard = ({
               >
                 {product.name}
               </Typography>
-
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                {product.price && (
-                  <Typography
-                    variant="h6"
-                    color="primary.main"
-                    fontWeight={700}
-                    sx={{
-                      fontSize: {
-                        xs: '0.9375rem', // Mobile: 15px
-                        sm: '1rem'       // Tablet: 16px
-                      }
-                    }}
-                  >
-                    ${product.price}
-                  </Typography>
-                )}
-
-                {product.rating && (
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    sx={{
-                      fontSize: {
-                        xs: '0.75rem',
-                        sm: '0.8125rem'
-                      },
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 0.5
-                    }}
-                  >
-                    ⭐ {product.rating}
-                  </Typography>
-                )}
-              </Box>
             </CardContent>
           </Card>
         ))}
@@ -410,15 +373,15 @@ const ProductDataCard = ({
           flex: 1,
           overflowY: 'auto',
           p: {
-            md: 3,    // Laptop: 24px
-            lg: 4,    // Desktop: 32px
-            xl: 5     // Large Desktop: 40px
+            md: 1.5,    // Laptop: 12px
+            lg: 2,      // Desktop: 16px
+            xl: 2.5     // Large Desktop: 20px
           },
           bgcolor: '#fafafa',
           '&::-webkit-scrollbar': {
             width: {
               md: '6px',
-              lg: '8px',
+              lg: '10px',
               xl: '10px'
             }
           },
@@ -446,7 +409,7 @@ const ProductDataCard = ({
             },
             gap: {
               md: 2.5,    // Laptop: 20px
-              lg: 3,      // Desktop: 24px
+              lg: 2,      // Desktop: 24px
               xl: 3.5     // Large Desktop: 28px
             },
           }}
@@ -479,7 +442,7 @@ const ProductDataCard = ({
             >
               <Box sx={{
                 position: 'relative',
-                paddingTop: '100%',
+                paddingTop: '53%',
                 overflow: 'hidden'
               }}>
                 <CardMedia
@@ -495,13 +458,14 @@ const ProductDataCard = ({
                     height: '100%',
                     objectFit: 'contain',
                     transition: 'transform 0.5s ease'
+                    
                   }}
                 />
               </Box>
               <CardContent sx={{
                 p: {
                   md: 2,
-                  lg: 1.5,
+                  lg: 1,
                   xl: 3
                 },
                 pb: {
@@ -521,7 +485,6 @@ const ProductDataCard = ({
                       lg: '0.7rem',
                       xl: '1rem'
                     },
-                    mb: 1,
                     display: '-webkit-box',
                     WebkitLineClamp: 2,
                     WebkitBoxOrient: 'vertical',

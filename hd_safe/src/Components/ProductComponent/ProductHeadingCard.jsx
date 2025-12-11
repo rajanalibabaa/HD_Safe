@@ -1,4 +1,3 @@
-// ProductHeadingCard.jsx
 import React from 'react';
 import { Box, Typography, Button } from '@mui/material';
 
@@ -20,18 +19,19 @@ const ProductHeadingCard = ({
           xl: '90%'       // Large Desktop: 90% width
         },
         height: {
-          xs: '50vh',     // Mobile
-          sm: '60vh',     // Tablet
-          md: '70vh',     // Laptop
-          lg: '80vh',     // Desktop
-          xl: '85vh'      // Large Desktop
+          xs: '40vh',     // Mobile
+          sm: '50vh',     // Tablet
+          md: '60vh',     // Laptop
+          lg: '65vh',     // Desktop
+          xl: '70vh'      // Large Desktop
         },
+        /* Match ProductDataCard heights/minHeights for consistent layout */
         minHeight: {
-          xs: '300px',
-          sm: '350px',
-          md: '450px',
-          lg: '600px',
-          xl: '600px'
+          xs: '320px',
+          sm: '360px',
+          md: '420px',
+          lg: '420px',
+          xl: '520px'
         },
         position: 'relative',
         overflow: 'hidden',
@@ -58,11 +58,11 @@ const ProductHeadingCard = ({
         cursor: 'pointer',
         mx: 'auto',
         mb: {
-          xs: 2,    // Mobile: 16px
-          sm: 3,    // Tablet: 24px
-          md: 4,    // Laptop: 32px
-          lg: 5,    // Desktop: 40px
-          xl: 6     // Large Desktop: 48px
+          xs: 1,    // Mobile: 8px
+          sm: 2,    // Tablet: 16px
+          md: 3,    // Laptop: 24px
+          lg: 3,    // Desktop: 24px
+          xl: 4     // Large Desktop: 32px
         },
         '&:hover': {
           transform: {
@@ -108,18 +108,18 @@ const ProductHeadingCard = ({
           zIndex: 2,
           color: 'white',
           px: {
-            xs: 3,    // Mobile: 24px
-            sm: 4,    // Tablet: 32px
-            md: 5,    // Laptop: 40px
-            lg: 8,    // Desktop: 64px
-            xl: 10    // Large Desktop: 80px
+            xs: 1.5,    // Mobile: 16px
+            sm: 2,    // Tablet: 24px
+            md: 3,    // Laptop: 32px
+            lg: 4,    // Desktop: 48px
+            xl: 5     // Large Desktop: 64px
           },
           py: {
-            xs: 3,    // Mobile: 24px
-            sm: 4,    // Tablet: 32px
-            md: 5,    // Laptop: 40px
-            lg: 6,    // Desktop: 48px
-            xl: 8     // Large Desktop: 64px
+            xs: 1.5,    // Mobile: 16px
+            sm: 2,    // Tablet: 24px
+            md: 3,    // Laptop: 32px
+            lg: 3,    // Desktop: 32px
+            xl: 3.5     // Large Desktop: 40px
           },
           width: '100%',
           maxWidth: {
@@ -175,8 +175,7 @@ const ProductHeadingCard = ({
                 xl: 3.5     // Large Desktop: 28px
               },
               textShadow: '0 2px 10px rgba(0,0,0,0.8)',
-              // whiteSpace:'nowrap',
-              textAlign: 'left' 
+              textAlign: 'left' ,
             }}
           >
             {title}
