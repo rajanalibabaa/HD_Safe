@@ -88,7 +88,7 @@ const AboutCompany = () => {
         py: { xs: 6, md: 20 },
         px: { xs: 2, sm: 4, md: 10 },
         overflow: "hidden",
-        backgroundColor: "#ff6700",
+        backgroundColor: "#ffffffff",
       }}
     >
       <Box  display={"flex"} flexDirection={isMobile ? "column-reverse" : "row"} alignItems="center" justifyContent="center" gap={4}>
@@ -150,8 +150,8 @@ const AboutCompany = () => {
               initial="hidden"
               animate={imageControls}
             >
-                <Square size="40px" bgcolor="#ffffffff" sx={{ top: "94%", left: "-20px" }} />
-                <Square size="80px" bgcolor="#ffffffff" sx={{ top: "-15%", left: "98%" }} />
+                <Square size="40px" bgcolor="#ff6700" sx={{ top: "94%", left: "-20px" }} />
+                <Square size="80px" bgcolor="#ff6700" sx={{ top: "-15%", left: "98%" }} />
 <Square size="50px" bgcolor="#000000ff" sx={{ top: "-3%", left: "90%" }} />
               <Box
                 component="img"
@@ -184,7 +184,7 @@ const AboutCompany = () => {
                 sx={{
                   fontSize: { xs: "16px", md: "18px" },
                   fontWeight: 600,
-                  color: "#ffffffff",
+                  color: "#000000ff",
                   mb: 1,
                 }}
               >
@@ -197,7 +197,7 @@ const AboutCompany = () => {
                 sx={{
                   fontSize: { xs: "24px", sm: "28px", md: "30px" },
                   fontWeight: 700,
-                  color: "#ffffffff",
+                  color: "#000000ff",
                   lineHeight: 1.3,
                   mb: { xs: 2, md: 0 },
                 }}
@@ -220,7 +220,7 @@ const AboutCompany = () => {
                 sx={{
                   mt: { xs: 2, md: 3 },
                   fontSize: { xs: "16px", md: "18px" },
-                  color: "#ffffffff",
+                  color: "#000000ff",
                   lineHeight: 1.7,
                 }}
               >
