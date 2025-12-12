@@ -226,7 +226,7 @@ export default function StrengthsSection() {
             fontWeight={800}
             gutterBottom
             sx={{
-              background: "#FF4D00",
+              background: "#000000ff",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               mb: 3,

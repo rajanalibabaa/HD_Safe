@@ -14,25 +14,52 @@ import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 const testimonials = [
   {
-    name: "Edward Alexander",
+    name: "Madhan Anand",
     rating: 4.9,
-    date: "29 Aug 2017",
+    date: "26-June-25",
     avatar: "https://randomuser.me/api/portraits/men/11.jpg",
+    Products:'Industrial Safety Helmets',
     message:
       "Overall pleasurable experience. Pay a little first and pay a little during the development...",
   },
   {
-    name: "Diana Johnston",
+    name: "U Pavithra",
     rating: 4.9,
-    date: "29 Aug 2017",
+    date: "16-June-25",
     avatar: "https://randomuser.me/api/portraits/women/12.jpg",
+    Products:'Safety Gloves',
     message: "They have awesome customer service. I wouldn't recommend going anywhere else.",
   },
   {
-    name: "Lauren Contreras",
+    name: "Lakshmanan N P",
     rating: 4.9,
-    date: "29 Aug 2017",
-    avatar: "https://randomuser.me/api/portraits/women/18.jpg",
+    date: "07-June-24",
+    avatar: "https://randomuser.me/api/portraits/men/18.jpg",
+    Products:'Electrical Rubber Mats',
+    message: "Amazing experience. Smooth process and great communication!",
+  },
+  {
+    name: "ZAHID AMIR",
+    rating: 4.9,
+    date: "26-February-24",
+    avatar: "https://randomuser.me/api/portraits/women/15.jpg",
+    Products:'Retro Reflective Tape',
+    message: "Amazing experience. Smooth process and great communication!",
+  },
+  {
+    name: "Ganesh Moorthy",
+    rating: 4.9,
+    date: "11-July-24",
+    avatar: "https://randomuser.me/api/portraits/men/20.jpg",
+    Products:'Fire Safety Shoes',
+    message: "Amazing experience. Smooth process and great communication!",
+  },
+  {
+    name: "Siraj",
+    rating: 4.9,
+    date: "25-May-24",
+    avatar: "https://randomuser.me/api/portraits/women/19.jpg",
+    Products:'Latex Gloves',
     message: "Amazing experience. Smooth process and great communication!",
   },
 ];
@@ -194,6 +221,7 @@ const Testimonials = () => {
                 {testimonials[active].rating} on {testimonials[active].date}
               </Typography>
             </Box>
+              <Typography>Products : {testimonials[active].Products}</Typography>
 
             {/* Buttons */}
             <Box sx={{ display: "flex", alignItems: "center", gap: 2, mt: 5 }}>

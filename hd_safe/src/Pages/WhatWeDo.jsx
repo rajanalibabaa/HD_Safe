@@ -10,6 +10,7 @@ import {
   Stack,
   useTheme,
   useMediaQuery,
+  Button,
 } from "@mui/material";
 import {
   CheckCircle as CheckIcon,
@@ -173,7 +174,7 @@ export default function WhatWeDo() {
   };
 
   return (
-    <Box component="section" sx={{ py: { xs: 6, md: 8 }, px: { xs: 2, md: 4 } }}>
+    <Box component="section" sx={{ py: { xs: 6, md: 0 }, px: { xs: 2, md: 4 } }}>
       {/* section fade-in once it scrolls into view */}
       <motion.div
         variants={reduce ? {} : { hidden: { opacity: 0 }, show: { opacity: 1 } }}
@@ -187,13 +188,13 @@ export default function WhatWeDo() {
           gutterBottom
           sx={{
             textAlign: "center",
-            background: "#FF6700",
+            background: "#000000ff",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             mb: 2,
           }}
         >
-          What we do
+          WHAT WE DO
         </Typography>
 
         <Grid
@@ -226,23 +227,62 @@ export default function WhatWeDo() {
               mt={3}
               justifyContent={{ xs: "center", md: "flex-start" }}
             >
-              <FancyButton 
+              {/* <FancyButton 
                 variant="primary"
                 size="medium"
-                onClick={handleContactClick}
                 aria-label="contact us"
               >
                 Contact us
-              </FancyButton>
+              </FancyButton> */}
+<Button                
+ onClick={handleContactClick}
 
-              <FancyButton
+                  sx={{
+                    background: "#000",
+                    color: "#fff",
+                    px: { xs: 3, md: 4 },
+                    py: { xs: 1.2, md: 1.4 },
+                    fontSize: { xs: "14px", md: "16px" },
+                    fontWeight: 600,
+                    borderRadius: 0,
+                    textTransform: "none",
+                    "&:hover": { 
+                      background: "#222",
+                      transform: "translateY(-3px)",
+                      transition: "transform 0.3s ease",
+                    },
+                  }}
+                >
+                  Contact us
+                </Button>
+                <Button
+                                onClick={handleCatalogueClick}
+
+                  sx={{
+                    background: "#000",
+                    color: "#fff",
+                    px: { xs: 3, md: 4 },
+                    py: { xs: 1.2, md: 1.4 },
+                    fontSize: { xs: "14px", md: "16px" },
+                    fontWeight: 600,
+                    borderRadius: 0,
+                    textTransform: "none",
+                    "&:hover": { 
+                      background: "#222",
+                      transform: "translateY(-3px)",
+                      transition: "transform 0.3s ease",
+                    },
+                  }}
+                >
+                           View catalogue
+                </Button>
+              {/* <FancyButton
                 variant="secondary"
                 size="medium"
-                onClick={handleCatalogueClick}
                 aria-label="view catalogue"
               >
-                View catalogue
-              </FancyButton>
+       
+              </FancyButton> */}
             </Stack>
           </Grid>
 
