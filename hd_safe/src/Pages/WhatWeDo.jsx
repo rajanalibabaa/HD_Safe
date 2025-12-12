@@ -182,7 +182,6 @@ export default function WhatWeDo() {
         viewport={{ once: true, amount: 0.3 }}
       >
         <Typography
-<<<<<<< HEAD
           variant={isXs ? "h3" : "h2"}
           fontWeight={800}
           gutterBottom
@@ -193,14 +192,6 @@ export default function WhatWeDo() {
             WebkitTextFillColor: "transparent",
             mb: 2,
           }}
-=======
-          component="h2"
-          variant={isXs ? "h4" : "h2"}
-          fontWeight={700}
-          textAlign="center"
-          color="#ff6700"
-          mb={4}
->>>>>>> 2507c2e5b6d256fc65a772870ca7d5b8f2a0c4cc
         >
           What we do
         </Typography>
