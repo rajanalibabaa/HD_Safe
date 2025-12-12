@@ -1,56 +1,19 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Button,
+  Fab,
+  Typography,
   IconButton,
   Drawer,
   useMediaQuery,
   useTheme,
-  Fab,
-  Typography,
 } from '@mui/material';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import CloseIcon from '@mui/icons-material/Close';
 
-// === DesktopNavBar with Infinite Auto-Scroll + Hover Pause ===
 const DesktopNavBar = ({ buttonLabels, scrollToSection }) => {
-  const scrollContainerRef = useRef(null);
-  const animationFrameRef = useRef(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
   const [activeCategory, setActiveCategory] = useState(1);
-  const [isPaused, setIsPaused] = useState(false);
-
-  const checkScrollButtons = useCallback(() => {
-    if (!scrollContainerRef.current) return;
-    const container = scrollContainerRef.current;
-    const { scrollLeft, scrollWidth, clientWidth } = container;
-    setCanScrollLeft(scrollLeft > 5);
-    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 5);
-  }, []);
-
-  const getItemWidth = useCallback(() => {
-    const container = scrollContainerRef.current;
-    if (!container || container.children.length === 0) return 220;
-    const firstItem = container.children[0];
-    const style = window.getComputedStyle(firstItem);
-    const width = firstItem.offsetWidth;
-    const margin = (parseInt(style.marginLeft) || 0) + (parseInt(style.marginRight) || 0);
-    return width + margin + 32; // gap + padding
-  }, []);
-
-  // Manual scroll by one item
-  const scrollToDirection = (direction) => {
-    if (!scrollContainerRef.current) return;
-    const container = scrollContainerRef.current;
-    const itemWidth = getItemWidth();
-    container.scrollBy({
-      left: direction === 'left' ? -itemWidth : itemWidth,
-      behavior: 'smooth',
-    });
-  };
 
   const handleCategoryClick = (categoryId, label) => {
     console.log(`Category clicked: ${label} (ID: ${categoryId})`);
@@ -58,160 +21,118 @@ const DesktopNavBar = ({ buttonLabels, scrollToSection }) => {
     scrollToSection?.(categoryId);
   };
 
-  // Infinite Auto-Scroll (smooth + seamless)
-  const autoScroll = useCallback(() => {
-    if (!scrollContainerRef.current || isPaused) return;
-
-    const container = scrollContainerRef.current;
-    const { scrollLeft, scrollWidth, clientWidth } = container;
-
-    // When reaching near end → jump instantly to start (seamless loop)
-    if (scrollLeft + clientWidth >= scrollWidth - 20) {
-      container.scrollTo({ left: 0, behavior: 'instant' });
-    } else {
-      // Slow smooth scroll (1px per frame ≈ 60fps = 60px/sec)
-      container.scrollBy({ left: 1, behavior: 'smooth' });
-    }
-
-    animationFrameRef.current = requestAnimationFrame(autoScroll);
-  }, [isPaused]);
-
-  // Start auto-scroll on mount
-  useEffect(() => {
-    animationFrameRef.current = requestAnimationFrame(autoScroll);
-    return () => {
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
-    };
-  }, [autoScroll]);
-
-  // Update arrow visibility
-  useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
-
-    const handleScroll = () => checkScrollButtons();
-    const handleResize = () => checkScrollButtons();
-
-    container.addEventListener('scroll', handleScroll);
-    window.addEventListener('resize', handleResize);
-    setTimeout(checkScrollButtons, 200);
-
-    return () => {
-      container.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [checkScrollButtons]);
+  const firstRowLabels = buttonLabels.slice(0, 7);
+  const secondRowLabels = buttonLabels.slice(7);
 
   return (
     <Box
       sx={{
-        px: { xs: 1, lg: 1 },
-        bgcolor: 'background.default',
-        position: 'sticky',
+        width: '100%',
+        px: { xs: 1, lg: 4 },
+        py: 2,
+        bgcolor: '#ffffff7e',
+        position: 'static',
         top: 62,
         zIndex: 1100,
+        boxSizing: 'border-box',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
       }}
     >
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-        {/* Left Arrow */}
-        <IconButton
-          onClick={() => scrollToDirection('left')}
-          disabled={!canScrollLeft}
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-          sx={{
-            bgcolor: 'white',
-            boxShadow: 3,
-            p: 0.8,
-            color: 'primary.main',
-            '&:disabled': { opacity: 0.3, bgcolor: 'grey.200' },
-            '&:hover': { bgcolor: 'primary.main', color: 'white', transform: 'scale(1.1)' },
-            transition: 'all 0.3s ease',
-          }}
-        >
-          <ArrowBackIosNewIcon sx={{ fontSize: 20 }} />
-        </IconButton>
+      {/* First Row - Full width, evenly distributed */}
+      <Box sx={{ 
+        display: 'flex', 
+        width: '100%',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        gap: 0.5,
+        mb: 1,
+        flexWrap: 'nowrap',
+      }}>
+        {firstRowLabels.map((label, index) => {
+          const categoryId = index + 1;
+          return (
+            <Button
+              key={`${label}-${index}`}
+              variant={activeCategory === categoryId ? 'outlined' : 'text'}
+              color="black"
+              onClick={() => handleCategoryClick(categoryId, label)}
+              sx={{
+                flex: '1 1 auto',
+                minWidth: 'fit-content',
+                maxWidth: '100%',
+                height: 36,
+                whiteSpace: 'nowrap',
+                px: 1.5,
+                fontWeight: activeCategory === categoryId ? 700 : 600,
+                borderRadius: '25px',
+                textTransform: 'none',
+                fontSize: '0.90rem',
+                // boxShadow: activeCategory === categoryId ? 4 : 1,
+                // border: activeCategory === categoryId ? 'none' : '2px solid',
+                // borderColor: 'primary.main',
+                // transition: 'all 0.3s ease',
+                // '&:hover': {
+                //   boxShadow: 5,
+                //   transform: 'translateY(-1px)',
+                // },
+              }}
+            >
+              {label}
+            </Button>
+          );
+        })}
+      </Box>
 
-        {/* Scrollable Content - Duplicated for Infinite Loop */}
-        <Box
-          ref={scrollContainerRef}
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-          sx={{
-            flex: 1,
-            display: 'flex',
-            overflowX: 'hidden',
-            gap: 0.5,
-            py: 0.5,
-            scrollBehavior: 'smooth',
-            WebkitOverflowScrolling: 'touch',
-            '&::-webkit-scrollbar': { display: 'none' },
-            '-ms-overflow-style': 'none',
-            'scrollbar-width': 'none',
-          }}
-        >
-          {/* Duplicate labels twice for seamless infinite scroll */}
-          {[...buttonLabels, ...buttonLabels].map((label, index) => {
-            const originalIndex = index % buttonLabels.length;
-            const categoryId = originalIndex + 1;
-
-            return (
-              <Button
-                key={`${label}-${index}`}
-                variant={activeCategory === categoryId ? 'contained' : 'outlined'}
-                color="primary"
-                onClick={() => handleCategoryClick(categoryId, label)}
-                sx={{
-                  minWidth: { md: '140px', lg: '160px' },
-                  height: 28,
-                  flexShrink: 0,
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  px: 2,
-                  fontWeight: activeCategory === categoryId ? 700 : 600,
-                  borderRadius: '25px',
-                  textTransform: 'none',
-                  fontSize: '0.55rem',
-                  boxShadow: activeCategory === categoryId ? 4 : 1,
-                  border: activeCategory === categoryId ? 'none' : '2px solid',
-                  borderColor: 'primary.main',
-
-                  transition: 'all 0.3s ease',
-                }}
-              >
-                {label}
-              </Button>
-            );
-          })}
-        </Box>
-
-        {/* Right Arrow */}
-        <IconButton
-          onClick={() => scrollToDirection('right')}
-          disabled={!canScrollRight}
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-          sx={{
-            bgcolor: 'white',
-            boxShadow: 3,
-            p: 0.8,
-            color: 'primary.main',
-            '&:disabled': { opacity: 0.3, bgcolor: 'grey.200' },
-            '&:hover': { bgcolor: 'primary.main', color: 'white', transform: 'scale(1.1)' },
-            transition: 'all 0.3s ease',
-          }}
-        >
-          <ArrowForwardIosIcon sx={{ fontSize: 20 }} />
-        </IconButton>
+      {/* Second Row - Full width, evenly distributed */}
+      <Box sx={{ 
+        display: 'flex', 
+        width: '100%',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        gap: 0.5,
+        flexWrap: 'nowrap',
+      }}>
+        {secondRowLabels.map((label, index) => {
+          const categoryId = firstRowLabels.length + index + 1;
+          return (
+            <Button
+              key={`${label}-${firstRowLabels.length + index}`}
+              variant={activeCategory === categoryId ? 'outlined' : 'text'}
+              color="black"
+              onClick={() => handleCategoryClick(categoryId, label)}
+              sx={{
+                flex: '1 1 auto',
+                minWidth: 'fit-content',
+                maxWidth: '100%',
+                height: 36,
+                whiteSpace: 'nowrap',
+                px: 1.5,
+                fontWeight: activeCategory === categoryId ? 700 : 600,
+                borderRadius: '25px',
+                textTransform: 'none',
+                fontSize: '0.90rem',
+                // boxShadow: activeCategory === categoryId ? 4 : 1,
+                // border: activeCategory === categoryId ? 'none' : '2px solid',
+                // borderColor: 'primary.main',
+                // transition: 'all 0.3s ease',
+                // '&:hover': {
+                //   boxShadow: 5,
+                //   transform: 'translateY(-1px)',
+                // },
+              }}
+            >
+              {label}
+            </Button>
+          );
+        })}
       </Box>
     </Box>
   );
 };
 
-// === MobileDrawer Component (Unchanged - Beautiful Grid) ===
+// === MobileDrawer Component ===
 const MobileDrawer = ({ buttonLabels, drawerOpen, setDrawerOpen, scrollToSection }) => {
   const [activeCategory, setActiveCategory] = useState(1);
 

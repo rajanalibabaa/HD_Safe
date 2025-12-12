@@ -457,9 +457,7 @@ const scrollToCategory = (categoryId) => {
               display: 'flex',
               flexDirection: { xs: 'column', lg: isEven ? 'row' : 'row-reverse' },
               alignItems: { xs: 'center', lg: 'flex-start' },
-       
               // mb: { xs: 2, lg: 5 },
-              mt: { xs: 0, lg: 5 },
               opacity: 0,
               animation: 'fadeInUp 0.8s ease-out forwards',
               animationDelay: `${index * 0.3}s`,
@@ -477,7 +475,7 @@ const scrollToCategory = (categoryId) => {
                 display: 'grid',
                 position: 'absolute',
                 top: '-80px', // Matches scrollMarginTop
-                height: '80px',
+                height: '100px',
                 width: '80%',
                 pointerEvents: 'none',
               },
@@ -489,7 +487,7 @@ const scrollToCategory = (categoryId) => {
             }}
           >
             {/* Hero Image + Text Card */}
-            <Box sx={{ flex: 1, width: '100%', maxWidth: { lg: '50%' }, }} >
+            <Box sx={{ flex: 1, width: '100%', maxWidth: { lg: '100%' }, }} >
               <ProductHeadingCard
                 title={item.title}
                 image={item.image}
@@ -499,7 +497,7 @@ const scrollToCategory = (categoryId) => {
             </Box>
 
             {/* Product Grid Card on Opposite Side */}
-            <Box sx={{ flex: 1, width: '100%', maxWidth: { lg: '50%' } }}>
+            <Box sx={{ flex: 1, width: '100%', maxWidth: { lg: '100%' } }}>
               <ProductDataCard
                 products={item.products}
                 headerTitle={item.title}
