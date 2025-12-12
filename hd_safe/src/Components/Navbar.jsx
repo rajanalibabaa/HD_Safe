@@ -130,8 +130,6 @@ export default function Navbar() {
   color: WHITE,
   background: ` ${PRIMARY} `,
   transition: "all 220ms ease",
-
-  // makes active item bolder
   boxShadow: active
     ? `0 0 8px ${alpha(PRIMARY, 0.4)}`
     : "none",
@@ -147,67 +145,7 @@ export default function Navbar() {
               })}
             </Box>
 
-            {/* Right: actions */}
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1, ml: "auto" }}>
-              {/* Gradient pill CTA — always visible on desktop */}
-              <Box
-                sx={{
-                  display: { xs: "none", md: "flex" },
-                  alignItems: "center",
-                  background: `linear-gradient(90deg, ${PRIMARY} 0%, ${SECONDARY} 100%)`,
-                  px: 3,
-                  py: 0.9,
-                  borderRadius: 999,
-                  boxShadow: `0 6px 18px ${alpha(SECONDARY, 0.18)}`,
-                }}
-              >
-                <Button
-                  variant="text"
-                  href="/contact"
-                  sx={{
-                    color: WHITE,
-                    fontWeight: 700,
-                    textTransform: "none",
-                    "&:hover": { background: "transparent", opacity: 0.96 },
-                    pr: 0,
-                  }}
-                >
-                  Get A Quote
-                </Button>
-                <Button
-                  component={RouterLink}
-                  to="/contact"
-                  variant="contained"
-                  size="small"
-                  sx={{
-                    ml: 1.5,
-                    background: alpha(WHITE, 0.12),
-                    color: WHITE,
-                    boxShadow: "none",
-                    textTransform: "none",
-                    borderRadius: 2,
-                    "&:hover": { background: alpha(WHITE, 0.18) },
-                  }}
-                >
-                  Contact
-                </Button>
-              </Box>
-
-             {/* Mobile Hamburger */}
-<IconButton
-
-  edge="end"
-  aria-label="menu"
-  onClick={() => setOpen(true)}
-  sx={{
-    color: WHITE, 
-    display: { md: "none" }, 
-  }}
->
-  <MenuIcon />
-</IconButton>
-
-            </Box>
+          
           </Toolbar>
         </Container>
       </AppBar>
@@ -304,7 +242,7 @@ export default function Navbar() {
 
       <Divider sx={{ my: 1, borderColor: alpha(WHITE, 0.2) }} />
 
-      {/* Bottom CTA */}
+      {/* Bottom CTA
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -327,7 +265,7 @@ export default function Navbar() {
         >
           Get A Quote
         </Button>
-      </motion.div>
+      </motion.div> */}
     </Box>
   </motion.div>
 </Drawer>

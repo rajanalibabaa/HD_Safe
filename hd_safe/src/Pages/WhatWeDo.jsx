@@ -10,7 +10,6 @@ import {
   Stack,
   useTheme,
   useMediaQuery,
-  styled,
 } from "@mui/material";
 import {
   CheckCircle as CheckIcon,
@@ -22,65 +21,14 @@ import {
 } from "@mui/icons-material";
 import { motion, useReducedMotion } from "framer-motion";
 
+import FancyButton from "../Components/FancyButton";
+
 import img1 from "../assets/Whatwedo/UdyogiLogo.png";
 import img2 from "../assets/Whatwedo/Kanex.png";
 import img3 from "../assets/Whatwedo/Stanleysafety.png";
 import img4 from "../assets/Whatwedo/Safepro.png";
 import img5 from "../assets/Whatwedo/Mallcom.png";
 import img6 from "../assets/Whatwedo/karamsafety.webp";
-
-const FancyButtonRoot = styled(motion.button)(({ theme }) => ({
-  position: "relative",
-  cursor: "pointer",
-  padding: theme.spacing(2, 5),
-  fontFamily: "'Barlow', sans-serif",
-  fontSize: "1rem",
-  textTransform: "uppercase",
-  color: theme.palette.common.white,
-  border: 0,
-  borderRadius: theme.shape.borderRadius * 2,
-  background: "#FF4D00",
-  overflow: "hidden",
-  boxShadow: theme.shadows[2],
-
-  "& .shine": {
-    position: "absolute",
-    top: 0,
-    left: "-75%",
-    width: "40%",
-    height: "100%",
-    background: "rgba(255,255,255,.25)",
-    transform: "rotate(12deg)",
-    filter: "blur(4px)",
-    transition: "left 1s ease-in-out",
-  },
-  "&:hover .shine": { left: "125%" },
-
-  "& .corner": {
-    position: "absolute",
-    borderColor: theme.palette.secondary.light,
-  },
-  "& .tl": { top: 0, left: 0, width: "50%", height: "20%", borderTop: "2px solid", borderLeft: "2px solid" },
-  "& .tr": { top: 0, right: 0, width: "50%", height: "60%", borderTop: "2px solid", borderRight: "2px solid", transition: "height .3s" },
-  "& .bl": { bottom: 0, left: 0, width: "50%", height: "60%", borderBottom: "2px solid", borderLeft: "2px solid", transition: "height .3s" },
-  "& .br": { bottom: 0, right: 0, width: "50%", height: "20%", borderBottom: "2px solid", borderRight: "2px solid" },
-  "&:hover .tr, &:hover .bl": { height: "90%" },
-}));
-
-const FancyButton = ({ children, ...props }) => (
-  <FancyButtonRoot
-    type="button"
-    whileHover={{ scale: 1.05, y: -2 }}
-    whileTap={{ scale: 0.97 }}
-    {...props}
-  >
-    <span style={{ position: "relative", zIndex: 1 }}>{children}</span>
-    <span className="shine" />
-    {["tl", "tr", "bl", "br"].map((c) => (
-      <span key={c} className={`corner ${c}`} />
-    ))}
-  </FancyButtonRoot>
-);
 
 const HexBrand = React.memo(
   ({
@@ -114,8 +62,7 @@ const HexBrand = React.memo(
           hover: {
             scale: 1.15,
             rotate: 4,
-             boxShadow: "0px 0px 0px rgba(0,0,0,0)", 
-            
+            boxShadow: "0px 0px 0px rgba(0,0,0,0)", 
             transition: { type: "spring", stiffness: 220 },
           },
           tap: { scale: 0.94, rotate: 0 },
@@ -174,7 +121,6 @@ const HexBrand = React.memo(
   }
 );
 
-
 const featureList = [
   { text: "Personal Protective Equipment (PPE)", icon: <SecurityIcon /> },
   { text: "Fire extinguishers and firefighting accessories", icon: <FireIcon color="error" /> },
@@ -216,6 +162,16 @@ export default function WhatWeDo() {
     show:   { opacity: 1, y: 0 },
   };
 
+  const handleContactClick = () => {
+    console.log("Contact us clicked");
+    // Add your contact logic here
+  };
+
+  const handleCatalogueClick = () => {
+    console.log("View catalogue clicked");
+    // Add your catalogue logic here
+  };
+
   return (
     <Box component="section" sx={{ py: { xs: 6, md: 8 }, px: { xs: 2, md: 4 } }}>
       {/* section fade-in once it scrolls into view */}
@@ -226,12 +182,16 @@ export default function WhatWeDo() {
         viewport={{ once: true, amount: 0.3 }}
       >
         <Typography
-          component="h2"
-          variant={isXs ? "h4" : "h2"}
-          fontWeight={700}
-          textAlign="center"
-          color="#FF4D00"
-          mb={4}
+          variant={isXs ? "h3" : "h2"}
+          fontWeight={800}
+          gutterBottom
+          sx={{
+            textAlign: "center",
+            background: "#FF6700",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            mb: 2,
+          }}
         >
           What we do
         </Typography>
@@ -260,14 +220,26 @@ export default function WhatWeDo() {
               ))}
             </List>
 
-            <Stack direction={{ xs: "column", sm: "row" }} spacing={2} mt={3}
-                   justifyContent={{ xs: "center", md: "flex-start" }}>
-              <FancyButton aria-label="contact us">Contact us</FancyButton>
+            <Stack 
+              direction={{ xs: "column", sm: "row" }} 
+              spacing={2} 
+              mt={3}
+              justifyContent={{ xs: "center", md: "flex-start" }}
+            >
+              <FancyButton 
+                variant="primary"
+                size="medium"
+                onClick={handleContactClick}
+                aria-label="contact us"
+              >
+                Contact us
+              </FancyButton>
 
               <FancyButton
+                variant="secondary"
+                size="medium"
+                onClick={handleCatalogueClick}
                 aria-label="view catalogue"
-                style={{ background: "transparent", color: theme.palette.text.primary }}
-                whileHover={{ backgroundColor: "rgba(0,0,0,.05)", scale: 1.05 }}
               >
                 View catalogue
               </FancyButton>
@@ -306,27 +278,26 @@ export default function WhatWeDo() {
               </Box>
 
               {/* outer six hexagons with stagger pop-in */}
-             {brands.map((b, idx) => {
-  const theta = (idx / 6) * Math.PI * 2 - Math.PI / 6;
-  const left  = CANVAS / 2 + R * Math.cos(theta) - OUTER / 2;
-  const top   = CANVAS / 2 + R * Math.sin(theta) - OUTER / 2;
+              {brands.map((b, idx) => {
+                const theta = (idx / 6) * Math.PI * 2 - Math.PI / 6;
+                const left  = CANVAS / 2 + R * Math.cos(theta) - OUTER / 2;
+                const top   = CANVAS / 2 + R * Math.sin(theta) - OUTER / 2;
 
-  return (
-    <HexBrand
-      key={b.name}
-      left={left}
-      top={top}
-      size={OUTER}
-      border={BORDER}
-      logo={b.img}
-      name={b.name}
-      stroke={stroke}
-      delay={0.25 + idx * 0.1}
-      reduceMotion={reduce}
-    />
-  );
-})}
-
+                return (
+                  <HexBrand
+                    key={b.name}
+                    left={left}
+                    top={top}
+                    size={OUTER}
+                    border={BORDER}
+                    logo={b.img}
+                    name={b.name}
+                    stroke={stroke}
+                    delay={0.25 + idx * 0.1}
+                    reduceMotion={reduce}
+                  />
+                );
+              })}
             </Box>
           </Grid>
         </Grid>

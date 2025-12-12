@@ -2,10 +2,10 @@ import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   palette: {
-    primary: { main: "#FF4D00", contrastText: "#FFFFFF" }, // Safety Orange
-    secondary: { main: "#2B2B2B", contrastText: "#FFFFFF" }, // Steel Grey / Black
+    primary: { main: "#FF6700", contrastText: "#FFFFFF" }, 
+    secondary: { main: "#2B2B2B", contrastText: "#FFFFFF" }, 
     background: { default: "#FFFFFF" },
-    text: { primary: "#2B2B2B" },
+    text: { primary: "#000000ff" },
   },
   typography: {
     button: { textTransform: "none", fontWeight: 600 },
