@@ -7,13 +7,13 @@ const ProductHeadingCard = ({ title, image, align = "bottom" }) => {
   return (
     <Box
       sx={{
-        width: {
-          xs: "100%", // Mobile: full width
-          sm: "100%", // Tablet: full width
-          md: "100vh", // Laptop: 90% width
-          lg: "100%", // Desktop: 90% width
-          xl: "90%", // Large Desktop: 90% width
-        },
+        // width: {
+        //   xs: "100%", // Mobile: full width
+        //   sm: "100%", // Tablet: full width
+        //   md: "100%", // Laptop: 90% width
+        //   lg: "100%", // Desktop: 90% width
+        //   xl: "90%", // Large Desktop: 90% width
+        // },
         height: {
           xs: "40vh", // Mobile
           sm: "50vh", // Tablet

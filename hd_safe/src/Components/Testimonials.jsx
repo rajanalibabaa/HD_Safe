@@ -18,7 +18,7 @@ const testimonials = [
     rating: 4.9,
     date: "26-June-25",
     avatar: "https://randomuser.me/api/portraits/men/11.jpg",
-    Products:'Industrial Safety Helmets',
+    Products: "Industrial Safety Helmets",
     message:
       "Overall pleasurable experience. Pay a little first and pay a little during the development...",
   },
@@ -27,15 +27,16 @@ const testimonials = [
     rating: 4.9,
     date: "16-June-25",
     avatar: "https://randomuser.me/api/portraits/women/12.jpg",
-    Products:'Safety Gloves',
-    message: "They have awesome customer service. I wouldn't recommend going anywhere else.",
+    Products: "Safety Gloves",
+    message:
+      "They have awesome customer service. I wouldn't recommend going anywhere else.",
   },
   {
     name: "Lakshmanan N P",
     rating: 4.9,
     date: "07-June-24",
     avatar: "https://randomuser.me/api/portraits/men/18.jpg",
-    Products:'Electrical Rubber Mats',
+    Products: "Electrical Rubber Mats",
     message: "Amazing experience. Smooth process and great communication!",
   },
   {
@@ -43,7 +44,7 @@ const testimonials = [
     rating: 4.9,
     date: "26-February-24",
     avatar: "https://randomuser.me/api/portraits/women/15.jpg",
-    Products:'Retro Reflective Tape',
+    Products: "Retro Reflective Tape",
     message: "Amazing experience. Smooth process and great communication!",
   },
   {
@@ -51,7 +52,7 @@ const testimonials = [
     rating: 4.9,
     date: "11-July-24",
     avatar: "https://randomuser.me/api/portraits/men/20.jpg",
-    Products:'Fire Safety Shoes',
+    Products: "Fire Safety Shoes",
     message: "Amazing experience. Smooth process and great communication!",
   },
   {
@@ -59,7 +60,7 @@ const testimonials = [
     rating: 4.9,
     date: "25-May-24",
     avatar: "https://randomuser.me/api/portraits/women/19.jpg",
-    Products:'Latex Gloves',
+    Products: "Latex Gloves",
     message: "Amazing experience. Smooth process and great communication!",
   },
 ];
@@ -77,7 +78,9 @@ const Testimonials = () => {
   const handlePrev = () => {
     setFadeIn(false);
     setTimeout(() => {
-      setActive((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+      setActive(
+        (prev) => (prev - 1 + testimonials.length) % testimonials.length
+      );
       setFadeIn(true);
     }, 250);
   };
@@ -127,15 +130,16 @@ const Testimonials = () => {
         }}
       >
         {/* LEFT ROTATING CIRCLE */}
-        <Box sx={{ width: 300, height: 300, position: "relative" }}>
+        <Box sx={{ width: 420, height: 420, position: "relative" }}>
           {/* Dashed border */}
           <Box
             sx={{
               position: "absolute",
-              top: 30,
-              left: 30,
-              width: 240,
-              height: 240,
+              top: 40,
+              left: 40,
+              width: 340,
+              height: 340,
+
               border: "2px dashed rgba(46,125,50,0.25)",
               borderRadius: "50%",
             }}
@@ -152,7 +156,7 @@ const Testimonials = () => {
           >
             {testimonials.map((item, i) => {
               const angle = (i * 360) / testimonials.length;
-              const radius = 120;
+              const radius = 180;
               const rad = (angle * Math.PI) / 180;
 
               const x = 150 + radius * Math.cos(rad);
@@ -177,9 +181,12 @@ const Testimonials = () => {
                   <Avatar
                     src={item.avatar}
                     sx={{
-                      width: isActive ? 82 : 58,
-                      height: isActive ? 82 : 58,
-                      border: isActive ? "4px solid #2e7d32" : "2px solid transparent",
+                      width: isActive ? 110 : 78,
+                      height: isActive ? 110 : 78,
+
+                      border: isActive
+                        ? "4px solid #2e7d32"
+                        : "2px solid transparent",
                       boxShadow: isActive
                         ? "0 8px 25px rgba(46,125,50,0.35)"
                         : "0 3px 8px rgba(0,0,0,0.2)",
@@ -216,12 +223,16 @@ const Testimonials = () => {
             </Typography>
 
             <Box sx={{ display: "flex", alignItems: "center", mt: 1 }}>
-              <Rating value={testimonials[active].rating} readOnly precision={0.1} />
+              <Rating
+                value={testimonials[active].rating}
+                readOnly
+                precision={0.1}
+              />
               <Typography sx={{ ml: 1 }} color="text.secondary">
                 {testimonials[active].rating} on {testimonials[active].date}
               </Typography>
             </Box>
-              <Typography>Products : {testimonials[active].Products}</Typography>
+            <Typography>Products : {testimonials[active].Products}</Typography>
 
             {/* Buttons */}
             <Box sx={{ display: "flex", alignItems: "center", gap: 2, mt: 5 }}>
