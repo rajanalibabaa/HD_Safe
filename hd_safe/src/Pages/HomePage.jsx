@@ -1,12 +1,17 @@
-import React from 'react'
 import HeroSection from '../Components/HeroSection'
-import HeroIndustrialSection from '../Components/HeroSectionindustrial'
+import WhatWeDo from './WhatWeDo'
+import FAQSection from '../Components/Faq'
+import StrengthsSection from './StrengthsSection'
+import AboutCompany from '../Components/AboutCompany'
 
 const HomePage = () => {
   return (
     <>
     <HeroSection/>
-    <HeroIndustrialSection/>
+    <AboutCompany/>
+    <WhatWeDo/>
+    <StrengthsSection/>
+    <FAQSection/>
     </>
   )
 }
