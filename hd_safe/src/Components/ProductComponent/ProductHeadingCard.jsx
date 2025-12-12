@@ -15,14 +15,14 @@ const ProductHeadingCard = ({
           xs: '100%',     // Mobile: full width
           sm: '100%',     // Tablet: full width
           md: '90%',      // Laptop: 90% width
-          lg: '90%',      // Desktop: 90% width
+          lg: '100%',      // Desktop: 90% width
           xl: '90%'       // Large Desktop: 90% width
         },
         height: {
           xs: '40vh',     // Mobile
           sm: '50vh',     // Tablet
           md: '60vh',     // Laptop
-          lg: '65vh',     // Desktop
+          lg: '80vh',     // Desktop
           xl: '70vh'      // Large Desktop
         },
         /* Match ProductDataCard heights/minHeights for consistent layout */
@@ -35,13 +35,13 @@ const ProductHeadingCard = ({
         },
         position: 'relative',
         overflow: 'hidden',
-        borderRadius: {
-          xs: 2,
-          sm: 3,
-          md: 4,
-          lg: 6,
-          xl: 8
-        },
+        // borderRadius: {
+        //   xs: 2,
+        //   sm: 3,
+        //   md: 4,
+        //   lg: 6,
+        //   xl: 8
+        // },
         boxShadow: {
           xs: '0 4px 12px rgba(0,0,0,0.15)',
           sm: '0 6px 20px rgba(0,0,0,0.18)',
@@ -56,30 +56,26 @@ const ProductHeadingCard = ({
         alignItems: 'center',
         transition: 'all 0.5s ease',
         cursor: 'pointer',
-        mx: 'auto',
-        mb: {
-          xs: 1,    // Mobile: 8px
-          sm: 2,    // Tablet: 16px
-          md: 3,    // Laptop: 24px
-          lg: 3,    // Desktop: 24px
-          xl: 4     // Large Desktop: 32px
-        },
-        '&:hover': {
-          transform: {
-            xs: 'none',
-            sm: 'none',
-            md: 'translateY(-8px) scale(1.02)',
-            lg: 'translateY(-12px) scale(1.02)',
-            xl: 'translateY(-15px) scale(1.02)'
-          },
-          boxShadow: {
-            xs: '0 4px 12px rgba(0,0,0,0.15)',
-            sm: '0 6px 20px rgba(0,0,0,0.18)',
-            md: '0 20px 50px rgba(0,0,0,0.25)',
-            lg: '0 35px 70px rgba(0,0,0,0.30)',
-            xl: '0 45px 90px rgba(0,0,0,0.35)'
-          },
-        },
+
+
+        // mx: 'auto',
+ 
+        // '&:hover': {
+        //   transform: {
+        //     xs: 'none',
+        //     sm: 'none',
+        //     md: 'translateY(-8px) scale(1.02)',
+        //     lg: 'translateY(-12px) scale(1.02)',
+        //     xl: 'translateY(-15px) scale(1.02)'
+        //   },
+        //   boxShadow: {
+        //     xs: '0 4px 12px rgba(0,0,0,0.15)',
+        //     sm: '0 6px 20px rgba(0,0,0,0.18)',
+        //     md: '0 20px 50px rgba(0,0,0,0.25)',
+        //     lg: '0 35px 70px rgba(0,0,0,0.30)',
+        //     xl: '0 45px 90px rgba(0,0,0,0.35)'
+        //   },
+        // },
       }}
     >
       {/* Gradient Overlay */}

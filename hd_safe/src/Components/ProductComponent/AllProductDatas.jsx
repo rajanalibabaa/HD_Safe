@@ -442,7 +442,7 @@ const scrollToCategory = (categoryId) => {
   }));
 
   return (
-    <Box sx={{ py: { xs: 1.5, md: 3 }, px: { xs: 1, md: 2 } }}>
+    <Box sx={{ py: { xs: 0.5, md: 1.5 }, px: { xs: 0.5, md: 1 } }}>
       {categories.map((item, index) => {
         const isEven = index % 2 === 0;
 
@@ -457,9 +457,9 @@ const scrollToCategory = (categoryId) => {
               display: 'flex',
               flexDirection: { xs: 'column', lg: isEven ? 'row' : 'row-reverse' },
               alignItems: { xs: 'center', lg: 'flex-start' },
-              gap: { xs: 3, lg: 4 },
-              mb: { xs: 4, lg: 8 },
-              mt: { xs: 0, lg: 8 }, // Reset margin-top to 0
+       
+              // mb: { xs: 2, lg: 5 },
+              mt: { xs: 0, lg: 5 },
               opacity: 0,
               animation: 'fadeInUp 0.8s ease-out forwards',
               animationDelay: `${index * 0.3}s`,
@@ -470,22 +470,26 @@ const scrollToCategory = (categoryId) => {
               scrollMarginTop: '80px', // Adjust this based on your navbar height
               position: 'relative',
               transition: 'all 0.5s ease',
-              // Add padding at the top of each section for better scroll positioning
-              pt: 1,
+
               // Create an invisible anchor point above the section
               '&::before': {
                 content: '""',
-                display: 'block',
+                display: 'grid',
                 position: 'absolute',
                 top: '-80px', // Matches scrollMarginTop
                 height: '80px',
-                width: '100%',
+                width: '80%',
                 pointerEvents: 'none',
-              }
+              },
+              bgcolor:"white", boxShadow:10,
+              // borderRadius:10,
+              width:"90%",
+              ml:8,
+              mb:-5
             }}
           >
             {/* Hero Image + Text Card */}
-            <Box sx={{ flex: 1, width: '100%', maxWidth: { lg: '50%' } }}>
+            <Box sx={{ flex: 1, width: '100%', maxWidth: { lg: '50%' }, }} >
               <ProductHeadingCard
                 title={item.title}
                 image={item.image}

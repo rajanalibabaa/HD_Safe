@@ -66,7 +66,7 @@ const ProductDataCard = ({
           xs: 'auto',     // Mobile: auto height
           sm: 'auto',     // Tablet: auto height
           md: '60vh',     // Laptop: 60% viewport height
-          lg: '65vh',     // Desktop: 65% viewport height
+          lg: '73vh',     // Desktop: 65% viewport height
           xl: '70vh'      // Large Desktop: 70% viewport height
         },
         minHeight: {
@@ -76,7 +76,7 @@ const ProductDataCard = ({
           lg: '420px',    // Desktop: minimum 460px
           xl: '520px'     // Large Desktop: minimum 520px
         },
-        bgcolor: 'background.paper',
+
         borderRadius: {
           xs: 2,
           sm: 3,
@@ -84,18 +84,11 @@ const ProductDataCard = ({
           lg: 4,
           xl: 8
         },
-        boxShadow: {
-          xs: '0 4px 12px rgba(0,0,0,0.08)',
-          sm: '0 6px 20px rgba(0,0,0,0.10)',
-          md: '0 8px 28px rgba(0,0,0,0.12)',
-          lg: '0 10px 30px rgba(0,0,0,0.15)',
-          xl: '0 12px 35px rgba(0,0,0,0.18)'
-        },
+       
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
-        border: '1px solid',
-        borderColor: 'grey.300',
+
         transition: 'all 0.4s ease',
         mx: 'auto',
         mb: {
@@ -105,139 +98,10 @@ const ProductDataCard = ({
           lg: 3,    // Desktop: 24px
           xl: 4     // Large Desktop: 32px
         },
-        '&:hover': {
-          transform: {
-            xs: 'none',
-            sm: 'none',
-            md: 'translateY(-5px)',
-            lg: 'translateY(-8px)',
-            xl: 'translateY(-10px)'
-          },
-          boxShadow: {
-            xs: '0 4px 12px rgba(0,0,0,0.08)',
-            sm: '0 6px 20px rgba(0,0,0,0.10)',
-            md: '0 15px 40px rgba(0,0,0,0.15)',
-            lg: '0 20px 50px rgba(0,0,0,0.18)',
-            xl: '0 25px 60px rgba(0,0,0,0.20)'
-          },
-        },
+
       }}
     >
       {/* Header */}
-      <Box sx={{
-        px: {
-          xs: 1,    // Mobile: 8px
-          sm: 2,    // Tablet: 16px
-          md: 3,    // Laptop: 24px
-          lg: 3,    // Desktop: 24px
-          xl: 4     // Large Desktop: 32px
-        },
-        py: {
-          xs: 1,  // Mobile: 8px
-          sm: 1,  // Tablet: 8px
-          md: 2,  // Laptop: 16px
-          lg: 2,  // Desktop: 16px
-          xl: 3   // Large Desktop: 24px
-        },
-        bgcolor: 'primary.main',
-        display: 'flex',
-        flexDirection: 'row',            // This is what you need
-        justifyContent: 'center', // This pushes items to opposite sides
-        alignItems: 'center',            // Vertically centers items
-        width: '100%',
-        flexShrink: 0,
-
-      }}>
-        <Box>
-          <Typography
-            variant="h5"
-            fontWeight={700}
-            sx={{
-              fontSize: {
-                xs: '1.1rem',   // Mobile: 17.6px
-                sm: '1.3rem',   // Tablet: 20.8px
-                md: '1.4rem',   // Laptop: 22.4px
-                lg: '1.5rem',   // Desktop: 24px
-                xl: '1.6rem'    // Large Desktop: 25.6px
-              },
-              lineHeight: 1.2,
-            }}
-          >
-            {headerTitle}
-          </Typography>
-          <Typography
-            variant="body2"
-            opacity={0.9}
-            sx={{
-              fontSize: {
-                xs: '0.75rem',   // Mobile: 12px
-                sm: '0.8125rem', // Tablet: 13px
-                md: '0.875rem',  // Laptop: 14px
-                lg: '0.9375rem', // Desktop: 15px
-                xl: '1rem'       // Large Desktop: 16px
-              },
-               whiteSpace: 'nowrap', // Prevents text wrapping
-              mt: 0.5,
-               textAlign:'center'
-            }}
-          >
-            {products.length} items available
-          </Typography>
-        </Box>
-
-        {/* Mobile/Tablet Navigation */}
-        <Box sx={{
-          display: {
-            xs: 'flex',
-            sm: 'flex',
-            md: 'none'
-          },
-          gap: 1,
-          alignItems: 'center'
-        }}>
-          <Typography
-            variant="caption"
-            sx={{
-              color: 'white',
-              fontSize: {sm:'1rem',xs:'0.75rem'},
-              mr: {xs:4,sm:12}
-              
-            }}
-          >
-            {currentIndex + 1} / {products.length}
-          </Typography>
-          <IconButton
-            onClick={scrollPrev}
-            disabled={currentIndex === 0}
-            sx={{
-              color: 'white',
-              bgcolor: 'rgba(255,255,255,0.1)',
-              '&:hover': { bgcolor: 'rgba(255,255,255,0.2)' },
-              '&.Mui-disabled': { opacity: 0.3 },
-              width: 32,
-              height: 32,
-              right:{xs:18,sm:40}
-            }}
-          >
-            <ChevronLeftIcon fontSize="small" />
-          </IconButton>
-          <IconButton
-            onClick={scrollNext}
-            disabled={currentIndex === products.length - 1}
-            sx={{
-              color: 'white',
-              bgcolor: 'rgba(255,255,255,0.1)',
-              '&:hover': { bgcolor: 'rgba(255,255,255,0.2)' },
-              '&.Mui-disabled': { opacity: 0.3 },
-              width: 32,
-              height: 32,
-              right:{xs:18,sm:40}
-            }}
-          >
-            <ChevronRightIcon fontSize="small" />
-          </IconButton>
-        </Box>
-      </Box>
 
       {/* Mobile & Tablet: HORIZONTAL SCROLL CONTAINER */}
       <Box
@@ -377,7 +241,7 @@ const ProductDataCard = ({
             lg: 2,      // Desktop: 16px
             xl: 2.5     // Large Desktop: 20px
           },
-          bgcolor: '#fafafa',
+          // bgcolor: '#fafafa',
           '&::-webkit-scrollbar': {
             width: {
               md: '6px',
