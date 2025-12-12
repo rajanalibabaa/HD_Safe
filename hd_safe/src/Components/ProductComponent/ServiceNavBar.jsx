@@ -124,15 +124,15 @@ const DesktopNavBar = ({ buttonLabels, scrollToSection }) => {
           sx={{
             bgcolor: 'white',
             boxShadow: 3,
-            p:0.8,
+            p: 0.8,
             color: 'primary.main',
             '&:disabled': { opacity: 0.3, bgcolor: 'grey.200' },
             '&:hover': { bgcolor: 'primary.main', color: 'white', transform: 'scale(1.1)' },
             transition: 'all 0.3s ease',
           }}
-         >
-          <ArrowBackIosNewIcon sx={{ fontSize: 20 }}/>
-         </IconButton>
+        >
+          <ArrowBackIosNewIcon sx={{ fontSize: 20 }} />
+        </IconButton>
 
         {/* Scrollable Content - Duplicated for Infinite Loop */}
         <Box
@@ -151,7 +151,7 @@ const DesktopNavBar = ({ buttonLabels, scrollToSection }) => {
             '-ms-overflow-style': 'none',
             'scrollbar-width': 'none',
           }}
-         >
+        >
           {/* Duplicate labels twice for seamless infinite scroll */}
           {[...buttonLabels, ...buttonLabels].map((label, index) => {
             const originalIndex = index % buttonLabels.length;
@@ -197,14 +197,14 @@ const DesktopNavBar = ({ buttonLabels, scrollToSection }) => {
           sx={{
             bgcolor: 'white',
             boxShadow: 3,
-            p:0.8,
+            p: 0.8,
             color: 'primary.main',
             '&:disabled': { opacity: 0.3, bgcolor: 'grey.200' },
             '&:hover': { bgcolor: 'primary.main', color: 'white', transform: 'scale(1.1)' },
             transition: 'all 0.3s ease',
           }}
         >
-         <ArrowForwardIosIcon sx={{ fontSize: 20 }} />
+          <ArrowForwardIosIcon sx={{ fontSize: 20 }} />
         </IconButton>
       </Box>
     </Box>

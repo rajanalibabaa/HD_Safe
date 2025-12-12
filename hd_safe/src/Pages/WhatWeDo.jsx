@@ -149,7 +149,7 @@ export default function WhatWeDo() {
   const OUTER  = INNER + BORDER * 4;
   const CANVAS = isXs ? 300 : 460;
   const R      = isXs ? 125 : 190;
-  const stroke = "#FF4D00";
+  const stroke = "#ff6700";
 
   /* animation helpers */
   const stagger = 0.12;
@@ -182,6 +182,7 @@ export default function WhatWeDo() {
         viewport={{ once: true, amount: 0.3 }}
       >
         <Typography
+<<<<<<< HEAD
           variant={isXs ? "h3" : "h2"}
           fontWeight={800}
           gutterBottom
@@ -192,6 +193,14 @@ export default function WhatWeDo() {
             WebkitTextFillColor: "transparent",
             mb: 2,
           }}
+=======
+          component="h2"
+          variant={isXs ? "h4" : "h2"}
+          fontWeight={700}
+          textAlign="center"
+          color="#ff6700"
+          mb={4}
+>>>>>>> 2507c2e5b6d256fc65a772870ca7d5b8f2a0c4cc
         >
           What we do
         </Typography>
@@ -269,7 +278,7 @@ export default function WhatWeDo() {
               >
                 <Typography
                   variant="subtitle1"
-                  sx={{ fontWeight: 750, color: "#FF4D00", fontSize: { xs: "1.2rem", md: "1.6rem" } }}
+                  sx={{ fontWeight: 750, color: "#ff6700", fontSize: { xs: "1.2rem", md: "1.6rem" } }}
                 >
                   Brands
                   <br />
