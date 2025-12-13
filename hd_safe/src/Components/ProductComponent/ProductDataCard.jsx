@@ -351,7 +351,7 @@ const ProductDataCard = ({
                     },
                     display: '-webkit-box',
                     WebkitLineClamp: 2,
-                    WebkitBoxOrient: 'vertical',
+                    // WebkitBoxOrient: 'vertical',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
                     textAlign:'center'
