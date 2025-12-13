@@ -1,4 +1,3 @@
-// StrengthsSectionPerf.jsx
 import React, { useMemo } from "react";
 import {
   Box,
@@ -55,9 +54,6 @@ const strengthsData = [
   }
 ];
 
-/* --------------------
-   Styled components & keyframes (outside render)
-   -------------------- */
 
 // Floating shape animation via CSS keyframes (GPU-accelerated)
 const Floating = styled("div")(({ theme }) => ({
@@ -71,10 +67,8 @@ const Floating = styled("div")(({ theme }) => ({
   animationName: "floatAnim",
   animationTimingFunction: "linear",
   animationIterationCount: "infinite",
-  // define keyframes globally; MUI styled can't create keyframes per styled easily here so we'll rely on global insertion below
 }));
 
-// Inject the keyframes globally once
 const addGlobalKeyframes = (() => {
   let added = false;
   return (doc = document) => {
@@ -94,9 +88,6 @@ const addGlobalKeyframes = (() => {
 
 addGlobalKeyframes();
 
-/* Card and Icon containers
-   Keep them lightweight, avoid heavy backdropFilter by default.
-*/
 const EnhancedCard = styled(motion.div, {
   shouldForwardProp: (prop) => prop !== "gradient" && prop !== "color"
 })(({ theme, gradient }) => ({
@@ -240,9 +231,6 @@ const StrengthCard = React.memo(function StrengthCard({ item, idx, reducedMotion
   );
 });
 
-/* --------------------
-   Main component
-   -------------------- */
 export default function StrengthsSectionPerf() {
   const theme = useTheme();
   const isXs = useMediaQuery(theme.breakpoints.down("sm"));
@@ -307,15 +295,15 @@ export default function StrengthsSectionPerf() {
           sx={{ textAlign: "center", mb: { xs: 4, md: 8 }, px: { xs: 2, sm: 3 } }}
         >
           <Typography
-            variant={isXs ? "h4" : "h2"}
-            fontWeight={800}
-            gutterBottom
+             variant={isXs ? "h4" : "h2"}
+          fontWeight={800}
+          gutterBottom
             sx={{
-              background: "#000000ff",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              mb: 3,
-              fontSize: { xs: "1.8rem", sm: "2.2rem", md: "2.8rem" }
+               textAlign: "center",
+            background: "#000000ff",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            mb: { xs: 2, md: 3 },
             }}
           >
             Our Key Strengths

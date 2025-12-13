@@ -5,14 +5,12 @@ import {
   Avatar,
   Rating,
   Container,
-  IconButton,
   Card,
-  CardContent,
+  CardContent
+  ,useTheme,useMediaQuery
 } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import FormatQuoteIcon from "@mui/icons-material/FormatQuote";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 const testimonials = [
   {
@@ -67,6 +65,10 @@ const RADIUS = 150;
 const STEP = 360 / testimonials.length;
 
 const Testimonials = () => {
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm")); // Add this for xs detection
+
   const [rotationIndex, setRotationIndex] = useState(0);
 
   const active = (testimonials.length - (rotationIndex % testimonials.length)) % testimonials.length;
@@ -89,18 +91,18 @@ const Testimonials = () => {
 
   return (
     <>
-    <Typography
-             variant="h2"
-             fontWeight={800}
-             gutterBottom
-             sx={{
-               textAlign: "center",
-               background: "#000000ff",
-               WebkitBackgroundClip: "text",
-               WebkitTextFillColor: "transparent",
-               mb: { xs: 2, md: 3 },
-             }}
-           >
+     <Typography
+                           variant={isSmallScreen ? "h4" : "h2"} 
+                           fontWeight={800}
+                           gutterBottom
+                           sx={{
+                            textAlign: "center",
+                background: "#000000ff",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                mb: { xs: 2, md: 3 },
+                           }}
+                         >
         Customer Reviews
       </Typography>
     <Container sx={{ py: 5 , px: { xs: 2, md: 10 }}} justifyContent="center">

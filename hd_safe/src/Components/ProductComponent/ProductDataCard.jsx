@@ -72,7 +72,6 @@ const ProductDataCard = ({
       }}
     >
 
-      {/* ------------------ MOBILE / TABLET SCROLL ------------------ */}
       <Box
         ref={scrollContainerRef}
         sx={{

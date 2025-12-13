@@ -182,7 +182,7 @@ export default function WhatWeDo() {
   const handleCatalogueClick = () => navigate("/products");
 
   return (
-    <Box component="section" sx={{ py: { xs: 6, md: 8 }, px: { xs: 2, md: 4 } }}>
+    <Box component="section" sx={{ py: { xs: 0, md: 8 }, px: { xs: 2, md: 4 } }}>
       <motion.div
         initial={reduce ? {} : { opacity: 0, y: 10 }}
         whileInView={reduce ? {} : { opacity: 1, y: 0 }}
@@ -228,7 +228,7 @@ export default function WhatWeDo() {
               </List>
 
               <motion.div variants={leftChild}>
-                <Stack direction={{ xs: "column", sm: "row" }} spacing={2} mt={3} justifyContent={{ xs: "center", md: "flex-start" }}>
+                <Stack direction={{ xs: "row", sm: "row" }} spacing={2} mt={3} justifyContent={{ xs: "center", md: "flex-start" }}>
                   <motion.div whileHover={!reduce ? btnHover : {}} style={{ display: "inline-block" }}>
                     <FancyButton
                       onClick={handleContactClick}
@@ -279,7 +279,7 @@ export default function WhatWeDo() {
           </Grid>
 
           {/* Right column: hex brand canvas */}
-          <Grid item xs={12} md={7} sx={{ display: "flex", justifyContent: "center" }}>
+          <Grid item xs={12} md={7} sx={{ display: "flex", justifyContent: "center",  mt: { xs: 3, md: 0 }, mb: { xs: 4, md: 0 } }}>
             <motion.div variants={canvasParent} initial={reduce ? {} : "hidden"} whileInView={reduce ? {} : "show"} viewport={{ once: true, amount: 0.25 }}>
               <Box
                 sx={{

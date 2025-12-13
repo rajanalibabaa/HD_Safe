@@ -55,6 +55,7 @@ const AboutCompany = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm")); // Add this for xs detection
 
     const handleContactClick = () => {
    navigate ("/aboutus");
@@ -81,7 +82,7 @@ const AboutCompany = () => {
     <Box
       sx={{
         width: "100%",
-        py: { xs: 6, md: 16 },
+        py: { xs: 5, md: 16 },
         px: { xs: 2, sm: 4, md: 5 },
         backgroundColor: "#fff",
         overflow: "hidden",
@@ -98,41 +99,50 @@ const AboutCompany = () => {
           item
           xs={12}
           md={6}
-          sx={{ flexBasis: "50%", maxWidth: "30%" }}
+          sx={{ 
+            flexBasis: "50%", 
+            maxWidth: "30%",
+            display: { xs: "none", md: "block" } // Hide image on mobile
+          }}
         >
-          <Box ref={imageRef} sx={{ position: "relative" }}>
-            <motion.div
-              variants={imageVariants}
-              initial="hidden"
-              animate={imageControls}
-            >
-              <Square size="40px" bgcolor="#ff6700" sx={{ bottom: -20, left: -20 }} />
-              <Square size="80px" bgcolor="#ff6700" sx={{ top: -30, right: -20 }} />
-              <Square size="50px" bgcolor="#000" sx={{ top: 30, right: 40 }} />
+         <Box ref={imageRef} sx={{ position: "relative" }}>
+  <motion.div
+    variants={imageVariants}
+    initial="hidden"
+    animate={imageControls}
+  >
+    <Square size="40px" bgcolor="#ff6700" sx={{ bottom: -20, left: -20 }} />
+    <Square size="80px" bgcolor="#ff6700" sx={{ top: -30, right: -20 }} />
+    <Square size="50px" bgcolor="#000" sx={{ top: 30, right: 40 }} />
 
-              <Box
-                component="img"
-                src={image}
-                alt="About Company"
-                sx={{
-                  width: "100%",
-                  height: { xs: 320, sm: 400, md: 520 },
-                  objectFit: "cover",
-                  borderTopLeftRadius: { xs: 120, md: 260 },
-                  borderTopRightRadius: { xs: 120, md: 0 },
-                  boxShadow: "0 15px 40px rgba(0,0,0,0.12)",
-                }}
-              />
-            </motion.div>
-          </Box>
+    <Box
+      component="img"
+      src={image}
+      alt="About Company"
+      sx={{
+        width: "100%",
+        height: { xs: 320, sm: 400, md: 520 },
+        objectFit: "cover",
+        borderTopLeftRadius: { xs: 120, md: 260 },
+        borderTopRightRadius: { xs: 120, md: 0 },
+        boxShadow: "0 15px 40px rgba(0,0,0,0.12)",
+      }}
+    />
+  </motion.div>
+</Box>
         </Grid>
 
         {/* CONTENT SIDE */}
         <Grid
           item
           xs={12}
-          md={6}
-          sx={{ flexBasis: "65%", maxWidth: "80%" }}
+          md={isMobile ? 12 : 6} // Take full width on mobile
+          sx={{ 
+            flexBasis: isMobile ? "100%" : "65%", 
+            maxWidth: isMobile ? "100%" : "80%",
+            width: "100%",
+            px: { xs: 0, md: 2 } // Remove horizontal padding on mobile
+          }}
         >
           <motion.div
             ref={textRef}
@@ -142,18 +152,17 @@ const AboutCompany = () => {
           >
             <motion.div variants={itemVariants}>
                <Typography
-                         variant={isMobile ? "h3" : "h2"}
-                         fontWeight={800}
-                         gutterBottom
-                         sx={{
-                          textAlign: "center",
-                           background: "#000000ff",
-                           WebkitBackgroundClip: "text",
-                           WebkitTextFillColor: "transparent",
-                           mb: 3,
-                           fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" }
-                         }}
-                       >
+                       variant={isSmallScreen ? "h4" : "h2"} // Fixed: Use isSmallScreen instead of xs
+                       fontWeight={800}
+                       gutterBottom
+                       sx={{
+                        textAlign: "center",
+            background: "#000000ff",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            mb: { xs: 2, md: 3 },
+                       }}
+                     >
                 About our Company
               </Typography>
             </motion.div>
@@ -161,10 +170,12 @@ const AboutCompany = () => {
             <motion.div variants={itemVariants}>
               <Typography
                 sx={{
-                  fontSize: { xs: 24, sm: 28, md: 22 },
+                  fontSize: { xs: 18, sm: 28, md: 22 },
                   fontWeight: 700,
+                  textAlign:{xs:"justify",md:"left"},
                   lineHeight: 1.3,
                   mb: 2,
+                  px: { xs: 1, md: 0 } // Add some padding on mobile
                 }}
               >
                 HDSAFE Industrial Solutions is a leader in industrial safety products
@@ -179,6 +190,8 @@ const AboutCompany = () => {
                   lineHeight: 1.7,
                   color: "#333",
                   mb: 4,
+                  textAlign:{xs:"justify",md:"left"},
+                  px: { xs: 1, md: 0 } 
                 }}
               >
                 Based in Parrys, Chennai, we supply high-quality safety solutions
@@ -190,7 +203,12 @@ const AboutCompany = () => {
             </motion.div>
 
             <motion.div variants={itemVariants}>
-             <Box sx={{ mt: { xs: 3, md: 4 } }}>
+             <Box sx={{ 
+               mt: { xs: 3, md: 4 }, 
+               display: "flex", 
+               justifyContent: {xs:"center",md:"flex-start"},
+               px: { xs: 1, md: 0 } // Add some padding on mobile
+             }}>
                   <FancyButton   onClick = {handleContactClick} sx={{ px:3, py:2 }}>
                     More About Us
                   </FancyButton>
