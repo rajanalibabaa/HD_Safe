@@ -6,6 +6,7 @@ import Footer from "./Components/Footer";
 import ProductPage from "./Pages/ProductPage";
 import AboutUs from "./Pages/AboutUs";
 import Contact from "./Pages/ContactUs";
+import FAQSection from "./Components/Faq";
 
 import useMediaQuery from "@mui/material/useMediaQuery";
 import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
@@ -164,7 +165,7 @@ function App() {
         <Route path="/contact" element={<Contact/>}/>
       </Routes>
       <Footer/>
-     
+      
     </Router>
 
       <WhatsAppButton />
