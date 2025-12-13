@@ -51,14 +51,14 @@ const ProductDataCard = ({
         height: {
           xs: 'auto',
           sm: 'auto',
-          md: '60vh',
+          md: 'auto',
           lg: '73vh',
           xl: '70vh'
         },
         minHeight: {
           xs: '320px',
           sm: '360px',
-          md: '420px',
+          md: '480px',
           lg: '460px',
           xl: '520px'
         },
@@ -141,11 +141,11 @@ const ProductDataCard = ({
         ))}
       </Box>
 
-      {/* ------------------ DESKTOP GRID ------------------ */}
       <Box
         sx={{
           display: { xs: 'none', sm: 'none', md: 'flex' },
           flex: 1,
+          alignContent: 'center',
           overflowY: 'auto',
           p: { md: 1.5, lg: 2, xl: 2.5 },
           '&::-webkit-scrollbar': { width: 8 },
@@ -159,10 +159,11 @@ const ProductDataCard = ({
         <Box
           sx={{
             display: 'grid',
+            alignContent: 'center',
             gridTemplateColumns: {
-              md: 'repeat(3, 1fr)',   // Laptop
-              lg: 'repeat(3, 1fr)',   // Desktop
-              xl: 'repeat(3, 1fr)'    // Large Desktop
+              md: 'repeat(3, 1fr)',   
+              lg: 'repeat(3, 1fr)',   
+              xl: 'repeat(3, 1fr)'    
             },
             gap: { md: 2, lg: 2.5, xl: 3 },
           }}
@@ -171,6 +172,7 @@ const ProductDataCard = ({
             <Card
               key={product.id}
               sx={{
+                alignContent:"  center",
                 borderRadius: 3,
                 overflow: 'hidden',
                 cursor: 'pointer',
@@ -204,9 +206,9 @@ const ProductDataCard = ({
                   sx={{
                     fontSize: { md: '0.85rem', lg: '0.8rem', xl: '1rem' },
                     display: '-webkit-box',
-                    WebkitLineClamp: 2,
+
                     WebkitBoxOrient: 'vertical',
-                    overflow: 'hidden'
+                    // overflow: 'hidden'
                   }}
                 >
                   {product.name}

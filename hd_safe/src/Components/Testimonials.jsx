@@ -4,10 +4,12 @@ import {
   Typography,
   Avatar,
   Rating,
-  Fade,
   Container,
   IconButton,
+  Card,
+  CardContent,
 } from "@mui/material";
+import { motion, AnimatePresence } from "framer-motion";
 import FormatQuoteIcon from "@mui/icons-material/FormatQuote";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -17,253 +19,230 @@ const testimonials = [
     name: "Madhan Anand",
     rating: 4.9,
     date: "26-June-25",
-    avatar: "https://randomuser.me/api/portraits/men/11.jpg",
-    Products: "Industrial Safety Helmets",
+    avatar: "https://randomuser.me/api/portraits/men/1.jpg",
     message:
       "Overall pleasurable experience. Pay a little first and pay a little during the development...",
   },
   {
-    name: "U Pavithra",
-    rating: 4.9,
+    name: "Mohamed Laizal",
+    rating: 4,
     date: "16-June-25",
-    avatar: "https://randomuser.me/api/portraits/women/12.jpg",
-    Products: "Safety Gloves",
+    avatar: "https://randomuser.me/api/portraits/men/2.jpg",
     message:
       "They have awesome customer service. I wouldn't recommend going anywhere else.",
   },
   {
     name: "Lakshmanan N P",
-    rating: 4.9,
+    rating: 4.5,
     date: "07-June-24",
-    avatar: "https://randomuser.me/api/portraits/men/18.jpg",
-    Products: "Electrical Rubber Mats",
+    avatar: "https://randomuser.me/api/portraits/men/3.jpg",
     message: "Amazing experience. Smooth process and great communication!",
   },
   {
     name: "ZAHID AMIR",
-    rating: 4.9,
+    rating: 5,
     date: "26-February-24",
-    avatar: "https://randomuser.me/api/portraits/women/15.jpg",
-    Products: "Retro Reflective Tape",
+    avatar: "https://randomuser.me/api/portraits/men/4.jpg",
     message: "Amazing experience. Smooth process and great communication!",
   },
   {
     name: "Ganesh Moorthy",
-    rating: 4.9,
+    rating: 4.6,
     date: "11-July-24",
-    avatar: "https://randomuser.me/api/portraits/men/20.jpg",
-    Products: "Fire Safety Shoes",
+    avatar: "https://randomuser.me/api/portraits/men/5.jpg",
     message: "Amazing experience. Smooth process and great communication!",
   },
   {
     name: "Siraj",
-    rating: 4.9,
+    rating: 4.7,
     date: "25-May-24",
-    avatar: "https://randomuser.me/api/portraits/women/19.jpg",
-    Products: "Latex Gloves",
+    avatar: "https://randomuser.me/api/portraits/men/6.jpg",
     message: "Amazing experience. Smooth process and great communication!",
   },
 ];
 
-const Testimonials = () => {
-  const [active, setActive] = useState(0);
-  const [fadeIn, setFadeIn] = useState(true);
+const SIZE = 420;
+const CENTER = SIZE / 2;
+const RADIUS = 150;
+const STEP = 360 / testimonials.length;
 
-  // Auto rotate every 4s
+const Testimonials = () => {
+  const [rotationIndex, setRotationIndex] = useState(0);
+
+  const active = (testimonials.length - (rotationIndex % testimonials.length)) % testimonials.length;
+  const rotationDeg = rotationIndex * STEP;
+
   useEffect(() => {
-    const interval = setInterval(() => handleNext(), 4000);
+    const interval = setInterval(() => {
+      setRotationIndex((prev) => prev + 1);
+    }, 4000);
     return () => clearInterval(interval);
   }, []);
 
   const handlePrev = () => {
-    setFadeIn(false);
-    setTimeout(() => {
-      setActive(
-        (prev) => (prev - 1 + testimonials.length) % testimonials.length
-      );
-      setFadeIn(true);
-    }, 250);
+    setRotationIndex((prev) => prev - 1);
   };
 
   const handleNext = () => {
-    setFadeIn(false);
-    setTimeout(() => {
-      setActive((prev) => (prev + 1) % testimonials.length);
-      setFadeIn(true);
-    }, 250);
+    setRotationIndex((prev) => prev + 1);
   };
 
-  // Main rotation angle (rotates entire circle)
-  const rotationDeg = -(active * (360 / testimonials.length));
-
   return (
-    <Container maxWidth="lg" sx={{ py: 8 }}>
-      <Typography
-        variant="h5"
-        fontWeight={700}
-        sx={{
-          mb: 5,
-          display: "flex",
-          alignItems: "center",
-          "&::before": {
-            content: '""',
-            width: 40,
-            height: 3,
-            backgroundColor: "#2e7d32",
-            borderRadius: 2,
-            mr: 1.5,
-            display: "inline-block",
-          },
-        }}
-      >
+    <>
+    <Typography
+             variant="h2"
+             fontWeight={800}
+             gutterBottom
+             sx={{
+               textAlign: "center",
+               background: "#000000ff",
+               WebkitBackgroundClip: "text",
+               WebkitTextFillColor: "transparent",
+               mb: { xs: 2, md: 3 },
+             }}
+           >
         Customer Reviews
       </Typography>
+    <Container sx={{ py: 5 , px: { xs: 2, md: 10 }}} justifyContent="center">
+    
 
       <Box
         sx={{
           display: "flex",
           flexDirection: { xs: "column", md: "row" },
-          justifyContent: "center",
           alignItems: "center",
-          gap: { xs: 6, md: 10 },
-          minHeight: 420,
+          gap: 10,
         }}
       >
         {/* LEFT ROTATING CIRCLE */}
-        <Box sx={{ width: 420, height: 420, position: "relative" }}>
-          {/* Dashed border */}
+        <Box sx={{ width: SIZE, height: SIZE, position: "relative" }}>
           <Box
             sx={{
               position: "absolute",
-              top: 40,
-              left: 40,
-              width: 340,
-              height: 340,
-
+              inset: 0,
+              margin: "auto",
+              width: 300,
+              height: 300,
               border: "2px dashed rgba(46,125,50,0.25)",
               borderRadius: "50%",
             }}
           />
 
-          <Box
-            sx={{
-              position: "absolute",
+          <motion.div
+            style={{
               width: "100%",
               height: "100%",
-              transform: `rotate(${rotationDeg}deg)`,
-              transition: "transform 0.6s ease",
+              position: "absolute",
             }}
+            animate={{ rotate: rotationDeg }}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
           >
             {testimonials.map((item, i) => {
-              const angle = (i * 360) / testimonials.length;
-              const radius = 180;
+              const angle = i * STEP;
               const rad = (angle * Math.PI) / 180;
 
-              const x = 150 + radius * Math.cos(rad);
-              const y = 150 + radius * Math.sin(rad);
+              const x = CENTER + RADIUS * Math.cos(rad);
+              const y = CENTER + RADIUS * Math.sin(rad);
 
               const isActive = i === active;
 
               return (
                 <Box
                   key={i}
-                  onClick={() => setActive(i)}
                   sx={{
                     position: "absolute",
                     top: y,
                     left: x,
                     transform: `translate(-50%, -50%) rotate(${-rotationDeg}deg)`,
-                    transition: "0.4s",
-                    cursor: "pointer",
                     zIndex: isActive ? 5 : 1,
                   }}
                 >
-                  <Avatar
-                    src={item.avatar}
-                    sx={{
-                      width: isActive ? 110 : 78,
-                      height: isActive ? 110 : 78,
-
-                      border: isActive
-                        ? "4px solid #2e7d32"
-                        : "2px solid transparent",
-                      boxShadow: isActive
-                        ? "0 8px 25px rgba(46,125,50,0.35)"
-                        : "0 3px 8px rgba(0,0,0,0.2)",
-                      transition: "0.3s",
-                      bgcolor: "#fff",
-                    }}
-                  />
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 200 }}
+                  >
+                    <Avatar
+                      src={item.avatar}
+                      sx={{
+                        width: isActive ? 110 : 78,
+                        height: isActive ? 110 : 78,
+                        border: isActive
+                          ? "4px solid #2e7d32"
+                          : "2px solid transparent",
+                        boxShadow: isActive
+                          ? "0 8px 25px rgba(46,125,50,0.35)"
+                          : "0 3px 8px rgba(0,0,0,0.2)",
+                        transition: "0.3s",
+                        bgcolor: "#fff",
+                      }}
+                    />
+                  </motion.div>
                 </Box>
               );
             })}
-          </Box>
+          </motion.div>
         </Box>
 
-        {/* RIGHT SIDE TEXT */}
-        <Fade in={fadeIn} timeout={500}>
-          <Box sx={{ flex: 1, maxWidth: 500, position: "relative", pl: 4 }}>
-            <FormatQuoteIcon
-              sx={{
-                position: "absolute",
-                top: -10,
-                left: -10,
-                fontSize: 70,
-                color: "#2e7d32",
-                opacity: 0.25,
-              }}
-            />
-
-            <Typography variant="body1" sx={{ fontStyle: "italic", mb: 4 }}>
-              “{testimonials[active].message}”
-            </Typography>
-
-            <Typography variant="h6" fontWeight={700}>
-              {testimonials[active].name}
-            </Typography>
-
-            <Box sx={{ display: "flex", alignItems: "center", mt: 1 }}>
-              <Rating
-                value={testimonials[active].rating}
-                readOnly
-                precision={0.1}
-              />
-              <Typography sx={{ ml: 1 }} color="text.secondary">
-                {testimonials[active].rating} on {testimonials[active].date}
-              </Typography>
-            </Box>
-            <Typography>Products : {testimonials[active].Products}</Typography>
-
-            {/* Buttons */}
-            <Box sx={{ display: "flex", alignItems: "center", gap: 2, mt: 5 }}>
-              <IconButton onClick={handlePrev}>
-                <ChevronLeftIcon />
-              </IconButton>
-              <IconButton onClick={handleNext}>
-                <ChevronRightIcon />
-              </IconButton>
-
-              {/* Dots */}
-              <Box sx={{ display: "flex", gap: 1.3 }}>
-                {testimonials.map((_, i) => (
-                  <Box
-                    key={i}
-                    onClick={() => setActive(i)}
+        {/* RIGHT CONTENT CARD */}
+        <Box sx={{ width: "100%", maxWidth: 480 }}>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={active}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4 }}
+            >
+              <Card
+                elevation={6}
+                sx={{
+                  borderRadius: 4,
+                  position: "relative",
+                }}
+              >
+                <CardContent sx={{ p: 4 }}>
+                  <FormatQuoteIcon
                     sx={{
-                      width: 10,
-                      height: 10,
-                      borderRadius: "50%",
-                      cursor: "pointer",
-                      bgcolor: active === i ? "#2e7d32" : "grey.400",
+                      position: "absolute",
+                      top: 20,
+                      right: 20,
+                      fontSize: 60,
+                      color: "#2e7d32",
+                      opacity: 0.15,
                     }}
                   />
-                ))}
-              </Box>
-            </Box>
-          </Box>
-        </Fade>
+
+                  <Typography sx={{ fontStyle: "italic", mb: 3 }}>
+                    "{testimonials[active].message}"
+                  </Typography>
+
+                  <Typography variant="h6" fontWeight={700}>
+                    {testimonials[active].name}
+                  </Typography>
+
+                  <Box sx={{ display: "flex", alignItems: "center", mt: 1 }}>
+                    <Rating
+                      value={testimonials[active].rating}
+                      readOnly
+                      precision={0.1}
+                    />
+                    <Typography sx={{ ml: 1 }} color="text.secondary">
+                      {testimonials[active].rating} on{" "}
+                      {testimonials[active].date}
+                    </Typography>
+                  </Box>
+
+                 
+
+                 
+                </CardContent>
+              </Card>
+            </motion.div>
+          </AnimatePresence>
+        </Box>
       </Box>
     </Container>
+    </>
   );
 };
 

@@ -1,10 +1,20 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Box, Grid, Typography, Button, useTheme, useMediaQuery ,} from "@mui/material";
-import { styled } from "@mui/material/styles";
-import { motion, useInView, useAnimation } from "framer-motion";
-import image from "../assets/AboutCompany.jpg";
+import React, { useEffect, useRef } from "react";
+import {
+  Box,
+  Grid,
+  Typography,
+  Button,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
 
-// Floating Square Box
+import { styled } from "@mui/material/styles";
+import { motion, useInView, useAnimation, px } from "framer-motion";
+import image from "../assets/AboutCompany.jpg";
+import FancyButton from "./FancyButton";
+import { useNavigate } from "react-router-dom";
+
+// Floating Square
 const Square = styled(Box)(({ size, bgcolor }) => ({
   width: size,
   height: size,
@@ -13,16 +23,13 @@ const Square = styled(Box)(({ size, bgcolor }) => ({
   zIndex: 2,
 }));
 
-// Animation variants
+// Animations
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-      delayChildren: 0.1
-    }
-  }
+    transition: { staggerChildren: 0.2 },
+  },
 };
 
 const itemVariants = {
@@ -30,11 +37,8 @@ const itemVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: {
-      duration: 0.6,
-      ease: "easeOut"
-    }
-  }
+    transition: { duration: 0.6 },
+  },
 };
 
 const imageVariants = {
@@ -42,152 +46,114 @@ const imageVariants = {
   visible: {
     opacity: 1,
     x: 0,
-    transition: {
-      duration: 0.8,
-      ease: "easeOut"
-    }
-  }
+    transition: { duration: 0.8 },
+  },
 };
 
+
 const AboutCompany = () => {
+  const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  const controls = useAnimation();
-  const imageControls = useAnimation();
-  const ref = useRef(null);
-  const imageRef = useRef(null);
-  
-  const isInView = useInView(ref, { once: true, amount: 0.3 });
-  const isImageInView = useInView(imageRef, { once: true, amount: 0.3 });
 
-  useEffect(() => {
-    if (isInView) {
-      controls.start("visible");
-    }
-  }, [controls, isInView]);
-
-  useEffect(() => {
-    if (isImageInView) {
-      imageControls.start("visible");
-    }
-  }, [imageControls, isImageInView]);
-
-  const floatingAnimation = {
-    y: [0, -10, 0],
-    transition: {
-      duration: 3,
-      repeat: Infinity,
-      ease: "easeInOut"
-    }
+    const handleContactClick = () => {
+   navigate ("/aboutus");
   };
+
+  const textControls = useAnimation();
+  const imageControls = useAnimation();
+
+  const textRef = useRef(null);
+  const imageRef = useRef(null);
+
+  const textInView = useInView(textRef, { once: true });
+  const imageInView = useInView(imageRef, { once: true });
+
+  useEffect(() => {
+    if (textInView) textControls.start("visible");
+  }, [textInView]);
+
+  useEffect(() => {
+    if (imageInView) imageControls.start("visible");
+  }, [imageInView]);
 
   return (
     <Box
       sx={{
         width: "100%",
-        py: { xs: 6, md: 20 },
-        px: { xs: 2, sm: 4, md: 10 },
+        py: { xs: 6, md: 16 },
+        px: { xs: 2, sm: 4, md: 5 },
+        backgroundColor: "#fff",
         overflow: "hidden",
-        backgroundColor: "#ffffffff",
       }}
     >
-      <Box  display={"flex"} flexDirection={isMobile ? "column-reverse" : "row"} alignItems="center" justifyContent="center" gap={4}>
-        {/* LEFT SIDE IMAGE */}
-        <Grid item xs={12} md={6}>
-          <Box sx={{ position: "relative" }} ref={imageRef}>
-            {/* Floating Squares with animations */}
-            {/* <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={isImageInView ? floatingAnimation : { opacity: 1 }}
-              transition={{ delay: 0.5 }}
-            >
-              <Square 
-                size="40px" 
-                bgcolor="#ffffffff" 
-                sx={{ 
-                  top: { xs: "85%", md: "94%" },
-                  left: { xs: "-10px", md: "-20px" },
-                  display: { xs: "none", sm: "block" , md: "block" }
-                }} 
-              />
-            </motion.div> */}
-
-            {/* <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={isImageInView ? floatingAnimation : { opacity: 1 }}
-              transition={{ delay: 0.7 }}
-            >
-              <Square 
-                size="80px" 
-                bgcolor="#ffffffff" 
-                sx={{ 
-                  top: { xs: "-10%", md: "-15%" },
-                  left: { xs: "85%", md: "98%" },
-                  display: { xs: "none", sm: "block" , md: "block" }
-                }} 
-              /> */}
-            {/* </motion.div> */}
-
-            {/* <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isImageInView ? floatingAnimation : { opacity: 1 }}
-              transition={{ delay: 0.9 }}
-            >
-              <Square 
-                size="50px" 
-                bgcolor="#fff" 
-                sx={{ 
-                  top: { xs: "-2%", md: "-3%" },
-                  left: { xs: "80%", md: "90%" },
-                  border: "2px solid #ff6700",
-                  display: { xs: "none", sm: "block", md: "block" }
-                }} 
-              />
-            </motion.div> */}
-
+      <Grid
+        container
+        alignItems="center"
+        spacing={6}
+        direction={isMobile ? "column-reverse" : "row"}
+      >
+        {/* IMAGE SIDE */}
+        <Grid
+          item
+          xs={12}
+          md={6}
+          sx={{ flexBasis: "50%", maxWidth: "30%" }}
+        >
+          <Box ref={imageRef} sx={{ position: "relative" }}>
             <motion.div
               variants={imageVariants}
               initial="hidden"
               animate={imageControls}
             >
-                <Square size="40px" bgcolor="#ff6700" sx={{ top: "94%", left: "-20px" }} />
-                <Square size="80px" bgcolor="#ff6700" sx={{ top: "-15%", left: "98%" }} />
-<Square size="50px" bgcolor="#000000ff" sx={{ top: "-3%", left: "90%" }} />
+              <Square size="40px" bgcolor="#ff6700" sx={{ bottom: -20, left: -20 }} />
+              <Square size="80px" bgcolor="#ff6700" sx={{ top: -30, right: -20 }} />
+              <Square size="50px" bgcolor="#000" sx={{ top: 30, right: 40 }} />
+
               <Box
                 component="img"
                 src={image}
-                alt="worker"
+                alt="About Company"
                 sx={{
                   width: "100%",
-                  maxWidth: { xs: "100%", md: "800px" },
-                  height: { xs: "350px", sm: "400px", md: "500px" },
+                  height: { xs: 320, sm: 400, md: 520 },
                   objectFit: "cover",
-                  borderTopLeftRadius: { xs: "150px", md: "250px" },
-                  borderTopRightRadius: { xs: "150px", md: "0" },
-                  boxShadow: "0 10px 30px rgba(0,0,0,0.1)",
+                  borderTopLeftRadius: { xs: 120, md: 260 },
+                  borderTopRightRadius: { xs: 120, md: 0 },
+                  boxShadow: "0 15px 40px rgba(0,0,0,0.12)",
                 }}
               />
             </motion.div>
           </Box>
         </Grid>
 
-        {/* RIGHT CONTENT */}
-        <Grid item xs={12} md={6}>
+        {/* CONTENT SIDE */}
+        <Grid
+          item
+          xs={12}
+          md={6}
+          sx={{ flexBasis: "65%", maxWidth: "80%" }}
+        >
           <motion.div
-            ref={ref}
+            ref={textRef}
             variants={containerVariants}
             initial="hidden"
-            animate={controls}
+            animate={textControls}
           >
             <motion.div variants={itemVariants}>
-              <Typography
-                sx={{
-                  fontSize: { xs: "16px", md: "18px" },
-                  fontWeight: 600,
-                  color: "#000000ff",
-                  mb: 1,
-                }}
-              >
+               <Typography
+                         variant={isMobile ? "h3" : "h2"}
+                         fontWeight={800}
+                         gutterBottom
+                         sx={{
+                          textAlign: "center",
+                           background: "#000000ff",
+                           WebkitBackgroundClip: "text",
+                           WebkitTextFillColor: "transparent",
+                           mb: 3,
+                           fontSize: { xs: "2rem", sm: "2.5rem", md: "3rem" }
+                         }}
+                       >
                 About our Company
               </Typography>
             </motion.div>
@@ -195,89 +161,44 @@ const AboutCompany = () => {
             <motion.div variants={itemVariants}>
               <Typography
                 sx={{
-                  fontSize: { xs: "24px", sm: "28px", md: "30px" },
+                  fontSize: { xs: 24, sm: 28, md: 22 },
                   fontWeight: 700,
-                  color: "#000000ff",
                   lineHeight: 1.3,
-                  mb: { xs: 2, md: 0 },
+                  mb: 2,
                 }}
               >
-                HDSAFE Industrial Solutions  is a  {" "}
-                <Box 
-                  component="span" 
-                  sx={{ 
-                    // color: "#000000ff",
-                    display: "inline-block"
-                  }}
-                >
-                  industrial safety products and personal protective equipment (PPE)
-                </Box>
+                HDSAFE Industrial Solutions is a leader in industrial safety products
+                and personal protective equipment (PPE)
               </Typography>
             </motion.div>
 
             <motion.div variants={itemVariants}>
               <Typography
                 sx={{
-                  mt: { xs: 2, md: 3 },
-                  fontSize: { xs: "16px", md: "18px" },
-                  color: "#000000ff",
+                  fontSize: { xs: 15, md: 17 },
                   lineHeight: 1.7,
+                  color: "#333",
+                  mb: 4,
                 }}
               >
-                Based in Parrys, Chennai, the company supplies high-quality safety solutions to businesses <br/> across industries including manufacturing, construction, fire safety, and logistics.
+                Based in Parrys, Chennai, we supply high-quality safety solutions
+                across manufacturing, construction, fire safety, and logistics.
+                Our mission is to deliver dependable products backed by timely
+                service and competitive pricing—helping organizations build safer,
+                compliant workplaces.
               </Typography>
             </motion.div>
 
-            {/* BUTTON */}
             <motion.div variants={itemVariants}>
-              <Box sx={{ mt: { xs: 3, md: 4 } }}>
-                <Button
-                  sx={{
-                    background: "#000",
-                    color: "#fff",
-                    px: { xs: 3, md: 4 },
-                    py: { xs: 1.2, md: 1.4 },
-                    fontSize: { xs: "14px", md: "16px" },
-                    fontWeight: 600,
-                    borderRadius: 0,
-                    textTransform: "none",
-                    "&:hover": { 
-                      background: "#222",
-                      transform: "translateY(-3px)",
-                      transition: "transform 0.3s ease",
-                    },
-                  }}
-                >
-                  More About Us
-                </Button>
-              </Box>
-            </motion.div>
-
-            {/* Bottom Content Box */}
-            <motion.div variants={itemVariants}>
-              <Box
-                sx={{
-                  mt: { xs: 4, md: 5 },
-                  p: { xs: 2, md: 3 },
-                  borderLeft: { xs: "4px solid #000000ff", md: "6px solid #000000ff" },
-                  background: "#f5f5f5",
-                  borderRadius: "0 4px 4px 0",
-                }}
-              >
-                <Typography
-                  sx={{
-                    fontSize: { xs: "16px", md: "18px" },
-                    color: "#000000ff",
-                    lineHeight: 1.7,
-                  }}
-                >
-                  Our mission is to deliver dependable safety products backed by timely service and competitive pricing. With years of expertise, we help organizations create safer workplaces and comply with industrial safety regulations.
-                </Typography>
-              </Box>
+             <Box sx={{ mt: { xs: 3, md: 4 } }}>
+                  <FancyButton   onClick = {handleContactClick} sx={{ px:3, py:2 }}>
+                    More About Us
+                  </FancyButton>
+                </Box>
             </motion.div>
           </motion.div>
         </Grid>
-      </Box>
+      </Grid>
     </Box>
   );
 };
