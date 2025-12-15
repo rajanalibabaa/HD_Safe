@@ -188,8 +188,8 @@ const ProductDataCard = ({
             </Box>
             <CardContent sx={{
               p: {
-                xs: 2,    // Mobile: 16px
-                sm: 2.5   // Tablet: 20px
+                xs: 2,   
+                sm: 2.5 
               },
               pb: {
                 xs: '16px !important',

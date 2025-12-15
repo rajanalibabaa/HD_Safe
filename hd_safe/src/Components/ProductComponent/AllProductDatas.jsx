@@ -5,13 +5,9 @@ import ProductDataCard from './ProductDataCard';
 import { categories } from '../../utils/productCategories';
 
 const AllProductDatas = forwardRef((props, ref) => {
-  // Categories array with IDs matching ServiceNavBar (1-13)
   
-  // Create refs for each category section
   const sectionRefs = useRef({});
 
-  // Function to scroll to a specific category
- // Function to scroll to a specific category - Alternative version
 const scrollToCategory = (categoryId) => {
   console.log(`Scrolling to category ID: ${categoryId}`);
   const sectionId = `category-${categoryId}`;
@@ -58,7 +54,7 @@ const scrollToCategory = (categoryId) => {
   }));
 
   return (
-    <Box sx={{ py: { xs: 0.5, md: 1.5 }, px: { xs: 0.5, md: 1 } }}>
+    <Box sx={{ py: { xs: 0, md: 1.5 }, px: { xs: 0, md: 1 } }}>
       {categories.map((item, index) => {
         const isEven = index % 2 === 0;
 
@@ -72,8 +68,7 @@ const scrollToCategory = (categoryId) => {
             sx={{
               display: 'flex',
               flexDirection: { xs: 'column', lg: isEven ? 'row' : 'row-reverse' },
-              alignItems: { xs: 'center', lg: 'flex-start' },
-              // mb: { xs: 2, lg: 5 },
+              alignItems: { xs: 'flex-start', lg: 'flex-start' },
               opacity: 0,
               animation: 'fadeInUp 0.8s ease-out forwards',
               animationDelay: `${index * 0.3}s`,
@@ -98,7 +93,7 @@ const scrollToCategory = (categoryId) => {
               bgcolor:"white", boxShadow:10,
               // borderRadius:10,
               width:"90%",
-              ml:8,
+              ml:{xs:2.5, sm:2, md:8},
               mb:-5
             }}
           >
