@@ -80,7 +80,6 @@ const scrollToCategory = (categoryId) => {
               position: 'relative',
               transition: 'all 0.5s ease',
 
-              // Create an invisible anchor point above the section
               '&::before': {
                 content: '""',
                 display: 'grid',
