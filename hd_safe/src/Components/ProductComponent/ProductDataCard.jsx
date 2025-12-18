@@ -364,7 +364,7 @@ const ProductDataCard = ({
           ))}
         </Box>
       </Box>
-     
+  
     </Box>
   );
 };
