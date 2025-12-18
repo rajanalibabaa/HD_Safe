@@ -6,13 +6,19 @@ import {
   Typography,
   Button,
   IconButton,
+  Dialog,
+  DialogContent,  
   useTheme,
   useMediaQuery,
   alpha,
 } from "@mui/material";
 import { motion } from "framer-motion";
 import bgimg from "../assets/ContactUs.jpg";
-
+import { useState } from "react";
+import Slide from "@mui/material/Slide";
+import { forwardRef } from "react";
+import CloseIcon from "@mui/icons-material/Close"; 
+import CheckCircleOutlineRounded from "@mui/icons-material/CheckCircleOutlineRounded"; 
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
@@ -28,12 +34,90 @@ const fadeUp = {
   hidden: { opacity: 0, y: 40 },
   show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 };
+/* ---------- Slide Transition (Dialog) ---------- */
+const SlideDown = forwardRef(function SlideDown(props, ref) {
+  return <Slide direction="down" ref={ref} {...props} />;
+});
+
 
 const ContactUs = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const isSmallMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const isTablet = useMediaQuery(theme.breakpoints.between("sm", "lg"));
+
+   const [showSuccess, setShowSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
+
+  /* ---------- Input Change ---------- */
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  /* ---------- Submit Handler ---------- */
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    const { firstName, lastName, email, phone, message } = formData;
+
+    if (!firstName || !lastName || !email || !phone || !message) {
+      alert("Please fill all required fields");
+      setLoading(false);
+      return;
+    }
+
+    const submission = new FormData();
+    submission.append("First Name", firstName);
+    submission.append("Last Name", lastName);
+    submission.append("Email", email);
+    submission.append("Phone", phone);
+    submission.append("Message", message);
+    submission.append("_subject", "New Contact Us Message");
+    submission.append("_captcha", "false");
+    submission.append("_template", "table");
+    submission.append(
+      "_autoresponse",
+      `Thank you ${firstName}! We received your message and will contact you shortly.`
+    );
+
+    try {
+      const res = await fetch(
+        "https://formsubmit.co/evanjelineaswini@gmail.com",
+        {
+          method: "POST",
+          body: submission,
+        }
+      );
+
+      if (res.ok) {
+        setShowSuccess(true);
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          message: "",
+        });
+      } else {
+        alert("Failed to send message. Please try again.");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Network error. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <Box sx={{ minHeight: "100vh", pt: { xs: 0, md: 0 } }}>
@@ -367,214 +451,52 @@ const ContactUs = () => {
             variants={fadeUp}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: true, margin: "-50px" }}
             sx={{
               flex: 1,
-              background: "linear-gradient(135deg, #2B2B2B 0%, #444444 100%)",
-              borderRadius: { xs: 2, sm: 3 },
-              p: {
-                xs: 3,    // Extra small mobile
-                sm: 4,    // Small mobile
-                md: 5,    // Tablet & Desktop
-              },
-              boxShadow: "0 20px 60px rgba(0,0,0,0.2)",
-              display: "flex",
-              flexDirection: "column",
+              background: "linear-gradient(135deg,#2B2B2B,#444)",
+              p: 5,
+              borderRadius: 3,
               border: "2px solid #FF4D00",
             }}
           >
-            <Typography 
-              variant="h4" 
-              fontWeight={700} 
-              sx={{ 
-                mb: { xs: 1, sm: 1 }, 
-                color: "white", 
-                textAlign: "center",
-                fontSize: {
-                  xs: "1.5rem",   // Extra small mobile
-                  sm: "1.75rem",  // Small mobile
-                  md: "2rem",     // Tablet
-                  lg: "2.125rem", // Desktop (h4 default)
-                }
-              }}
-            >
+            <Typography variant="h4" fontWeight={700} textAlign="center" color="white">
               Send a Message
             </Typography>
-            <Typography 
-              variant="body1" 
-              sx={{ 
-                mb: { xs: 3, sm: 4 }, 
-                color: alpha("#fff", 0.8), 
-                textAlign: "center",
-                fontSize: {
-                  xs: "0.875rem",  // Extra small mobile
-                  sm: "0.9375rem", // Small mobile
-                  md: "1rem",      // Tablet & Desktop
-                }
-              }}
-            >
-              Fill out the form below and we'll get back to you shortly.
-            </Typography>
 
-            <Box component="form" sx={{ display: "flex", flexDirection: "column", gap: { xs: 3, sm: 4 } }}>
-              <Box sx={{ display: "flex", gap: { xs: 2, sm: 2 }, flexDirection: { xs: "column", sm: "row" } }}>
-                <TextField
-                  fullWidth
-                  label="First Name"
-                  size={isSmallMobile ? "small" : "medium"}
-                  variant="outlined"
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      backgroundColor: "white",
-                      borderRadius: 1,
-                      "&:hover .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "#FF4D00",
-                      },
-                      "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "#FF4D00",
-                      },
-                    },
-                    "& .MuiInputLabel-root": {
-                      fontSize: { xs: "0.875rem", sm: "0.9375rem", md: "1rem" },
-                    },
-                  }}
-                />
-                <TextField
-                  fullWidth
-                  label="Last Name"
-                  size={isSmallMobile ? "small" : "medium"}
-                  variant="outlined"
-                  sx={{
-                    "& .MuiOutlinedInput-root": {
-                      backgroundColor: "white",
-                      borderRadius: 1,
-                      "&:hover .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "#FF4D00",
-                      },
-                      "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                        borderColor: "#FF4D00",
-                      },
-                    },
-                    "& .MuiInputLabel-root": {
-                      fontSize: { xs: "0.875rem", sm: "0.9375rem", md: "1rem" },
-                    },
-                  }}
-                />
+            <Box component="form" onSubmit={handleSubmit} sx={{ mt: 4, display: "flex", flexDirection: "column", gap: 3 }}>
+              <Box sx={{ display: "flex", gap: 2, flexDirection: { xs: "column", sm: "row" } }}>
+                <TextField name="firstName" label="First Name" value={formData.firstName} onChange={handleChange} required />
+                <TextField name="lastName" label="Last Name" value={formData.lastName} onChange={handleChange} required />
               </Box>
 
+              <TextField name="email" label="Email" value={formData.email} onChange={handleChange} required />
+              <TextField name="phone" label="Phone" value={formData.phone} onChange={handleChange} required />
               <TextField
-                fullWidth
-                label="Email"
-                type="email"
-                size={isSmallMobile ? "small" : "medium"}
-                variant="outlined"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "white",
-                    borderRadius: 1,
-                    "&:hover .MuiOutlinedInput-notchedOutline": {
-                      borderColor: "#FF4D00",
-                    },
-                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                      borderColor: "#FF4D00",
-                    },
-                  },
-                  "& .MuiInputLabel-root": {
-                    fontSize: { xs: "0.875rem", sm: "0.9375rem", md: "1rem" },
-                  },
-                }}
-              />
-
-              <TextField
-                fullWidth
-                label="Phone"
-                size={isSmallMobile ? "small" : "medium"}
-                variant="outlined"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "white",
-                    borderRadius: 1,
-                    "&:hover .MuiOutlinedInput-notchedOutline": {
-                      borderColor: "#FF4D00",
-                    },
-                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                      borderColor: "#FF4D00",
-                    },
-                  },
-                  "& .MuiInputLabel-root": {
-                    fontSize: { xs: "0.875rem", sm: "0.9375rem", md: "1rem" },
-                  },
-                }}
-              />
-
-              <TextField
-                fullWidth
+                name="message"
                 label="Your Message"
                 multiline
                 rows={isSmallMobile ? 3 : isMobile ? 4 : 5}
-                size={isSmallMobile ? "small" : "medium"}
-                variant="outlined"
-                sx={{
-                  "& .MuiOutlinedInput-root": {
-                    backgroundColor: "white",
-                    borderRadius: 1,
-                    "&:hover .MuiOutlinedInput-notchedOutline": {
-                      borderColor: "#FF4D00",
-                    },
-                    "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                      borderColor: "#FF4D00",
-                    },
-                  },
-                  "& .MuiInputLabel-root": {
-                    fontSize: { xs: "0.875rem", sm: "0.9375rem", md: "1rem" },
-                  },
-                }}
+                value={formData.message}
+                onChange={handleChange}
+                required
               />
 
-              {/* Centered Button Container */}
-              <Box sx={{ 
-                display: "flex", 
-                justifyContent: "center", 
-                width: "100%", 
-                mt: { xs: 0, sm: 1 } 
-              }}>
-                <Button
-                  variant="contained"
-                  size={isSmallMobile ? "medium" : "large"}
-                  endIcon={<SendIcon />}
-                  sx={{
-                    background: "linear-gradient(135deg, #FF4D00 0%, #FF7F3E 100%)",
-                    color: "white",
-                    py: {
-                      xs: 1,      // Extra small mobile
-                      sm: 1.25,   // Small mobile
-                      md: 1.5,    // Tablet & Desktop
-                    },
-                    fontSize: {
-                      xs: "0.875rem",  // Extra small mobile
-                      sm: "1rem",      // Small mobile
-                      md: "1.1rem",    // Tablet & Desktop
-                    },
-                    fontWeight: 600,
-                    borderRadius: 2,
-                    "&:hover": {
-                      background: "linear-gradient(135deg, #E64400 0%, #FF6E20 100%)",
-                      transform: "translateY(-2px)",
-                      boxShadow: "0 10px 20px rgba(255, 77, 0, 0.3)",
-                    },
-                    transition: "all 0.3s ease",
-                    width: { xs: "100%", sm: "fit-content" },
-                    px: {
-                      xs: 4,    
-                      sm: 5,      
-                      md: 6,      
-                    },
-                    textTransform: "none",
-                  }}
-                >
-                  Send Message
-                </Button>
-              </Box>
+              <Button
+                type="submit"
+                disabled={loading}
+                endIcon={<SendIcon />}
+                sx={{
+                  alignSelf: "center",
+                  px: 6,
+                  py: 1.5,
+                  borderRadius: 2,
+                  background: "linear-gradient(135deg,#FF4D00,#FF7F3E)",
+                  color: "#fff",
+                  textTransform: "none",
+                }}
+              >
+                {loading ? "Sending..." : "Send Message"}
+              </Button>
             </Box>
           </MotionBox>
         </Box>
@@ -630,6 +552,32 @@ const ContactUs = () => {
           </Box>
         </MotionBox>
       </Container>
+
+        <Dialog
+        open={showSuccess}
+        TransitionComponent={SlideDown}
+        onClose={() => setShowSuccess(false)}
+        maxWidth="xs"
+        fullWidth
+      >
+        <DialogContent sx={{ textAlign: "center", p: 4 }}>
+          <IconButton sx={{ position: "absolute", top: 8, right: 8 }} onClick={() => setShowSuccess(false)}>
+            <CloseIcon />
+          </IconButton>
+
+          <CheckCircleOutlineRounded sx={{ fontSize: 72, color: "#4caf50", mb: 1 }} />
+          <Typography variant="h5" fontWeight={700} color="#4caf50">
+            Message Sent!
+          </Typography>
+          <Typography sx={{ mt: 1, mb: 3 }}>
+            Thank you for contacting us. We'll get back to you shortly.
+          </Typography>
+
+          <Button onClick={() => setShowSuccess(false)} variant="contained">
+            Close
+          </Button>
+        </DialogContent>
+      </Dialog>
     </Box>
   );
 };
