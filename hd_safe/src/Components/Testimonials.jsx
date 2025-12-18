@@ -59,17 +59,19 @@ const testimonials = [
   },
 ];
 
-const SIZE = 420;
-const CENTER = SIZE / 2;
-const RADIUS = 150;
+
+
 const STEP = 360 / testimonials.length;
 
 const Testimonials = () => {
-    const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm")); // Add this for xs detection
-
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [rotationIndex, setRotationIndex] = useState(0);
+
+  const SIZE = isSmallScreen ? 260 : isMobile ? 320 : 420;
+  const RADIUS = isSmallScreen ? 90 : isMobile ? 120 : 150;
+  const CENTER = SIZE / 2;
 
   const active = (testimonials.length - (rotationIndex % testimonials.length)) % testimonials.length;
   const rotationDeg = rotationIndex * STEP;
@@ -117,18 +119,26 @@ const Testimonials = () => {
         }}
       >
         {/* LEFT ROTATING CIRCLE */}
-        <Box sx={{ width: SIZE, height: SIZE, position: "relative" }}>
-          <Box
-            sx={{
-              position: "absolute",
-              inset: 0,
-              margin: "auto",
-              width: 300,
-              height: 300,
-              border: "2px dashed rgba(46,125,50,0.25)",
-              borderRadius: "50%",
-            }}
-          />
+<Box
+  sx={{
+    width: SIZE,
+    height: SIZE,
+    position: "relative",
+    mx: "auto", // center on mobile
+  }}
+>
+         <Box
+  sx={{
+    position: "absolute",
+    inset: 0,
+    margin: "auto",
+    width: isSmallScreen ? 180 : isMobile ? 240 : 300,
+    height: isSmallScreen ? 180 : isMobile ? 240 : 300,
+    border: "2px dashed rgba(46,125,50,0.25)",
+    borderRadius: "50%",
+  }}
+/>
+
 
           <motion.div
             style={{
@@ -163,21 +173,30 @@ const Testimonials = () => {
                     whileHover={{ scale: 1.05 }}
                     transition={{ type: "spring", stiffness: 200 }}
                   >
-                    <Avatar
-                      src={item.avatar}
-                      sx={{
-                        width: isActive ? 110 : 78,
-                        height: isActive ? 110 : 78,
-                        border: isActive
-                          ? "4px solid #2e7d32"
-                          : "2px solid transparent",
-                        boxShadow: isActive
-                          ? "0 8px 25px rgba(46,125,50,0.35)"
-                          : "0 3px 8px rgba(0,0,0,0.2)",
-                        transition: "0.3s",
-                        bgcolor: "#fff",
-                      }}
-                    />
+                 <Avatar
+  src={item.avatar}
+  sx={{
+    width: isActive
+      ? isSmallScreen ? 64 : isMobile ? 90 : 110
+      : isSmallScreen ? 44 : isMobile ? 65 : 78,
+
+    height: isActive
+      ? isSmallScreen ? 64 : isMobile ? 90 : 110
+      : isSmallScreen ? 44 : isMobile ? 65 : 78,
+
+    border: isActive
+      ? "4px solid #2e7d32"
+      : "2px solid transparent",
+
+    boxShadow: isActive
+      ? "0 8px 25px rgba(46,125,50,0.35)"
+      : "0 3px 8px rgba(0,0,0,0.2)",
+
+    transition: "0.3s",
+    bgcolor: "#fff",
+  }}
+/>
+
                   </motion.div>
                 </Box>
               );

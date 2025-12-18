@@ -5,19 +5,18 @@ import { motion } from "framer-motion";
 const FancyButtonRoot = styled(motion.button)(({ theme, variant = "primary" }) => ({
   position: "relative",
   cursor: "pointer",
-  padding: theme.spacing(1.5, 4),
+  padding: theme.spacing(1.25, 3), // Reduced padding for medium size
   fontFamily: "'Barlow', sans-serif",
-  fontSize: "0.95rem",
+  fontSize: "0.9rem", // Smaller font size
   fontWeight: 600,
   textTransform: "uppercase",
   letterSpacing: "0.5px",
-color: variant === "primary" ? theme.palette.common.white : theme.palette.text.primary,
+  color: variant === "primary" ? theme.palette.common.white : theme.palette.text.primary,
   border: 0,
   borderRadius: theme.shape.borderRadius * 2,
- background: variant === "primary"
+  background: variant === "primary"
     ? "linear-gradient(135deg, #FF4D00 0%, #FF6700 100%)"
     : "#fff",
-
   overflow: "hidden",
 
   "& .shine": {
@@ -86,13 +85,18 @@ color: variant === "primary" ? theme.palette.common.white : theme.palette.text.p
   },
 
   "&.small": {
-    padding: theme.spacing(1, 3),
-    fontSize: "0.85rem",
+    padding: theme.spacing(0.75, 2.5),
+    fontSize: "0.8rem",
+  },
+
+  "&.medium": {
+    padding: theme.spacing(1.25, 3),
+    fontSize: "0.9rem",
   },
 
   "&.large": {
-    padding: theme.spacing(2, 5),
-    fontSize: "1.1rem",
+    padding: theme.spacing(1.5, 4),
+    fontSize: "1rem",
   },
 
   "&.fullWidth": {
@@ -120,7 +124,7 @@ const FancyButton = ({
 }) => {
   const sizeClass = {
     small: "small",
-    medium: "",
+    medium: "medium",
     large: "large",
   }[size];
 
@@ -137,8 +141,8 @@ const FancyButton = ({
       className={buttonClasses}
       disabled={disabled}
       onClick={onClick}
-      whileHover={disabled ? {} : { scale: 1.05, y: -2 }}
-      whileTap={disabled ? {} : { scale: 0.97 }}
+      whileHover={disabled ? {} : { scale: 1.03, y: -1 }} // Reduced hover effect
+      whileTap={disabled ? {} : { scale: 0.98 }}
       {...props}
     >
       <span style={{ position: "relative", zIndex: 1 }}>{children}</span>

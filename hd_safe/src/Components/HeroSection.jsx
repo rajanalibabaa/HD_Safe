@@ -23,6 +23,8 @@ import img2 from "../assets/HdSafeHero2.jpg";
 import img3 from "../assets/HdSafeHero3.jpg";
 
 const backgroundImages = [img1, img2, img3];
+const MotionBox = motion(Box);
+
 
 const heroContent = [
   {
@@ -218,7 +220,7 @@ export default function HeroSection() {
                     color: "#fff",
                     fontWeight: 700,
                     mb: 2,
-                    fontSize: { xs: 32, md: 48 },
+                    fontSize: { xs: 30, md: 48 },
                     lineHeight: 1.2,
                     textShadow: "0 2px 10px rgba(0,0,0,0.3)",
                   }}
@@ -245,38 +247,39 @@ export default function HeroSection() {
                   {heroContent[index].subtitle}
                 </Typography>
               </motion.div>
+<MotionBox
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ delay: 0.4, duration: 0.6 }}
+  sx={{
+    display: "flex",
+    flexWrap: "wrap",
+    gap: 2,
+    mt: 4,
+    justifyContent: {
+      xs: "center",      // ✅ mobile center
+      md: "flex-start",  // ✅ desktop left
+    },
+  }}
+>
+  <FancyButton
+    variant="primary"
+    size="large"
+    onClick={handleExploreClick}
+    aria-label="explore more"
+  >
+    Explore More
+  </FancyButton>
 
-              {/* Animated buttons */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.6 }}
-                style={{
-                  display: "flex",
-                  flexWrap: "wrap",
-                  gap: "16px",
-                  marginTop: "32px",
-                  justifyContent: { xs: "center", md: "flex-start" },
-                }}
-              >
-                <FancyButton 
-                  variant="primary"
-                  size="large"
-                  onClick={handleExploreClick}
-                  aria-label="explore more"
-                >
-                  Explore More
-                </FancyButton>
-
-                <FancyButton
-                  variant="secondary"
-                  size="large"
-                  onClick={handleContactClick}
-                  aria-label="contact us"
-                >
-                  Contact Us
-                </FancyButton>
-              </motion.div>
+  <FancyButton
+    variant="secondary"
+    size="large"
+    onClick={handleContactClick}
+    aria-label="contact us"
+  >
+    Contact Us
+  </FancyButton>
+</MotionBox>
             </motion.div>
           </AnimatePresence>
         </Grid>
