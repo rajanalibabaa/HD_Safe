@@ -2,21 +2,21 @@ import React, { useState } from 'react';
 import {
   Box,
   Button,
-  Fab,
   Typography,
   IconButton,
   Drawer,
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import CloseIcon from '@mui/icons-material/Close';
+import FilterAltOutlinedIcon from '@mui/icons-material/FilterAltOutlined';
+
+/* ===================== DESKTOP NAVBAR (UNCHANGED UI) ===================== */
 
 const DesktopNavBar = ({ buttonLabels, scrollToSection }) => {
   const [activeCategory, setActiveCategory] = useState(1);
 
   const handleCategoryClick = (categoryId, label) => {
-    console.log(`Category clicked: ${label} (ID: ${categoryId})`);
     setActiveCategory(categoryId);
     scrollToSection?.(categoryId);
   };
@@ -29,203 +29,39 @@ const DesktopNavBar = ({ buttonLabels, scrollToSection }) => {
       sx={{
         width: '100%',
         px: { xs: 1, lg: 4 },
-        py: 2,
+        minHeight: 120,
         bgcolor: '#ffffff7e',
-        position: 'static',
-        top: 62,
-        zIndex: 1100,
-        boxSizing: 'border-box',
         display: 'flex',
-        flexDirection: 'column',
         alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 1100,
       }}
     >
-      {/* First Row - Full width, evenly distributed */}
-      <Box sx={{ 
-        display: 'flex', 
-        width: '100%',
-        justifyContent: 'space-evenly',
-        alignItems: 'center',
-        gap: 0.5,
-        mb: 1,
-        flexWrap: 'nowrap',
-      }}>
-        {firstRowLabels.map((label, index) => {
-          const categoryId = index + 1;
-          return (
-            <Button
-              key={`${label}-${index}`}
-              variant={activeCategory === categoryId ? 'outlined' : 'text'}
-              color="black"
-              onClick={() => handleCategoryClick(categoryId, label)}
-              sx={{
-                flex: '1 1 auto',
-                minWidth: 'fit-content',
-                maxWidth: '100%',
-                height: 36,
-                whiteSpace: 'nowrap',
-                px: 1.5,
-                fontWeight: activeCategory === categoryId ? 700 : 600,
-                borderRadius: '25px',
-                textTransform: 'none',
-                fontSize: '0.90rem',
-                // boxShadow: activeCategory === categoryId ? 4 : 1,
-                // border: activeCategory === categoryId ? 'none' : '2px solid',
-                // borderColor: 'primary.main',
-                // transition: 'all 0.3s ease',
-                // '&:hover': {
-                //   boxShadow: 5,
-                //   transform: 'translateY(-1px)',
-                // },
-              }}
-            >
-              {label}
-            </Button>
-          );
-        })}
-      </Box>
-
-      {/* Second Row - Full width, evenly distributed */}
-      <Box sx={{ 
-        display: 'flex', 
-        width: '100%',
-        justifyContent: 'space-evenly',
-        alignItems: 'center',
-        gap: 0.5,
-        flexWrap: 'nowrap',
-      }}>
-        {secondRowLabels.map((label, index) => {
-          const categoryId = firstRowLabels.length + index + 1;
-          return (
-            <Button
-              key={`${label}-${firstRowLabels.length + index}`}
-              variant={activeCategory === categoryId ? 'outlined' : 'text'}
-              color="black"
-              onClick={() => handleCategoryClick(categoryId, label)}
-              sx={{
-                flex: '1 1 auto',
-                minWidth: 'fit-content',
-                maxWidth: '100%',
-                height: 36,
-                whiteSpace: 'nowrap',
-                px: 1.5,
-                fontWeight: activeCategory === categoryId ? 700 : 600,
-                borderRadius: '25px',
-                textTransform: 'none',
-                fontSize: '0.90rem',
-                // boxShadow: activeCategory === categoryId ? 4 : 1,
-                // border: activeCategory === categoryId ? 'none' : '2px solid',
-                // borderColor: 'primary.main',
-                // transition: 'all 0.3s ease',
-                // '&:hover': {
-                //   boxShadow: 5,
-                //   transform: 'translateY(-1px)',
-                // },
-              }}
-            >
-              {label}
-            </Button>
-          );
-        })}
-      </Box>
-    </Box>
-  );
-};
-
-// === MobileDrawer Component ===
-const MobileDrawer = ({ buttonLabels, drawerOpen, setDrawerOpen, scrollToSection }) => {
-  const [activeCategory, setActiveCategory] = useState(1);
-
-  const handleCategoryClick = (categoryId, label) => {
-    console.log(`Category clicked: ${label} (ID: ${categoryId})`);
-    setActiveCategory(categoryId);
-    scrollToSection?.(categoryId);
-    setDrawerOpen(false);
-  };
-
-  return (
-    <>
-      <Fab
-        color="primary"
-        aria-label="open categories"
-        onClick={() => setDrawerOpen(true)}
-        sx={{
-          position: 'fixed',
-          bottom: { xs: 20, sm: 30 },
-          left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: 1300,
-          width: { xs: 56, sm: 64 },
-          height: { xs: 56, sm: 64 },
-          boxShadow: 6,
-          '&:hover': { transform: 'translateX(-50%) scale(1.1)', boxShadow: 10 },
-          transition: 'all 0.3s ease',
-        }}
-      >
-        <KeyboardArrowUpIcon sx={{ fontSize: { xs: 28, sm: 32 } }} />
-      </Fab>
-
-      <Drawer
-        anchor="bottom"
-        open={drawerOpen}
-        onClose={() => setDrawerOpen(false)}
-        PaperProps={{
-          sx: {
-            borderTopLeftRadius: 24,
-            borderTopRightRadius: 24,
-            maxHeight: '85vh',
-            py: 2,
-            px: 2,
-            bgcolor: 'background.paper',
-          },
-        }}
-      >
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', px: 2, mb: 2 }}>
-          <Typography variant="h6" fontWeight={700} color="primary">
-            All Categories
-          </Typography>
-          <IconButton onClick={() => setDrawerOpen(false)}>
-            <CloseIcon />
-          </IconButton>
-        </Box>
-
+      <Box sx={{ width: '100%' }}>
+        {/* First Row */}
         <Box
           sx={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: 2,
-            px: 2,
-            pb: 10,
-            overflowY: 'auto',
-            maxHeight: '70vh',
-            '&::-webkit-scrollbar': { width: '6px' },
-            '&::-webkit-scrollbar-track': { background: '#f1f1f1', borderRadius: '10px' },
-            '&::-webkit-scrollbar-thumb': { background: '#c1c1c1', borderRadius: '10px' },
+            display: 'flex',
+            width: '100%',
+            justifyContent: 'space-evenly',
+            alignItems: 'center',
+            mb: 1,
           }}
         >
-          {buttonLabels.map((label, index) => {
+          {firstRowLabels.map((label, index) => {
             const categoryId = index + 1;
             return (
               <Button
                 key={index}
-                variant={activeCategory === categoryId ? 'contained' : 'outlined'}
-                color="primary"
+                variant={activeCategory === categoryId ? 'outlined' : 'text'}
                 onClick={() => handleCategoryClick(categoryId, label)}
                 sx={{
-                  height: { xs: 70, sm: 80 },
-                  borderRadius: 3,
+                  height: 36,
+                  px: 1.5,
+                  borderRadius: '25px',
                   fontWeight: activeCategory === categoryId ? 700 : 600,
-                  fontSize: { xs: '0.75rem', sm: '0.85rem' },
                   textTransform: 'none',
-                  boxShadow: activeCategory === categoryId ? 3 : 1,
-                  border: activeCategory === categoryId ? 'none' : '2px solid',
-                  borderColor: 'primary.main',
-                  '&:hover': {
-                    boxShadow: 5,
-                    transform: 'translateY(-2px)',
-                    bgcolor: activeCategory === categoryId ? 'primary.dark' : 'primary.light',
-                  },
-                  transition: 'all 0.3s ease',
+                  fontSize: '0.9rem',
                 }}
               >
                 {label}
@@ -233,16 +69,149 @@ const MobileDrawer = ({ buttonLabels, drawerOpen, setDrawerOpen, scrollToSection
             );
           })}
         </Box>
-      </Drawer>
-    </>
+
+        {/* Second Row */}
+        <Box
+          sx={{
+            display: 'flex',
+            width: '100%',
+            justifyContent: 'space-evenly',
+            alignItems: 'center',
+          }}
+        >
+          {secondRowLabels.map((label, index) => {
+            const categoryId = firstRowLabels.length + index + 1;
+            return (
+              <Button
+                key={index}
+                variant={activeCategory === categoryId ? 'outlined' : 'text'}
+                onClick={() => handleCategoryClick(categoryId, label)}
+                sx={{
+                  height: 36,
+                  px: 1.5,
+                  borderRadius: '25px',
+                  fontWeight: activeCategory === categoryId ? 700 : 600,
+                  textTransform: 'none',
+                  fontSize: '0.9rem',
+                }}
+              >
+                {label}
+              </Button>
+            );
+          })}
+        </Box>
+      </Box>
+    </Box>
   );
 };
 
-// === Main ServiceNavBar Component ===
+
+const MobileFilterBar = ({ onOpen }) => (
+  <Box
+    sx={{
+      position: 'sticky',
+      top: 64,
+      zIndex: 1200,
+      bgcolor: '#fff',
+      px: 2,
+      py: 1,
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      boxShadow: '0 2px 6px rgba(0,0,0,0.08)',
+    }}
+  >
+    <Typography fontWeight={700} sx={{fontSize:"30px"}}>Products</Typography>
+
+    <Button
+      variant="outlined"
+      startIcon={<FilterAltOutlinedIcon />}
+      onClick={onOpen}
+      sx={{
+        borderRadius: 2,
+        textTransform: 'none',
+        fontWeight: 600,
+      }}
+    >
+      Filter
+    </Button>
+  </Box>
+);
+
+/* ===================== MOBILE FILTER PANEL ===================== */
+
+const MobileFilterPanel = ({
+  open,
+  onClose,
+  buttonLabels,
+  scrollToSection,
+}) => {
+  return (
+    <Drawer
+      anchor="right"
+      open={open}
+      onClose={onClose}
+      PaperProps={{
+        sx: {
+          width: '85%',
+          maxWidth: 320,
+          px: 2,
+          py: 2,
+        },
+      }}
+    >
+      {/* Header */}
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          mb: 2,
+        }}
+      >
+        <Typography fontWeight={700}>Filter</Typography>
+        <IconButton onClick={onClose}>
+          <CloseIcon />
+        </IconButton>
+      </Box>
+
+      {/* Category List */}
+      <Typography fontWeight={600} mb={1}>
+        Categories
+      </Typography>
+
+      <Box>
+        {buttonLabels.map((label, index) => (
+          <Box
+            key={index}
+            onClick={() => {
+              scrollToSection?.(index + 1);
+              onClose();
+            }}
+            sx={{
+              py: 1.3,
+              borderBottom: '1px solid #eee',
+              cursor: 'pointer',
+              fontSize: '0.95rem',
+              '&:hover': {
+                color: 'primary.main',
+              },
+            }}
+          >
+            {label}
+          </Box>
+        ))}
+      </Box>
+    </Drawer>
+  );
+};
+
+/* ===================== MAIN COMPONENT ===================== */
+
 const ServiceNavBar = ({ scrollToSection }) => {
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [filterOpen, setFilterOpen] = useState(false);
 
   const buttonLabels = [
     'Head Protection',
@@ -263,14 +232,21 @@ const ServiceNavBar = ({ scrollToSection }) => {
   return (
     <>
       {isDesktop ? (
-        <DesktopNavBar buttonLabels={buttonLabels} scrollToSection={scrollToSection} />
-      ) : (
-        <MobileDrawer
+        <DesktopNavBar
           buttonLabels={buttonLabels}
-          drawerOpen={drawerOpen}
-          setDrawerOpen={setDrawerOpen}
           scrollToSection={scrollToSection}
         />
+      ) : (
+        <>
+          <MobileFilterBar onOpen={() => setFilterOpen(true)} />
+
+          <MobileFilterPanel
+            open={filterOpen}
+            onClose={() => setFilterOpen(false)}
+            buttonLabels={buttonLabels}
+            scrollToSection={scrollToSection}
+          />
+        </>
       )}
     </>
   );

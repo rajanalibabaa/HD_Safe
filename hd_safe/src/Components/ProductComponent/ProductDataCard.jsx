@@ -115,15 +115,15 @@ const ProductDataCard = ({
           overflowX: 'auto',
           overflowY: 'hidden',
           py: {
-            xs: 2,    // Mobile: 16px
+            xs: 1,    // Mobile: 16px
             sm: 3     // Tablet: 24px
           },
           px: {
-            xs: 2,    // Mobile: 16px
+            xs: 1,    // Mobile: 16px
             sm: 3     // Tablet: 24px
           },
           gap: {
-            xs: 2,    // Mobile: 16px gap
+            xs: 1,    // Mobile: 16px gap
             sm: 3     // Tablet: 24px gap
           },
           bgcolor: '#fafafa',
@@ -165,27 +165,28 @@ const ProductDataCard = ({
               },
             }}
           >
-            <Box sx={{
-              position: 'relative',
-              paddingTop: '75%',
-              overflow: 'hidden'
-            }}>
-              <CardMedia
-                component="img"
-                image={product.image}
-                alt={product.name}
-                loading="lazy"
-                sx={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  transition: 'transform 0.5s ease'
-                }}
-              />
-            </Box>
+           <Box
+  sx={{
+    height: 210,                 
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+  }}
+>
+  <CardMedia
+    component="img"
+    image={product.image}
+    alt={product.name}
+    loading="lazy"
+    sx={{
+      maxWidth: '80%',
+      maxHeight: '80%',
+      objectFit: 'contain',
+    }}
+  />
+</Box>
+
             <CardContent sx={{
               p: {
                 xs: 2,   
@@ -196,6 +197,7 @@ const ProductDataCard = ({
                 sm: '20px !important'
               },
               bgcolor: 'white',
+              textAlign: 'center',
               flexGrow: 1,
               display: 'flex',
               flexDirection: 'column',
@@ -241,6 +243,9 @@ const ProductDataCard = ({
             lg: 2,      // Desktop: 16px
             xl: 2.5     // Large Desktop: 20px
           },
+          
+    justifyContent: 'center',   
+    alignItems: 'center',  
           // bgcolor: '#fafafa',
           '&::-webkit-scrollbar': {
             width: {
@@ -267,14 +272,14 @@ const ProductDataCard = ({
           sx={{
             display: 'grid',
             gridTemplateColumns: {
-              md: 'repeat(3, 1fr)',   // Laptop: 3 columns
-              lg: 'repeat(3, 1fr)',   // Desktop: 2 columns
-              xl: 'repeat(3, 1fr)'    // Large Desktop: 3 columns
+              md: 'repeat(3, 1fr)',   
+              lg: 'repeat(3, 1fr)',   
+              xl: 'repeat(3, 1fr)'    
             },
             gap: {
-              md: 2.5,    // Laptop: 20px
-              lg: 2,      // Desktop: 24px
-              xl: 3.5     // Large Desktop: 28px
+              md: 2.5,   
+              lg: 2,      
+              xl: 3.5   
             },
           }}
         >
@@ -292,40 +297,37 @@ const ProductDataCard = ({
                 cursor: 'pointer',
                 '&:hover': {
                   transform: {
-                    md: 'translateY(-6px) scale(1.03)',
+                    md: 'translateY(-5px) scale(1)',
                     lg: 'translateY(-8px) scale(1.04)',
                     xl: 'translateY(-10px) scale(1.05)'
                   },
-                  boxShadow: {
-                    md: '0 15px 35px rgba(0,0,0,0.15)',
-                    lg: '0 20px 45px rgba(0,0,0,0.18)',
-                    xl: '0 25px 50px rgba(0,0,0,0.20)'
-                  },
+                 
                 },
               }}
             >
-              <Box sx={{
-                position: 'relative',
-                paddingTop: '53%',
-                overflow: 'hidden'
-              }}>
-                <CardMedia
-                  component="img"
-                  image={product.image}
-                  alt={product.name}
-                  loading="lazy"
-                  sx={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'contain',
-                    transition: 'transform 0.5s ease'
-                    
-                  }}
-                />
-              </Box>
+            <Box
+  sx={{
+    height: 100,            
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+  }}
+>
+  <CardMedia
+    component="img"
+    image={product.image}
+    alt={product.name}
+    loading="lazy"
+    sx={{
+      maxWidth: '80%',
+      maxHeight: '80%',
+      objectFit: 'contain',
+    }}
+  />
+</Box>
+
+
               <CardContent sx={{
                 p: {
                   md: 2,
@@ -344,6 +346,7 @@ const ProductDataCard = ({
                   fontWeight={600}
                   color="text.primary"
                   sx={{
+                    textAlign: 'center',
                     fontSize: {
                       md: '0.875rem',
                       lg: '0.7rem',
@@ -351,7 +354,6 @@ const ProductDataCard = ({
                     },
                     display: '-webkit-box',
                     WebkitLineClamp: 2,
-                    // WebkitBoxOrient: 'vertical',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
                     textAlign:'center'

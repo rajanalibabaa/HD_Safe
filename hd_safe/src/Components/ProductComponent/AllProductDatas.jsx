@@ -65,36 +65,42 @@ const scrollToCategory = (categoryId) => {
               sectionRefs.current[`category-${item.id}`] = el;
             }}
             id={`category-${item.id}`}
-            sx={{
-              display: 'flex',
-              flexDirection: { xs: 'column', lg: isEven ? 'row' : 'row-reverse' },
-              alignItems: { xs: 'flex-start', lg: 'flex-start' },
-              opacity: 0,
-              animation: 'fadeInUp 0.8s ease-out forwards',
-              animationDelay: `${index * 0.3}s`,
-              '@keyframes fadeInUp': {
-                from: { opacity: 0, transform: 'translateY(50px)' },
-                to: { opacity: 1, transform: 'translateY(0)' },
-              },
-              scrollMarginTop: '80px', // Adjust this based on your navbar height
-              position: 'relative',
-              transition: 'all 0.5s ease',
+           sx={{
+  display: 'flex',
+  flexDirection: { xs: 'column', lg: isEven ? 'row' : 'row-reverse' },
 
-              '&::before': {
-                content: '""',
-                display: 'grid',
-                position: 'absolute',
-                top: '-80px', // Matches scrollMarginTop
-                height: '100px',
-                width: '80%',
-                pointerEvents: 'none',
-              },
-              bgcolor:"white", boxShadow:10,
-              // borderRadius:10,
-              width:"90%",
-              ml:{xs:2.5, sm:2, md:8},
-              mb:-5
-            }}
+  /* ✅ Center content properly */
+  alignItems: { xs: 'stretch', lg: 'center' },
+
+  opacity: 0,
+  animation: 'fadeInUp 0.8s ease-out forwards',
+  animationDelay: `${index * 0.3}s`,
+  '@keyframes fadeInUp': {
+    from: { opacity: 0, transform: 'translateY(50px)' },
+    to: { opacity: 1, transform: 'translateY(0)' },
+  },
+
+  scrollMarginTop: '80px',
+  position: 'relative',
+  transition: 'all 0.5s ease',
+
+  bgcolor: 'white',
+  boxShadow: 10,
+
+  /* ✅ RESPONSIVE WIDTH + CENTERING */
+  width: {
+    xs: '100%',
+    sm: '94%',
+    md: '92%',
+    lg: '90%',
+  },
+
+  mx: { xs: 'auto', sm: 'auto', md: 'auto' }, // ✅ CENTER ON TABLET
+  ml: { lg: 8 }, // only desktop offset (optional)
+
+  mb: -5,
+}}
+
           >
             {/* Hero Image + Text Card */}
             <Box sx={{ flex: 1, width: '100%', maxWidth: { lg: '100%' }, }} >
