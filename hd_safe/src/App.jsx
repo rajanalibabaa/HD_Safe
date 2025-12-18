@@ -7,6 +7,7 @@ import ProductPage from "./Pages/ProductPage";
 import AboutUs from "./Pages/AboutUs";
 import Contact from "./Pages/ContactUs";
 import FAQSection from "./Components/Faq";
+import ScrollToTop from "./Components/ScrollToTop";
 
 import useMediaQuery from "@mui/material/useMediaQuery";
 import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp";
@@ -157,6 +158,7 @@ function App() {
     <>
 
     <Router>
+      <ScrollToTop />
       <Navbar/>
       <Routes>
         <Route path="/" element={<HomePage/>}/>

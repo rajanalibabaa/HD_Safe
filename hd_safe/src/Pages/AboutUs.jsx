@@ -337,7 +337,7 @@ const AboutUs = () => {
                 sx={{ 
                   lineHeight: { xs: 1.6, sm: 1.8 }, 
                   mb: { xs: 2, sm: 3 },
-                  textAlign: { xs: 'left', sm: 'justify' },
+                  textAlign: { xs: 'justify', sm: 'justify' },
                   fontSize: { xs: '0.95rem', sm: '1rem', md: '1.05rem' }
                 }}
               >

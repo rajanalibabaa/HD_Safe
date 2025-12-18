@@ -7,6 +7,7 @@ import {
   IconButton,
   Divider,
 } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
@@ -18,6 +19,13 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import footerbg from "../assets/FooterBg.jpg";
 
 export default function Footer() {
+  const quickLinks = [
+    { label: "Home", path: "/" },
+    { label: "About Us", path: "/aboutus" },
+    { label: "Products", path: "/products" },
+    { label: "Contact Us", path: "/contact" },
+  ];
+
   return (
     <Box
       sx={{
@@ -33,7 +41,6 @@ export default function Footer() {
       }}
     >
       <Box sx={{ maxWidth: "1400px", mx: "auto", px: { xs: 2, sm: 3, md: 4 } }}>
-        
         {/* MAIN GRID */}
         <Grid
           container
@@ -59,29 +66,31 @@ export default function Footer() {
               }}
             />
 
-            <Typography sx={{ mb: 1.2, lineHeight: 1.6 }}>
+            <Typography sx={{ mb: 1.2 }}>
               HDSAFE Industrial Solutions LLP
             </Typography>
 
             <Typography sx={{ mb: 1.2, lineHeight: 1.6 }}>
-              1st, 3-2, Singanna Naicken St,<br />
-              Parrys, George Town,<br />
+              1st, 3-2, Singanna Naicken St,
+              <br />
+              Parrys, George Town,
+              <br />
               Chennai, Tamil Nadu 600001
             </Typography>
-<Link
-  href="https://www.google.com/maps/place/HDSAFE+Industrial+Solutions+LLP/@13.0925852,80.2871137,17z/data=!3m1!4b1!4m6!3m5!1s0x3a526f5018d68be3:0xc21889bf29295431!8m2!3d13.0925852!4d80.2871137!16s%2Fg%2F11kbkmp6my?entry=ttu&g_ep=EgoyMDI1MTIwOC4wIKXMDSoASAFQAw%3D%3D"
-  target="_blank"
-  rel="noopener noreferrer"
-  underline="none"
-  sx={{
-    color: "#FF4D00",
-    fontWeight: 600,
-    fontSize: { xs: "0.9rem", md: "1rem" },
-  }}
->
-  View on map
-</Link>
 
+            <Link
+              href="https://www.google.com/maps/place/HDSAFE+Industrial+Solutions+LLP/@13.0925852,80.2871137,17z"
+              target="_blank"
+              rel="noopener noreferrer"
+              underline="none"
+              sx={{
+                color: "#FF4D00",
+                fontWeight: 600,
+                fontSize: { xs: "0.9rem", md: "1rem" },
+              }}
+            >
+              View on map
+            </Link>
           </Grid>
 
           {/* CONTACT */}
@@ -105,15 +114,27 @@ export default function Footer() {
 
             <Box sx={{ display: "flex", alignItems: "center", mb: 1.4 }}>
               <PhoneIcon sx={{ mr: 1, fontSize: 20 }} />
-              <Typography>088257 47587</Typography>
+              <Link
+                href="tel:08825747587"
+                underline="none"
+                color="inherit"
+              >
+                088257 47587
+              </Link>
             </Box>
 
-            <Box sx={{ display: "flex", alignItems: "center", mb: 1.4 ,}}>
+            <Box sx={{ display: "flex", alignItems: "center", mb: 1.4 }}>
               <EmailIcon sx={{ mr: 1, fontSize: 20 }} />
-              <Typography>sanjaydaveytax@gmail.com</Typography>
+              <Link
+                href="mailto:sanjaydaveytax@gmail.com"
+                underline="none"
+                color="inherit"
+              >
+                sanjaydaveytax@gmail.com
+              </Link>
             </Box>
 
-            <Box sx={{ display: "flex", gap: 2,ml:-1}}>
+            <Box sx={{ display: "flex", gap: 2, ml: -1 }}>
               <IconButton sx={{ color: "#fff" }}>
                 <FacebookIcon />
               </IconButton>
@@ -149,9 +170,11 @@ export default function Footer() {
             />
 
             <Box sx={{ display: "flex", flexDirection: "column", gap: 1.2 }}>
-              {["Home", "About Us", "Products", "Contact Us"].map((item) => (
+              {quickLinks.map((item) => (
                 <Link
-                  key={item}
+                  key={item.label}
+                  component={RouterLink}
+                  to={item.path}
                   underline="none"
                   sx={{
                     color: "#fff",
@@ -159,7 +182,7 @@ export default function Footer() {
                     "&:hover": { color: "#FF4D00" },
                   }}
                 >
-                  {item}
+                  {item.label}
                 </Link>
               ))}
             </Box>
@@ -171,66 +194,44 @@ export default function Footer() {
       <Divider
         sx={{
           my: { xs: 3, md: 5 },
-          borderColor: "rgba(255, 255, 255, 0.3)",
+          borderColor: "rgba(255,255,255,0.3)",
           maxWidth: "1100px",
           mx: "auto",
         }}
       />
 
       {/* BOTTOM FOOTER */}
-      <Box sx={{ textAlign: "center", mt: 2, px: 2 }}>
-        <Typography
-          sx={{
-            color: "rgba(255, 255, 255, 0.9)",
-            mb: 1,
-            fontSize: { xs: "0.8rem", sm: "0.9rem", md: "1rem" },
-          }}
-        >
+      <Box sx={{ textAlign: "center", px: 2 }}>
+        <Typography sx={{ fontSize: { xs: "0.8rem", md: "1rem" } }}>
           © {new Date().getFullYear()}{" "}
-          <Typography
-            component="span"
-            sx={{
-              color: "#FF4D00",
-              fontWeight: 700,
-              fontSize: "inherit",
-            }}
-          >
-            HDSAFE Industrial Solutions LLP.
-          </Typography>
+          <Box component="span" sx={{ color: "#FF4D00", fontWeight: 700 }}>
+            HDSAFE Industrial Solutions LLP
+          </Box>
         </Typography>
 
-       <Typography
-  sx={{
-    color: "rgba(255, 255, 255, 0.9)",
-    fontSize: { xs: "0.8rem", sm: "0.9rem", md: "1rem" },
-    textAlign: "center"
-  }}
->
-  All Rights Reserved | Built with 💗 in India
-
-  {/* Powered By (breaks line on mobile) */}
-  <Box
-    component="span"
-    sx={{
-      display: { xs: "block", sm: "inline" },
-      ml: { sm: 2 },   
-      mt: { xs: 1, sm: 0 }
-    }}
-  >
-    Powered by:{" "}
-    <a
-      href="https://cholabiz.com/"
-      style={{
-        textDecoration: "none",
-        color: "#FF4D00",
-        fontWeight: 700,
-      }}
-    >
-      CholaBiz.com
-    </a>
-  </Box>
-</Typography>
-
+        <Typography sx={{ fontSize: { xs: "0.8rem", md: "1rem" }, mt: 1 }}>
+          All Rights Reserved | Built with 💗 in India
+          <Box
+            component="span"
+            sx={{
+              display: { xs: "block", sm: "inline" },
+              ml: { sm: 2 },
+              mt: { xs: 1, sm: 0 },
+            }}
+          >
+            Powered by{" "}
+            <a
+              href="https://cholabiz.com/"
+              style={{
+                color: "#FF4D00",
+                fontWeight: 700,
+                textDecoration: "none",
+              }}
+            >
+              CholaBiz.com
+            </a>
+          </Box>
+        </Typography>
       </Box>
     </Box>
   );

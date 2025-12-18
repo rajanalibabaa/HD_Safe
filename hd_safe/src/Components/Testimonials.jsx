@@ -1,13 +1,15 @@
+
 import React, { useState, useEffect } from "react";
-import { useTheme } from "@mui/material";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Avatar from "@mui/material/Avatar";
-import Rating from "@mui/material/Rating";
-import Container from "@mui/material/Container";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import useMediaQuery from "@mui/material/useMediaQuery";
+import {
+  Box,
+  Typography,
+  Avatar,
+  Rating,
+  Container,
+  Card,
+  CardContent
+  ,useTheme,useMediaQuery
+} from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
 import FormatQuoteIcon from "@mui/icons-material/FormatQuote";
 
@@ -58,21 +60,21 @@ const testimonials = [
   },
 ];
 
-const SIZE = 420;
-const CENTER = SIZE / 2;
-const RADIUS = 150;
+
+
 const STEP = 360 / testimonials.length;
 
 const Testimonials = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm")); // Add this for xs detection
-
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const [rotationIndex, setRotationIndex] = useState(0);
 
-  const active =
-    (testimonials.length - (rotationIndex % testimonials.length)) %
-    testimonials.length;
+  const SIZE = isSmallScreen ? 260 : isMobile ? 320 : 420;
+  const RADIUS = isSmallScreen ? 90 : isMobile ? 120 : 150;
+  const CENTER = SIZE / 2;
+
+  const active = (testimonials.length - (rotationIndex % testimonials.length)) % testimonials.length;
   const rotationDeg = rotationIndex * STEP;
 
   useEffect(() => {
@@ -92,153 +94,176 @@ const Testimonials = () => {
 
   return (
     <>
-      <Typography
-        variant={isSmallScreen ? "h4" : "h2"}
-        fontWeight={800}
-        gutterBottom
-        sx={{
-          textAlign: "center",
-          background: "#000000ff",
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-          mb: { xs: 2, md: 3 },
-        }}
-      >
+     <Typography
+                           variant={isSmallScreen ? "h4" : "h2"} 
+                           fontWeight={800}
+                           gutterBottom
+                           sx={{
+                            textAlign: "center",
+                background: "#000000ff",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                mb: { xs: 2, md: 3 },
+                           }}
+                         >
         Customer Reviews
       </Typography>
-      <Container sx={{ py: 5, px: { xs: 2, md: 10 } }} justifyContent="center">
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: { xs: "column", md: "row" },
-            alignItems: "center",
-            gap: 10,
-          }}
-        >
-          {/* LEFT ROTATING CIRCLE */}
-          <Box sx={{ width: SIZE, height: SIZE, position: "relative" }}>
-            <Box
-              sx={{
-                position: "absolute",
-                inset: 0,
-                margin: "auto",
-                width: 300,
-                height: 300,
-                border: "2px dashed rgba(46,125,50,0.25)",
-                borderRadius: "50%",
-              }}
-            />
+    <Container sx={{ py: 5 , px: { xs: 2, md: 10 }}} justifyContent="center">
+    
 
-            <motion.div
-              style={{
-                width: "100%",
-                height: "100%",
-                position: "absolute",
-              }}
-              animate={{ rotate: rotationDeg }}
-              transition={{ duration: 0.8, ease: "easeInOut" }}
-            >
-              {testimonials.map((item, i) => {
-                const angle = i * STEP;
-                const rad = (angle * Math.PI) / 180;
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: { xs: "column", md: "row" },
+          alignItems: "center",
+          gap: 10,
+        }}
+      >
+        {/* LEFT ROTATING CIRCLE */}
+<Box
+  sx={{
+    width: SIZE,
+    height: SIZE,
+    position: "relative",
+    mx: "auto", // center on mobile
+  }}
+>
+         <Box
+  sx={{
+    position: "absolute",
+    inset: 0,
+    margin: "auto",
+    width: isSmallScreen ? 180 : isMobile ? 240 : 300,
+    height: isSmallScreen ? 180 : isMobile ? 240 : 300,
+    border: "2px dashed rgba(46,125,50,0.25)",
+    borderRadius: "50%",
+  }}
+/>
 
-                const x = CENTER + RADIUS * Math.cos(rad);
-                const y = CENTER + RADIUS * Math.sin(rad);
 
-                const isActive = i === active;
+          <motion.div
+            style={{
+              width: "100%",
+              height: "100%",
+              position: "absolute",
+            }}
+            animate={{ rotate: rotationDeg }}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
+          >
+            {testimonials.map((item, i) => {
+              const angle = i * STEP;
+              const rad = (angle * Math.PI) / 180;
 
-                return (
-                  <Box
-                    key={i}
-                    sx={{
-                      position: "absolute",
-                      top: y,
-                      left: x,
-                      transform: `translate(-50%, -50%) rotate(${-rotationDeg}deg)`,
-                      zIndex: isActive ? 5 : 1,
-                    }}
-                  >
-                    <motion.div
-                      whileHover={{ scale: 1.05 }}
-                      transition={{ type: "spring", stiffness: 200 }}
-                    >
-                      <Avatar
-                        src={item.avatar}
-                        sx={{
-                          width: isActive ? 110 : 78,
-                          height: isActive ? 110 : 78,
-                          border: isActive
-                            ? "4px solid #2e7d32"
-                            : "2px solid transparent",
-                          boxShadow: isActive
-                            ? "0 8px 25px rgba(46,125,50,0.35)"
-                            : "0 3px 8px rgba(0,0,0,0.2)",
-                          transition: "0.3s",
-                          bgcolor: "#fff",
-                        }}
-                      />
-                    </motion.div>
-                  </Box>
-                );
-              })}
-            </motion.div>
-          </Box>
+              const x = CENTER + RADIUS * Math.cos(rad);
+              const y = CENTER + RADIUS * Math.sin(rad);
 
-          {/* RIGHT CONTENT CARD */}
-          <Box sx={{ width: "100%", maxWidth: 480 }}>
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={active}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.4 }}
-              >
-                <Card
-                  elevation={6}
+              const isActive = i === active;
+
+              return (
+                <Box
+                  key={i}
                   sx={{
-                    borderRadius: 4,
-                    position: "relative",
+                    position: "absolute",
+                    top: y,
+                    left: x,
+                    transform: `translate(-50%, -50%) rotate(${-rotationDeg}deg)`,
+                    zIndex: isActive ? 5 : 1,
                   }}
                 >
-                  <CardContent sx={{ p: 4 }}>
-                    <FormatQuoteIcon
-                      sx={{
-                        position: "absolute",
-                        top: 20,
-                        right: 20,
-                        fontSize: 60,
-                        color: "#2e7d32",
-                        opacity: 0.15,
-                      }}
-                    />
+                  <motion.div
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 200 }}
+                  >
+                 <Avatar
+  src={item.avatar}
+  sx={{
+    width: isActive
+      ? isSmallScreen ? 64 : isMobile ? 90 : 110
+      : isSmallScreen ? 44 : isMobile ? 65 : 78,
 
-                    <Typography sx={{ fontStyle: "italic", mb: 3 }}>
-                      "{testimonials[active].message}"
-                    </Typography>
+    height: isActive
+      ? isSmallScreen ? 64 : isMobile ? 90 : 110
+      : isSmallScreen ? 44 : isMobile ? 65 : 78,
 
-                    <Typography variant="h6" fontWeight={700}>
-                      {testimonials[active].name}
-                    </Typography>
+    border: isActive
+      ? "4px solid #2e7d32"
+      : "2px solid transparent",
 
-                    <Box sx={{ display: "flex", alignItems: "center", mt: 1 }}>
-                      <Rating
-                        value={testimonials[active].rating}
-                        readOnly
-                        precision={0.1}
-                      />
-                      <Typography sx={{ ml: 1 }} color="text.secondary">
-                        {testimonials[active].rating} on{" "}
-                        {testimonials[active].date}
-                      </Typography>
-                    </Box>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            </AnimatePresence>
-          </Box>
+    boxShadow: isActive
+      ? "0 8px 25px rgba(46,125,50,0.35)"
+      : "0 3px 8px rgba(0,0,0,0.2)",
+
+    transition: "0.3s",
+    bgcolor: "#fff",
+  }}
+/>
+
+                  </motion.div>
+                </Box>
+              );
+            })}
+          </motion.div>
         </Box>
-      </Container>
+
+        {/* RIGHT CONTENT CARD */}
+        <Box sx={{ width: "100%", maxWidth: 480 }}>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={active}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4 }}
+            >
+              <Card
+                elevation={6}
+                sx={{
+                  borderRadius: 4,
+                  position: "relative",
+                }}
+              >
+                <CardContent sx={{ p: 4 }}>
+                  <FormatQuoteIcon
+                    sx={{
+                      position: "absolute",
+                      top: 20,
+                      right: 20,
+                      fontSize: 60,
+                      color: "#2e7d32",
+                      opacity: 0.15,
+                    }}
+                  />
+
+                  <Typography sx={{ fontStyle: "italic", mb: 3 }}>
+                    "{testimonials[active].message}"
+                  </Typography>
+
+                  <Typography variant="h6" fontWeight={700}>
+                    {testimonials[active].name}
+                  </Typography>
+
+                  <Box sx={{ display: "flex", alignItems: "center", mt: 1 }}>
+                    <Rating
+                      value={testimonials[active].rating}
+                      readOnly
+                      precision={0.1}
+                    />
+                    <Typography sx={{ ml: 1 }} color="text.secondary">
+                      {testimonials[active].rating} on{" "}
+                      {testimonials[active].date}
+                    </Typography>
+                  </Box>
+
+                 
+
+                 
+                </CardContent>
+              </Card>
+            </motion.div>
+          </AnimatePresence>
+        </Box>
+      </Box>
+    </Container>
     </>
   );
 };
