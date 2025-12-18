@@ -1,25 +1,22 @@
 import React, { useMemo } from "react";
-import {
-  Box,
-  Grid,
-  Typography,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Stack,
-  useTheme,
-  useMediaQuery,
-} from "@mui/material";
+import { useTheme } from "@mui/material";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Stack from "@mui/material/Stack";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { useNavigate } from "react-router-dom";
-import {
-  CheckCircle as CheckIcon,
-  Security as SecurityIcon,
-  LocalFireDepartment as FireIcon,
-  SportsKabaddi as FallIcon,
-  Visibility as EyeIcon,
-  Work as WorkIcon,
-} from "@mui/icons-material";
+
+import CheckIcon from "@mui/icons-material/CheckCircle";
+import FireIcon from "@mui/icons-material/LocalFireDepartment";
+import FallIcon from "@mui/icons-material/SportsKabaddi";
+import EyeIcon from "@mui/icons-material/Visibility";
+import WorkIcon from "@mui/icons-material/Work";
+import SecurityIcon from "@mui/icons-material/Security";
 import { motion, useReducedMotion } from "framer-motion";
 
 import FancyButton from "../Components/FancyButton";
@@ -33,10 +30,19 @@ import img6 from "../assets/Whatwedo/karamsafety.webp";
 
 const featureList = [
   { text: "Personal Protective Equipment (PPE)", icon: <SecurityIcon /> },
-  { text: "Fire extinguishers and firefighting accessories", icon: <FireIcon color="error" /> },
+  {
+    text: "Fire extinguishers and firefighting accessories",
+    icon: <FireIcon color="error" />,
+  },
   { text: "Fall-protection gear", icon: <FallIcon color="info" /> },
-  { text: "Eye, ear & respiratory protection", icon: <EyeIcon color="success" /> },
-  { text: "Safety shoes, helmets, gloves & reflective jackets", icon: <WorkIcon color="warning" /> },
+  {
+    text: "Eye, ear & respiratory protection",
+    icon: <EyeIcon color="success" />,
+  },
+  {
+    text: "Safety shoes, helmets, gloves & reflective jackets",
+    icon: <WorkIcon color="warning" />,
+  },
 ];
 
 const brands = [
@@ -50,7 +56,11 @@ const brands = [
 
 const leftParent = {
   hidden: { opacity: 0, y: 18 },
-  show: { opacity: 1, y: 0, transition: { staggerChildren: 0.08, ease: [0.2, 0.9, 0.2, 1] } },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { staggerChildren: 0.08, ease: [0.2, 0.9, 0.2, 1] },
+  },
 };
 const leftChild = {
   hidden: { opacity: 0, y: 14 },
@@ -69,9 +79,24 @@ const hexVariants = (delay = 0, reduced = false) =>
       }
     : {
         initial: { opacity: 0, scale: 0.86 },
-        appear: { opacity: 1, scale: 1, transition: { type: "spring", stiffness: 220, damping: 22, delay } },
-        idle: { y: [0, -6, 0], transition: { duration: 5 + Math.random() * 3, repeat: Infinity, ease: "easeInOut" } },
-        hover: { scale: 1.12, rotate: 3, transition: { type: "spring", stiffness: 220 } },
+        appear: {
+          opacity: 1,
+          scale: 1,
+          transition: { type: "spring", stiffness: 220, damping: 22, delay },
+        },
+        idle: {
+          y: [0, -6, 0],
+          transition: {
+            duration: 5 + Math.random() * 3,
+            repeat: Infinity,
+            ease: "easeInOut",
+          },
+        },
+        hover: {
+          scale: 1.12,
+          rotate: 3,
+          transition: { type: "spring", stiffness: 220 },
+        },
         tap: { scale: 0.96 },
       };
 
@@ -87,7 +112,8 @@ const HexBrand = React.memo(function HexBrand({
   reduceMotion = false,
 }) {
   // hex clip path
-  const hexClip = "polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%)";
+  const hexClip =
+    "polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%)";
 
   const variants = hexVariants(delay, reduceMotion);
 
@@ -113,7 +139,12 @@ const HexBrand = React.memo(function HexBrand({
       title={name}
     >
       {/* SVG outline stroke */}
-      <svg width="100%" height="100%" viewBox="0 0 100 100" style={{ position: "absolute" }}>
+      <svg
+        width="100%"
+        height="100%"
+        viewBox="0 0 100 100"
+        style={{ position: "absolute" }}
+      >
         <polygon
           points="25 6.7 75 6.7 100 50 75 93.3 25 93.3 0 50"
           fill="none"
@@ -142,7 +173,13 @@ const HexBrand = React.memo(function HexBrand({
           src={logo}
           alt={name}
           loading="lazy"
-          style={{ width: "78%", height: "78%", objectFit: "contain", display: "block", userSelect: "none" }}
+          style={{
+            width: "78%",
+            height: "78%",
+            objectFit: "contain",
+            display: "block",
+            userSelect: "none",
+          }}
           draggable={false}
         />
       </Box>
@@ -182,7 +219,10 @@ export default function WhatWeDo() {
   const handleCatalogueClick = () => navigate("/products");
 
   return (
-    <Box component="section" sx={{ py: { xs: 0, md: 8 }, px: { xs: 2, md: 4 } }}>
+    <Box
+      component="section"
+      sx={{ py: { xs: 0, md: 8 }, px: { xs: 2, md: 4 } }}
+    >
       <motion.div
         initial={reduce ? {} : { opacity: 0, y: 10 }}
         whileInView={reduce ? {} : { opacity: 1, y: 0 }}
@@ -204,13 +244,29 @@ export default function WhatWeDo() {
           WHAT WE DO
         </Typography>
 
-        <Grid container spacing={{ xs: 3, md: 6 }} alignItems="center" justifyContent="center" sx={{ maxWidth: 1400, mx: "auto" }}>
+        <Grid
+          container
+          spacing={{ xs: 3, md: 6 }}
+          alignItems="center"
+          justifyContent="center"
+          sx={{ maxWidth: 1400, mx: "auto" }}
+        >
           {/* Left column: list + actions */}
           <Grid item xs={12} md={5}>
-            <motion.div variants={leftParent} initial={reduce ? undefined : "hidden"} whileInView={reduce ? undefined : "show"} viewport={{ once: true, amount: 0.2 }}>
+            <motion.div
+              variants={leftParent}
+              initial={reduce ? undefined : "hidden"}
+              whileInView={reduce ? undefined : "show"}
+              viewport={{ once: true, amount: 0.2 }}
+            >
               <motion.div variants={leftChild}>
-                <Typography color="text.primary" mb={2} sx={{ fontWeight: "bold" }}>
-                  We specialise in the distribution and supply of a wide range of industrial safety and firefighting products such as:
+                <Typography
+                  color="text.primary"
+                  mb={2}
+                  sx={{ fontWeight: "bold" }}
+                >
+                  We specialise in the distribution and supply of a wide range
+                  of industrial safety and firefighting products such as:
                 </Typography>
               </motion.div>
 
@@ -218,18 +274,31 @@ export default function WhatWeDo() {
                 {featureList.map(({ text }, idx) => (
                   <motion.div key={text} variants={leftChild}>
                     <ListItem disableGutters sx={{ py: 0.6 }}>
-                      <ListItemIcon sx={{ minWidth: 34, color: theme.palette.primary.main }}>
+                      <ListItemIcon
+                        sx={{ minWidth: 34, color: theme.palette.primary.main }}
+                      >
                         <CheckIcon fontSize="small" />
                       </ListItemIcon>
-                      <ListItemText primary={text} primaryTypographyProps={{ variant: "body1" }} />
+                      <ListItemText
+                        primary={text}
+                        primaryTypographyProps={{ variant: "body1" }}
+                      />
                     </ListItem>
                   </motion.div>
                 ))}
               </List>
 
               <motion.div variants={leftChild}>
-                <Stack direction={{ xs: "row", sm: "row" }} spacing={2} mt={3} justifyContent={{ xs: "center", md: "flex-start" }}>
-                  <motion.div whileHover={!reduce ? btnHover : {}} style={{ display: "inline-block" }}>
+                <Stack
+                  direction={{ xs: "row", sm: "row" }}
+                  spacing={2}
+                  mt={3}
+                  justifyContent={{ xs: "center", md: "flex-start" }}
+                >
+                  <motion.div
+                    whileHover={!reduce ? btnHover : {}}
+                    style={{ display: "inline-block" }}
+                  >
                     <FancyButton
                       onClick={handleContactClick}
                       sx={{
@@ -251,7 +320,10 @@ export default function WhatWeDo() {
                     </FancyButton>
                   </motion.div>
 
-                  <motion.div whileHover={!reduce ? btnHover : {}} style={{ display: "inline-block" }}>
+                  <motion.div
+                    whileHover={!reduce ? btnHover : {}}
+                    style={{ display: "inline-block" }}
+                  >
                     <FancyButton
                       onClick={handleCatalogueClick}
                       sx={{
@@ -279,8 +351,23 @@ export default function WhatWeDo() {
           </Grid>
 
           {/* Right column: hex brand canvas */}
-          <Grid item xs={12} md={7} sx={{ display: "flex", justifyContent: "center",  mt: { xs: 3, md: 0 }, mb: { xs: 4, md: 0 } }}>
-            <motion.div variants={canvasParent} initial={reduce ? {} : "hidden"} whileInView={reduce ? {} : "show"} viewport={{ once: true, amount: 0.25 }}>
+          <Grid
+            item
+            xs={12}
+            md={7}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              mt: { xs: 3, md: 0 },
+              mb: { xs: 4, md: 0 },
+            }}
+          >
+            <motion.div
+              variants={canvasParent}
+              initial={reduce ? {} : "hidden"}
+              whileInView={reduce ? {} : "show"}
+              viewport={{ once: true, amount: 0.25 }}
+            >
               <Box
                 sx={{
                   width: { xs: CANVAS_SIZE, sm: CANVAS_SIZE, md: CANVAS_SIZE },
@@ -309,13 +396,21 @@ export default function WhatWeDo() {
                     textAlign: "center",
                     paddingLeft: 12,
                     paddingRight: 12,
-                    clipPath: "polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%)",
+                    clipPath:
+                      "polygon(25% 6.7%, 75% 6.7%, 100% 50%, 75% 93.3%, 25% 93.3%, 0% 50%)",
                     background: "white",
                     willChange: "transform",
                     boxShadow: "0 6px 18px rgba(0,0,0,0.06)",
                   }}
                 >
-                  <Typography variant="subtitle1" sx={{ fontWeight: 750, color: "#ff6700", fontSize: { xs: "1rem", md: "1.4rem" } }}>
+                  <Typography
+                    variant="subtitle1"
+                    sx={{
+                      fontWeight: 750,
+                      color: "#ff6700",
+                      fontSize: { xs: "1rem", md: "1.4rem" },
+                    }}
+                  >
                     Brands
                     <br />
                     we deal in

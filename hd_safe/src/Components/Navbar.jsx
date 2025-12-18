@@ -165,6 +165,7 @@ export default function Navbar() {
                       color: WHITE,
                       background: active ? PRIMARY : alpha(SECONDARY, 0.7),
                       transition: "all 220ms ease",
+                      onClick: () => window.scrollTo(0, 0) ,// Scroll to top on click,
                       boxShadow: active
                         ? `0 0 8px ${alpha(PRIMARY, 0.4)}`
                         : "none",

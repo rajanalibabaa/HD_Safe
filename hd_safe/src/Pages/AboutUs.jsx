@@ -1,5 +1,11 @@
 import React from 'react';
-import { Box, Typography, Container, Grid, useMediaQuery, useTheme } from '@mui/material';
+import {useTheme } from '@mui/material';
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 import { motion, useReducedMotion } from 'framer-motion';
 import banner from '../assets/Aboutbg.jpg';
 import img from '../assets/AboutUs.jpg';

@@ -1,13 +1,15 @@
 import React, { useMemo } from "react";
 import {
-  Box,
-  Grid,
-  Typography,
+ 
   useTheme,
-  useMediaQuery,
   styled,
-  Container
+ 
 } from "@mui/material";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { motion, useReducedMotion } from "framer-motion";
 
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";

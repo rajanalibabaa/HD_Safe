@@ -1,15 +1,16 @@
 import React, { useEffect, useRef } from "react";
 import {
-  Box,
-  Grid,
-  Typography,
-  Button,
+ 
   useTheme,
-  useMediaQuery,
 } from "@mui/material";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import useMediaQuery from "@mui/material/useMediaQuery";
+
 
 import { styled } from "@mui/material/styles";
-import { motion, useInView, useAnimation, px } from "framer-motion";
+import { motion, useInView, useAnimation } from "framer-motion";
 import image from "../assets/AboutCompany.jpg";
 import FancyButton from "./FancyButton";
 import { useNavigate } from "react-router-dom";

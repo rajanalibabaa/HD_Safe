@@ -1,18 +1,9 @@
 import React, { useState, useEffect, forwardRef } from "react";
-import {
-  Box,
-  Grid,
-  Typography,
-  Paper,
-  Dialog,
-  DialogContent,
-  Slide,
-  IconButton,
-  Button,
-} from "@mui/material";
+
+ import Box from "@mui/material/Box";
+ import Grid from "@mui/material/Grid";
+ import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
-import CheckCircleOutlineRounded from "@mui/icons-material/CheckCircleOutlineRounded";
-import Close from "@mui/icons-material/Close";
 import { motion, AnimatePresence } from "framer-motion";
 
 import FancyButton from "../Components/FancyButton";
